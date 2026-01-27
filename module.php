@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' type='text/css' href='./styles/main.css'>
+    <script src=" https://cdn.jsdelivr.net/npm/fabric@5.0.0/dist/fabric.min.js "></script>
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+    <body id="module">
+
+        <!-- En-tête global -->
+        <header id="module_header">
+            <!-- EN TETE -->
+            <div>
+                <h1>Personnalisez votre {{TYPE}}</h1>
+                <span>Format {{PRODUCT_FORMAT}} MM</span>
+                <span id="showDEVICE"></span>
+            </div>
+
+            <!-- SWITCHER -->
+            <div id="switcherCanva_container" class="switcherCanva-container">
+                <div class="switcherCanva gd">
+                <div class="btn btn-rect" id="switcherCanva">
+                    <input type="checkbox" class="checkbox" />
+                    <div class="knob">
+                    <span></span>
+                    </div>
+                    <div class="btn-bg"></div>
+                </div>
+                </div>
+            </div>
+
+            <div id="configFormat" style="display:none">
+                <!-- FORMAT FAIRE-PART -->
+                <div id="config_canvas_format">
+                    <span>Format faire-part</span>
+                    <div>
+                        <label for="largeur">Largeur (cm) :</label>
+                        <input name="largeur" id="largeur" type="text" value="15"> 
+                    </div>
+
+                    <div>
+                        <label for="hauteur"> Hauteur (cm) :</label>
+                        <input name="hauteur" id="hauteur" type="text" value="15"> 
+                    </div>
+                </div>
+
+                <!-- FORMAT FEUILLE + IMPO -->
+                <div id="config_sheet_format" >
+                    <span>Format feuille d'impression</span>
+                    <div>
+                        <label for="print_largeur">Largeur (cm) :</label>
+                        <input name="print_largeur" id="print_largeur" type="text" value="30"> 
+                    </div>
+
+                    <div>
+                        <label for="print_hauteur"> Hauteur (cm) :</label>
+                        <input name="print_hauteur" id="print_hauteur" type="text" value="30"> 
+                    </div>
+
+                    <div>
+                        <label for="imposition"> Imposition :</label>
+                        <input name="imposition" id="imposition" type="text" value="4"> 
+                    </div>
+                </div>
+            <div>
+        </header>
+
+        <!-- Outils -->
+        <aside id="tools" aria-label="Outils d’édition">
+            <div id="tools_controls">
+                <button type="button" id="addText"><i class="fa-solid fa-font"></i></button>
+                <button type="button" id="addImg"><i class="fa-regular fa-image"></i></button>
+            </div>
+
+            <div id="tools_editor">
+                <div id="tools_editor_txt" class="editor_containers text_editor hidden open">
+                    <div class="tools_editor_header">
+                        <h2>Personnaliser le texte</h2>
+                        <span class="icon_control_visibility"><i class="fa-solid fa-caret-down"></i></span>
+                        <input type="checkbox" name="control_style_visibility" class="control_toolsPanel_visibility" checked />
+                    </div>
+                
+                    <div id="font">
+                        <img src="./assets/svg/brand_family_16dp_E3E3E3_FILL0_wght200_GRAD-25_opsz20.svg" alt="">
+
+                        <div class="field">
+                            <select name="txt_font" id="txt_font">
+                                <option value="Pacifico">Pacifico</option>
+                                <option value="Oswald">Oswald</option>
+                            </select>
+                        </div>
+
+                        <div id="container_colorpicker">
+                            <input type="button" name="txt_color" id="txt_color" data-target="tools_colors" class="openPopover">
+                        </div>
+                    </div>
+
+                    <div id="tools_colors" class="popover hidden" data-popover></div>
+                    
+                    <div id="style">
+                        <img src="./assets/svg/custom_typography_16dp_E3E3E3_FILL0_wght300_GRAD0_opsz20.svg" alt="">
+
+                        <div class="field">
+                            <input type="checkbox" name="fontStyle_style" data-style="fontWeight" value="bold"/>
+                            <input type="checkbox" name="fontStyle_style" data-style="fontStyle" value="italic"/>
+                            <input type="checkbox" name="fontStyle_style" data-style="underline" value="underline"/>
+                            <input type="checkbox" name="fontStyle_style" data-style="linethrough" value="strike"/>
+                        </div>
+                    </div>
+
+                    <div id="custom">
+                        <div class="field_number" id="custom_fontSize">
+                            <img src="./assets/svg/format_size_16dp_E3E3E3_FILL0_wght300_GRAD0_opsz20.svg" alt="">
+                            <input type="number" inputmode="numeric" id="txt_fontSize" step="1" value="12" min="0" max="100">
+                            <button name="up"><i class="fa-solid fa-angle-up" name="up"></i></button>
+                            <button name="down"><i class="fa-solid fa-chevron-down" name="down"></i></button>
+                        </div>
+
+                        <div class="field_number" id="custom_linespacing">
+                            <img src="./assets/svg/format_line_spacing_16dp_E3E3E3_FILL0_wght300_GRAD0_opsz20.svg" alt="">
+                            <input type="number" inputmode="numeric" id="txt_linespacing" step="0.2" value="1.2"  min="0.8" max="3">
+                            <button name="up"><i class="fa-solid fa-angle-up" name="up"></i></button>
+                            <button name="down"><i class="fa-solid fa-chevron-down" name="down"></i></button>
+                        </div>
+
+                        <div class="field_number" id="custom_charspacing">
+                            <img src="./assets/svg/format_letter_spacing_2_16dp_E3E3E3_FILL0_wght300_GRAD0_opsz20.svg" alt="">
+                            <input type="number" inputmode="numeric" id="txt_charspacing" step="50" value="0"  min="0" max="500">
+                            <button name="up"><i class="fa-solid fa-angle-up" name="up"></i></button>
+                            <button name="down"><i class="fa-solid fa-chevron-down" name="down"></i></button>
+                        </div>
+                    </div>
+
+                    <div id="alignement">
+                        <img src="./assets/svg/format_shapes_16dp_E3E3E3_FILL0_wght300_GRAD0_opsz20.svg" alt="">
+
+                        <div class="field">
+                            <input type="radio" name="fontStyle_alignement" data-style="textAlign" value="left" checked />
+                            <input type="radio" name="fontStyle_alignement" data-style="textAlign" value="center"/>
+                            <input type="radio" name="fontStyle_alignement" data-style="textAlign" value="right"/>
+                            <input type="radio" name="fontStyle_alignement" data-style="textAlign" value="justify"/>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="tools_editor_variable" class="editor_containers text_editor hidden close">
+                    <div class="tools_editor_header">
+                        <h2>Personnaliser les données</h2>
+                        <span class="icon_control_visibility"><i class="fa-solid fa-caret-right"></i></span>
+                        <input type="checkbox" name="control_data_visibility" class="control_toolsPanel_visibility">
+                    </div>
+
+                </div>
+            </div>
+
+        </aside>
+
+        <!-- Éditeur -->
+        <main id="editor">
+            <!-- Options contextuelles -->
+            <header id="editor-options" class="editor-controls hidden" aria-label="Options de personnalisation">
+                <div id="control_styles">
+                    <div id="controlText">
+                        <button id="fontStyle_police" data-target="option_police" class="openPopover" name="police">Police</button>
+                        <button id="fontStyle_taille" data-target="option_taille" class="openPopover" name="taille">Taille</button>
+                        <button id="fontStyle_couleur" data-target="option_couleur" class="openPopover" name="couleur">Couleur</button>
+                        <button id="fontStyle_style" data-target="option_style" class="openPopover" name="style">Style</button>
+                        <button id="insert_variables" data-target="option_variables" class="openPopover" name="variables">Variables</button>
+                    </div>
+
+                    <div id="controlImg">
+                        <button>Filtre</button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Canvas -->
+            <section id="editor-canvas" aria-label="Zone de création" tabindex="0">
+                <div id="face-recto" class="section_canvas" style="display:flex">
+                    <canvas width="300" height="400" style="border:1px solid grey" class='canvas' id="canvas-recto"></canvas>
+                </div>
+
+                <div id="face-verso" class="section_canvas" style="display:none">
+                    <canvas width="300" height="400" style="border:1px solid grey" class='canvas' id="canvas-verso"></canvas>
+                </div>
+            </section>
+
+            <!-- Gestion des calques -->
+            <footer id="editor-layers" class="editor-controls hidden" aria-label="Gestion des calques">
+                <div id="control_object">
+                    <button type="button" id="cloneElement" class="layerControl"><i class="fa-regular fa-copy"></i></button>
+                    <button type="button" id="bringFrontBtn" class="layerControl"><i class="fa-solid fa-arrow-up"></i></button>
+                    <button type="button" id="sendBackBtn" class="layerControl"><i class="fa-solid fa-arrow-down"></i></button>
+                    <button type="button" id="deleteElement" class="layerControl"><i class="fas fa-trash"></i></button>
+                </div>
+            </footer>
+        </main>
+
+        <!-- Actions globales -->
+        <footer id="module_footer">
+            <div id="tools_canva">
+                <div class="btn_container">
+                    <div><a href="#"><img src="./assets/svg/zoom_in_16dp_E3E3E3_FILL0_wght400_GRAD0_opsz20.svg" alt=""></a></div>
+                    <div><a href="#"><img src="./assets/svg/zoom_out_16dp_E3E3E3_FILL0_wght400_GRAD0_opsz20.svg" alt=""></a></div>
+                </div>
+
+                <div class="btn_container">
+                    <div><a href="#"><img src="./assets/svg/undo_16dp_E3E3E3_FILL0_wght400_GRAD0_opsz20.svg" alt=""></a></div>
+                    <div><a href="#"><img src="./assets/svg/redo_16dp_E3E3E3_FILL0_wght400_GRAD0_opsz20.svg" alt=""></a></div>
+                </div>
+            </div>
+
+            <button id="btn_download" type="button" onclick="exportCanvasToPDF()"><i class="fa-solid fa-floppy-disk"></i></button>
+        </footer>
+
+        <!-- Popover mobile -->
+        <div id="popovers" class="editor hidden mobile">
+            <!-- Choix de l'option -->
+            <div id="control_styles_options" >
+
+                <!-- Police -->
+                <div id="option_police" class="popover hidden" name="police" data-popover>
+                    <div class="popover_container">
+                        <!-- Police sélectionnée -->
+                        <div id="selectedFont"></div>
+
+                        <!-- Police disponibles -->
+                        <div id="availableFont">
+                            <button id="Pacifico" style="font-family:Pacifico;">Pacifico</button>
+                            <button id="Oswald" style="font-family:Oswald;">Oswald</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Taille -->
+                <div id="option_taille" class="popover hidden" name="taille" data-popover>
+                    <div class="popover_container">
+                        <input type="range" id="rangeSize" min="1" max="100" value="32">
+                        <div class="field_number">
+                            <input type="number" inputmode="numeric" id="inputSize" min="1" max="100" step="1" value="32">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Couleur -->
+                <div id="option_couleur" class="popover hidden" name="couleur" data-popover>
+                    <div class="popover_container" id="popover_colors_containers"></div>
+                </div>
+
+                <!-- Style -->
+                <div id="option_style" class="popover hidden" name="style" data-popover>
+                    <div class="popover_container">
+                        <div id="configText" class="hidden">
+                            <div id="select_alignement" class="hidden"></div>
+                            <div id="select_lineSpacing" class="hidden"></div>
+                            <div id="select_letterSpacing" class="hidden"></div>
+                        </div>
+
+                        <!-- Alignement -->
+                        <div id="selectContainer">
+
+                            <div id="txt_alignement">
+                                <i class="fa-solid fa-align-left"></i>
+                                <input type="button" value="right" readonly inputmode="none">
+                            </div>
+
+                            <div id="txt_lineSpacing">
+                                <img src="./assets/svg/format_line_spacing_16dp_E3E3E3_FILL0_wght300_GRAD0_opsz20.svg" alt="">
+                                <input type="button" value="1.2" readonly inputmode="none">
+                            </div>
+
+                            <div id="txt_letterSpacing">
+                                <img src="./assets/svg/format_letter_spacing_2_16dp_E3E3E3_FILL0_wght300_GRAD0_opsz20.svg" alt="">
+                                <input type="button" value="0" readonly inputmode="none">
+                            </div>
+
+                        </div>
+
+                        <div id="styleContainer">
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Variables -->
+                <div id="option_variables" class="popover hidden" name="variables" data-popover>
+                    <div class="popover_container"></div>
+                </div>
+
+                <!-- Filter -->
+                <div id="option_filter" class="popover hidden" name="filter" data-popover>
+                </div>
+            </div>
+        </div>
+
+    <script src="./scripts/utils.js"></script>
+    <script src="./scripts/fabric.js"></script>
+    <script src="./scripts/controls.js"></script>
+
+    <script src="./scripts/controlStyle/control_font.js"></script>
+    <script src="./scripts/controlStyle/control_taille.js"></script>
+    <script src="./scripts/controlStyle/control_couleur.js"></script>
+    <script src="./scripts/controlStyle/control_style.js"></script>
+
+    <!--
+    <script src="./scripts/controlStyle/control_avance.js"></script>
+    <script src="./scripts/controlStyle/control_variable.js"></script>-->
+
+    <script src="./scripts/download-pdf.js"></script>
+    
+    </body>
+
+</html>
