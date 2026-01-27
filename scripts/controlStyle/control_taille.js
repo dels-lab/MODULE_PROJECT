@@ -24,7 +24,7 @@
       rangeSize.value = activeObj.fontSize;
     }
 
-    if (!DeviceInfo.isMobile) {
+    if (DEVICE.layout === "large") {
       fontSize.value = activeObj.fontSize;
     }
   }
@@ -57,7 +57,7 @@
   }
 
   // Control Desktop
-  if (!DeviceInfo.isMobile) {
+  if (DEVICE.layout === "large") {
       var fontSize = document.getElementById('txt_fontSize');
       fontSize.addEventListener('input', (e) => {
           updateFontSize(e.target.value);

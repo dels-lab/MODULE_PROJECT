@@ -38,7 +38,7 @@
             allPolices.forEach(police => {availableFont.appendChild(police);})
         }
 
-        if (!DeviceInfo.isMobile) {
+       if (DEVICE.layout === "large") {
             var selectOptions = Array.from(selectFont.children);
             selectOptions.forEach(option => {
                 if(option.value === activeObj.fontFamily) {
@@ -72,7 +72,7 @@
     }
 
     // Control Desktop
-    if (!DeviceInfo.isMobile) {
+    if (DEVICE.layout === "large") {
         var selectFont = document.getElementById('txt_font');
         selectFont.addEventListener('change', (e) => {
             updateFontFamily(e.target.value);
