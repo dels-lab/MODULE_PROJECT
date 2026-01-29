@@ -317,10 +317,28 @@ if (DEVICE.layout === "compact") { // Mobile ou tablet portrait
 // Détection de support (mobile, tablette, pc) (V1 : initialisation qu'au chargement, donnée statique))
 // =============================
 
-
+// A supprimer : Afficher visuellement les données
 const DEVICE = {
+
   get orientation() {
     return window.innerWidth > window.innerHeight ? "landscape" : "portrait";
+  },
+  get support() {
+    const ua = navigator.userAgent;
+
+    const isMobile =
+      /Android|iPhone|iPod|Mobile/i.test(ua) ||
+      window.innerWidth < 768;
+
+    const isTablet =
+      /iPad|Tablet|Android(?!.*Mobile)/i.test(ua) ||
+      (window.innerWidth >= 768 && window.innerWidth < 1024);
+
+    return {
+      isMobile,
+      isTablet,
+      isDesktop: !isMobile && !isTablet
+    };
   },
   get layout() {
     return (window.innerWidth < 768 && this.orientation === "portrait")
@@ -329,15 +347,29 @@ const DEVICE = {
   }
 };
 
-
-window.addEventListener("resize", () => {
-  console.log("orientation:", DEVICE.orientation);
-  console.log("layout:", DEVICE.layout);
-});
-
 const showDEVICE = document.getElementById('showDEVICE');
-showDEVICE.innerHTML = DEVICE.orientation + " / " + DEVICE.layout;
-console.log(DEVICE)
+const { orientation, layout, support } = DEVICE;
+
+showDEVICE.innerHTML = `
+  <strong>Orientation :</strong> ${orientation}<br>
+  <strong>Layout :</strong> ${layout}<br>
+  <strong>Support :</strong><br>
+  Mobile: ${support.isMobile}<br>
+  Tablet: ${support.isTablet}<br>
+  Desktop: ${support.isDesktop}
+`;
+
+
+function onDeviceChange() {
+  console.log("Orientation :", DEVICE.orientation);
+  console.log("Layout :", DEVICE.layout);
+  showDEVICE.innerHTML = DEVICE.orientation + " / " + DEVICE.layout;
+}
+
+["resize", "orientationchange"].forEach(event =>
+  window.addEventListener(event, onDeviceChange)
+);
+
 
 
 // =============================
