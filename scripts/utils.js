@@ -348,7 +348,7 @@ const DEVICE = {
 };
 
 const showDEVICE = document.getElementById('showDEVICE');
-const { orientation, layout, support } = DEVICE;
+var { orientation, layout, support } = DEVICE;
 
 showDEVICE.innerHTML = `
   <strong>Orientation :</strong> ${orientation}<br>
@@ -363,7 +363,14 @@ showDEVICE.innerHTML = `
 function onDeviceChange() {
   console.log("Orientation :", DEVICE.orientation);
   console.log("Layout :", DEVICE.layout);
-  showDEVICE.innerHTML = DEVICE.orientation + " / " + DEVICE.layout;
+  showDEVICE.innerHTML = `
+  <strong>Orientation :</strong> ${orientation}<br>
+  <strong>Layout :</strong> ${layout}<br>
+  <strong>Support :</strong><br>
+  Mobile: ${support.isMobile}<br>
+  Tablet: ${support.isTablet}<br>
+  Desktop: ${support.isDesktop}
+`;
 }
 
 ["resize", "orientationchange"].forEach(event =>
