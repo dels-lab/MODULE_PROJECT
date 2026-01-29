@@ -320,7 +320,7 @@ if (DEVICE.layout === "compact") { // Mobile ou tablet portrait
 // A supprimer : Afficher visuellement les données
 const DEVICE = {
 
-  get orientation() {
+  get deviceOrientation() {
     return window.innerWidth > window.innerHeight ? "landscape" : "portrait";
   },
   get support() {
@@ -334,50 +334,55 @@ const DEVICE = {
       /iPad|Tablet|Android(?!.*Mobile)/i.test(ua) ||
       (window.innerWidth >= 768 && window.innerWidth < 1024);
 
-    return {
-      isMobile,
-      isTablet,
-      isDesktop: !isMobile && !isTablet
-    };
+    const isDesktop = !isMobile && !isTablet;
+
+    const isMobileLike = isMobile || (isTablet && this.deviceOrientation === "portrait");
+    const isDesktopLike = isDesktop || (isTablet && this.deviceOrientation === "landscape");
+
+    return { isMobile, isTablet, isDesktop, isMobileLike, isDesktopLike};
   },
+
+
   get layout() {
-    return (window.innerWidth < 768 && this.orientation === "portrait")
-      ? "compact"
-      : "large";
+    return this.isMobileLike ? "compact" : "large";
   }
 };
 
 var showDEVICE = document.getElementById('showDEVICE');
-var { orientation, layout, support } = DEVICE;
+var { deviceOrientation, layout, support } = DEVICE;
 
 showDEVICE.innerHTML = `
-  <strong>Orientation :</strong> ${orientation}<br>
+  <strong>deviceOrientation :</strong> ${deviceOrientation}<br>
   <strong>Layout :</strong> ${layout}<br>
   <strong>Support :</strong><br>
   Mobile: ${support.isMobile}<br>
   Tablet: ${support.isTablet}<br>
-  Desktop: ${support.isDesktop}
+  Desktop: ${support.isDesktop}<br><br>
+  isMobileLike: ${support.isMobileLike}<br>
+  isDesktopLike: ${support.isDesktopLike}<br>
 `;
 
 
 function onDeviceChange() {
-  console.log("Orientation :", DEVICE.orientation);
+  console.log("deviceOrientation :", DEVICE.deviceOrientation);
   console.log("Layout :", DEVICE.layout);
-  showDEVICE.innerHTML = `
-  <strong>Orientation :</strong> ${orientation}<br>
-  <strong>Layout :</strong> ${layout}<br>
-  <strong>Support :</strong><br>
-  Mobile: ${support.isMobile}<br>
-  Tablet: ${support.isTablet}<br>
-  Desktop: ${support.isDesktop}
-`;
+
+showDEVICE.innerHTML = `
+    <strong>deviceOrientation :</strong> ${deviceOrientation}<br>
+    <strong>Layout :</strong> ${layout}<br>
+    <strong>Support :</strong><br>
+    Mobile: ${support.isMobile}<br>
+    Tablet: ${support.isTablet}<br>
+    Desktop: ${support.isDesktop}<br><br>
+    isMobileLike: ${support.isMobileLike}<br>
+    isDesktopLike: ${support.isDesktopLike}<br>
+    `;
+
 }
 
 ["resize", "orientationchange"].forEach(event =>
   window.addEventListener(event, onDeviceChange)
 );
-
-
 
 // =============================
 // Module de gestion des popovers (click)
