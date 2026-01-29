@@ -347,7 +347,7 @@ const DEVICE = {
   }
 };
 
-const showDEVICE = document.getElementById('showDEVICE');
+var showDEVICE = document.getElementById('showDEVICE');
 var { orientation, layout, support } = DEVICE;
 
 showDEVICE.innerHTML = `
