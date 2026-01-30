@@ -198,44 +198,42 @@
 // =============================
 
 const DEVICE = {
-  get deviceOrientation() {
-    return window.innerWidth > window.innerHeight ? "landscape" : "portrait";
-  },
+    get deviceOrientation() {
+        return window.innerWidth > window.innerHeight ? "landscape" : "portrait";
+    },
 
-  get safeHeight() {
-    return window.innerHeight;
-  },
+    get PixelRatio() {
+        return window.devicePixelRatio;
+    },
 
-  get support() {
-    const ua = navigator.userAgent;
+    get support() {
+        const ua = navigator.userAgent;
 
-    const isMobile =
-      /Android|iPhone|iPod|Mobile/i.test(ua) ||
-      window.innerWidth < 768;
+        const isMobile =
+        /Android|iPhone|iPod|Mobile/i.test(ua) ||
+        window.innerWidth < 768;
 
-    const isTablet =
-      /iPad|Tablet|Android(?!.*Mobile)/i.test(ua) ||
-      (window.innerWidth >= 768 && window.innerWidth < 1024);
+        const isTablet =
+        /iPad|Tablet|Android(?!.*Mobile)/i.test(ua) ||
+        (window.innerWidth >= 768 && window.innerWidth < 1024);
 
-    const isDesktop = !isMobile && !isTablet;
+        const isDesktop = !isMobile && !isTablet;
 
-    const isMobileLike =
-      isMobile || (isTablet && this.deviceOrientation === "portrait");
+        const isMobileLike =
+        isMobile || (isTablet && this.deviceOrientation === "portrait");
 
-    return { isMobile, isTablet, isDesktop, isMobileLike };
-  },
+        return { isMobile, isTablet, isDesktop, isMobileLike };
+    },
 
-  get layout() {
-    return this.support.isMobileLike ? "compact" : "large";
-  }
+    get layout() {
+        return this.support.isMobileLike ? "compact" : "large";
+    }
 };
 
 
 // Définir la hauteur exploitable pour le canva (ex: hauteur sans barre de recherche pour mobile & tablette)
 function updateLayoutHeight() {
-  const layoutHeight = DEVICE.support.isDesktop
-    ? window.innerHeight
-    : DEVICE.safeHeight;
+  const layoutHeight = window.innerHeight;
 
   document.documentElement.style.setProperty(
     "--layout-height",
@@ -268,9 +266,10 @@ function renderDevice() {
   const support = DEVICE.support;
 
   showDEVICE.innerHTML = `
-    <strong>V1:</strong><br>
+    <strong>V2:</strong><br>
     <strong>deviceOrientation :</strong> ${DEVICE.deviceOrientation}<br>
     <strong>Layout :</strong> ${DEVICE.layout}<br>
+    <strong>Pixel Ratio :</strong> ${DEVICE.PixelRatio}<br>
     <strong>Support :</strong><br>
     Mobile: ${support.isMobile}<br>
     Tablet: ${support.isTablet}<br>
