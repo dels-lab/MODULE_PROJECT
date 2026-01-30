@@ -156,7 +156,7 @@
 // REDIMENSIONNEMENT DES CANVAS : taille réel de l'écran
 // =============================
 
-    function resizeCanvasToScreen() {
+    /*function resizeCanvasToScreen() {
         const availableWidth = window.innerWidth * 0.9;  // 90% de la largeur de l'écran
         const availableHeight = window.innerHeight * 0.9; // 90% de la hauteur
 
@@ -184,7 +184,7 @@
             canvas.style.margin = 'auto';
             canvas.style.display = 'block';
         }
-    }
+    }*/
 
 // =============================
 // Détection de support (mobile, tablette, pc) (V1 : initialisation qu'au chargement, donnée statique))
@@ -254,7 +254,7 @@ function syncLayout() {
 function onViewportChange() {
   //updateLayoutHeight();
   syncLayout();
-  resizeCanvasToScreen(); // version corrigée DPR si besoin
+  //resizeCanvasToScreen(); // version corrigée DPR si besoin
 }
 
 ["resize", "orientationchange"].forEach(event =>
@@ -269,7 +269,7 @@ function renderDevice() {
   const support = DEVICE.support;
 
   showDEVICE.innerHTML = `
-    <strong>V2:</strong><br>
+    <strong>V3:</strong><br>
     <strong>deviceOrientation :</strong> ${DEVICE.deviceOrientation}<br>
     <strong>Layout :</strong> ${DEVICE.layout}<br>
     <strong>Pixel Ratio :</strong> ${DEVICE.pixelRatio}<br>
