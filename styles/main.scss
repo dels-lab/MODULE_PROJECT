@@ -48,7 +48,11 @@ button, select, input[type="range"], input[type="checkbox"], input[type="radio"]
     box-sizing: border-box;
     display: grid !important;
     font-family: Arial, Helvetica, sans-serif;
-    grid-template-rows: 10% 40px 75% calc(0.1 * var(--layout-height));
+    grid-template-rows:   
+    calc(0.1 * var(--layout-height)) /* header */
+    40px                            /* barre fixe */
+    1fr                             /* ZONE PRINCIPALE */
+    calc(0.1 * var(--layout-height)); /* footer / marge */
     grid-template-columns : 100vw;
     grid-template-areas:
         "header"

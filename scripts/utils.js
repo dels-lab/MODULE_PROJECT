@@ -198,7 +198,7 @@
 // =============================
 
 const DEVICE = {
-  get orientation() {
+  get deviceOrientation() {
     return window.innerWidth > window.innerHeight ? "landscape" : "portrait";
   },
 
@@ -268,15 +268,14 @@ function renderDevice() {
   const support = DEVICE.support;
 
   showDEVICE.innerHTML = `
-    <strong>V3:</strong><br>
+    <strong>V4:</strong><br>
     <strong>deviceOrientation :</strong> ${DEVICE.deviceOrientation}<br>
     <strong>Layout :</strong> ${DEVICE.layout}<br>
     <strong>Support :</strong><br>
     Mobile: ${support.isMobile}<br>
     Tablet: ${support.isTablet}<br>
     Desktop: ${support.isDesktop}<br><br>
-    isMobileLike: ${support.isMobileLike}<br>
-    isDesktopLike: ${support.isDesktopLike}<br>
+    isMobileLike: ${support.isMobileLike}
   `;
 }
 
