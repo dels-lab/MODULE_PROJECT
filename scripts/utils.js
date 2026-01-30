@@ -317,7 +317,6 @@ if (DEVICE.layout === "compact") { // Mobile ou tablet portrait
 // Détection de support (mobile, tablette, pc) (V1 : initialisation qu'au chargement, donnée statique))
 // =============================
 
-// A supprimer : Afficher visuellement les données
 const DEVICE = {
   get deviceOrientation() {
     return window.innerWidth > window.innerHeight ? "landscape" : "portrait";
@@ -350,13 +349,25 @@ const DEVICE = {
   }
 };
 
-const showDEVICE = document.getElementById("showDEVICE");
 
+// Synchronisation CSS
+function syncLayout() {
+  document.documentElement.dataset.layout = DEVICE.layout;
+}
+
+["resize", "orientationchange"].forEach(event =>
+  window.addEventListener(event, syncLayout)
+);
+
+syncLayout();
+
+// Afficher visuellement les infos responsive
+const showDEVICE = document.getElementById("showDEVICE");
 function renderDevice() {
   const support = DEVICE.support;
 
   showDEVICE.innerHTML = `
-    <strong>V2:</strong>
+    <strong>V3:</strong><br>
     <strong>deviceOrientation :</strong> ${DEVICE.deviceOrientation}<br>
     <strong>Layout :</strong> ${DEVICE.layout}<br>
     <strong>Support :</strong><br>

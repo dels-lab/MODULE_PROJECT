@@ -689,300 +689,298 @@ button, select, input[type=range], input[type=checkbox], input[type=radio] {
   font-size: 0.5rem;
 }
 
-@media (min-width: 768px) {
-  #module {
-    grid-template-columns: 250px calc(100% - 250px);
-    grid-template-rows: 100px 1fr 40px;
-    grid-template-areas: "header header" "tools editor" "footer footer";
-  }
-  #module_header {
-    align-items: center;
-    background-color: #1f1f1f;
-    display: flex;
-    flex-direction: row;
-    grid-area: header;
-    justify-content: space-between;
-    padding: 0 2.5%;
-  }
-  #module_header h1 {
-    color: white;
-    font-size: 1.2rem;
-    margin: 0;
-    padding: 0;
-  }
-  #module_header span {
-    color: #04b6cd;
-  }
-  #module_footer {
-    background-color: #1f1f1f !important;
-    display: flex;
-    flex-direction: row-reverse;
-    height: auto;
-  }
-  #module_footer #tools_canva {
-    background-color: #292a2a;
-    padding: 0;
-    justify-content: center;
-    width: calc(100% - 250px);
-  }
-  #module_footer #tools_canva .btn_container {
-    min-width: 18.5vw;
-  }
-  #module_footer #tools_canva .btn_container:first-child {
-    justify-content: start;
-  }
-  #module_footer #tools_canva .btn_container:first-child div {
-    margin-right: 1rem;
-  }
-  #module_footer #tools_canva .btn_container:last-child {
-    justify-content: end;
-  }
-  #module_footer #tools_canva .btn_container:last-child div {
-    margin-left: 1rem;
-  }
-  #module_footer button {
-    position: initial;
-    height: auto;
-    width: auto;
-    border-radius: 0;
-    width: 250px;
-  }
-  #module_footer button::after {
-    content: "Enregistrer";
-    margin-left: 1rem;
-  }
-  #editor {
-    grid-area: editor;
-    display: grid;
-    grid-template-columns: 75% 25%;
-    grid-template-rows: 2rem 1fr;
-    grid-template-areas: "options layers" "canvas canvas";
-  }
-  #editor-layers {
-    position: unset;
-    grid-column-start: 1;
-    grid-column-end: 3;
-  }
-  #editor-layers #control_object {
-    background-color: white;
-    border-radius: 0 0 10px 10px;
-    grid-template-rows: 2rem;
-    width: 20vw;
-  }
-  #editor-layers, #editor-options {
-    background: none;
-  }
-  #editor #control_styles {
-    display: none;
-  }
-  #editor .editor-controls {
-    align-items: center;
-    display: flex;
-    height: 2rem;
-    justify-content: center;
-    transform-origin: top center;
-    backface-visibility: hidden;
-    position: initial;
-    z-index: 5;
-  }
-  #editor .hidden {
-    display: none;
-  }
-  #editor.onEdit {
-    grid-template-rows: 2rem 1fr;
-  }
-  #tools {
-    align-items: center;
-    background-color: #1f1f1f;
-    display: flex;
-    flex-direction: column;
-    justify-content: initial;
-  }
-  #tools_controls {
-    height: auto;
-    justify-content: space-between;
-    margin: 1rem 0;
-    width: 90%;
-  }
-  #tools_controls button {
-    background-color: #1f1f1f;
-    border-bottom: 2px solid #1f1f1f;
-    color: white;
-    padding: 0 0 0.5rem 0;
-    width: 40%;
-  }
-  #tools_controls button:hover {
-    border-bottom: 2px solid white;
-  }
-  #tools_controls button::after {
-    display: flex;
-    font-size: 10px;
-    flex-direction: column-reverse;
-    line-height: 1.5rem;
-    margin-left: 0;
-  }
-  #tools_editor {
-    display: flex;
-    flex-direction: column;
-    width: 90%;
-  }
-  #tools_editor_txt img {
-    place-self: center;
-  }
-  #tools_editor_txt #font, #tools_editor_txt #alignement, #tools_editor_txt #style {
-    background-color: #1f1f1f;
-    border: 2px solid #1f1f1f;
-    border-radius: 0.2rem;
-    display: grid;
-    grid-template-columns: 25px 55fr 20fr;
-    grid-gap: 5%;
-    place-content: center;
-    min-height: 35px;
-    margin: 0.5rem 0;
-  }
-  #tools_editor_txt #font .field, #tools_editor_txt #alignement .field, #tools_editor_txt #style .field {
-    width: 100%;
-  }
-  #tools_editor_txt #alignement .field, #tools_editor_txt #style .field {
-    grid-column-start: 2;
-    grid-column-end: 4;
-    display: grid;
-    grid-gap: 0.5rem;
-    grid-template-columns: repeat(4, 1fr);
-    place-items: center;
-  }
-  #tools_editor_txt #alignement input[type=radio], #tools_editor_txt #alignement input[type=checkbox], #tools_editor_txt #style input[type=radio], #tools_editor_txt #style input[type=checkbox] {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    margin: 0;
-    padding: 0;
-  }
-  #tools_editor_txt #alignement input[type=radio]::before, #tools_editor_txt #alignement input[type=checkbox]::before, #tools_editor_txt #style input[type=radio]::before, #tools_editor_txt #style input[type=checkbox]::before {
-    content: " ";
-    border-radius: 2.5px;
-    color: white;
-    display: inline-block;
-    font-family: "Font Awesome 6 Free";
-    font-weight: 900;
-    line-height: 20px;
-    padding: 0;
-    text-align: center;
-    margin: 0;
-    width: 20px;
-  }
-  #tools_editor_txt #alignement input[type=radio]:checked, #tools_editor_txt #alignement input[type=checkbox]:checked, #tools_editor_txt #style input[type=radio]:checked, #tools_editor_txt #style input[type=checkbox]:checked {
-    background-color: #fa5b9e;
-    padding: 0.25rem;
-    border-radius: 5px;
-  }
-  #tools_editor_txt #alignement input[type=radio]:nth-child(1)::before {
-    content: "\f036";
-  }
-  #tools_editor_txt #alignement input[type=radio]:nth-child(2)::before {
-    content: "\f037";
-  }
-  #tools_editor_txt #alignement input[type=radio]:nth-child(3)::before {
-    content: "\f038";
-  }
-  #tools_editor_txt #alignement input[type=radio]:nth-child(4)::before {
-    content: "\f039";
-  }
-  #tools_editor_txt #style input[type=checkbox]:nth-child(1)::before {
-    content: "\f032";
-  }
-  #tools_editor_txt #style input[type=checkbox]:nth-child(2)::before {
-    content: "\f033";
-  }
-  #tools_editor_txt #style input[type=checkbox]:nth-child(3)::before {
-    content: "\f0cc";
-  }
-  #tools_editor_txt #style input[type=checkbox]:nth-child(4)::before {
-    content: "\f0cd";
-  }
-  #tools_editor_txt #font {
-    /* Input color — base */
-  }
-  #tools_editor_txt #font #txt_font {
-    background: #1f1f1f;
-    border: none;
-    color: white;
-    padding: 0.5rem 0;
-    width: 100%;
-  }
-  #tools_editor_txt #font #container_colorpicker {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    border-left: 1px solid #323232;
-  }
-  #tools_editor_txt #font #txt_color {
-    width: 1rem;
-    height: 1rem;
-    padding: 0;
-    border: 1px solid rgba(255, 255, 255, 0.5098039216);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.503);
-    border-radius: 50%;
-    background-color: #e4af13;
-    cursor: pointer;
-    /* Reset général */
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    /* Chrome / Edge / Safari */
-    /* Firefox */
-    /* Focus visible (accessibilité) */
-  }
-  #tools_editor_txt #font #txt_color::-webkit-color-swatch-wrapper {
-    padding: 0;
-  }
-  #tools_editor_txt #font #txt_color::-webkit-color-swatch {
-    border: none;
-    border-radius: 50%;
-  }
-  #tools_editor_txt #font #txt_color::-moz-color-swatch {
-    border: none;
-    border-radius: 50%;
-  }
-  #tools_editor_txt #font #txt_color:focus-visible {
-    outline: 2px solid #4d9fff;
-    outline-offset: 2px;
-  }
-  #tools_editor_txt #custom {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 0.25rem;
-  }
-  #tools_editor_txt #custom .field_number:first-child {
-    grid-column-start: 1;
-    grid-column-end: 3;
-  }
-  #tools_editor .editor_containers {
-    background-color: #282828;
-    border: 1px solid #323232;
-    border-radius: 0.5rem;
-    padding: 1rem;
-    margin-bottom: 1rem;
-  }
-  #tools_editor .editor_containers.open {
-    height: auto;
-    overflow: auto;
-  }
-  #tools_editor .editor_containers.close {
-    height: 2rem;
-    overflow: hidden;
-  }
-  #tools_editor .hidden {
-    display: none !important;
-  }
-  #colors_containers {
-    font-size: 12px;
-  }
-  #colors_containers .radio_option label {
-    top: -1.5rem;
-  }
-  #popovers {
-    display: none;
-  }
+html[data-layout=large] #module {
+  grid-template-columns: 250px calc(100% - 250px);
+  grid-template-rows: 100px 1fr 40px;
+  grid-template-areas: "header header" "tools editor" "footer footer";
+}
+html[data-layout=large] #module_header {
+  align-items: center;
+  background-color: #1f1f1f;
+  display: flex;
+  flex-direction: row;
+  grid-area: header;
+  justify-content: space-between;
+  padding: 0 2.5%;
+}
+html[data-layout=large] #module_header h1 {
+  color: white;
+  font-size: 1.2rem;
+  margin: 0;
+  padding: 0;
+}
+html[data-layout=large] #module_header span {
+  color: #04b6cd;
+}
+html[data-layout=large] #module_footer {
+  background-color: #1f1f1f !important;
+  display: flex;
+  flex-direction: row-reverse;
+  height: auto;
+}
+html[data-layout=large] #module_footer #tools_canva {
+  background-color: #292a2a;
+  padding: 0;
+  justify-content: center;
+  width: calc(100% - 250px);
+}
+html[data-layout=large] #module_footer #tools_canva .btn_container {
+  min-width: 18.5vw;
+}
+html[data-layout=large] #module_footer #tools_canva .btn_container:first-child {
+  justify-content: start;
+}
+html[data-layout=large] #module_footer #tools_canva .btn_container:first-child div {
+  margin-right: 1rem;
+}
+html[data-layout=large] #module_footer #tools_canva .btn_container:last-child {
+  justify-content: end;
+}
+html[data-layout=large] #module_footer #tools_canva .btn_container:last-child div {
+  margin-left: 1rem;
+}
+html[data-layout=large] #module_footer button {
+  position: initial;
+  height: auto;
+  width: auto;
+  border-radius: 0;
+  width: 250px;
+}
+html[data-layout=large] #module_footer button::after {
+  content: "Enregistrer";
+  margin-left: 1rem;
+}
+html[data-layout=large] #editor {
+  grid-area: editor;
+  display: grid;
+  grid-template-columns: 75% 25%;
+  grid-template-rows: 2rem 1fr;
+  grid-template-areas: "options layers" "canvas canvas";
+}
+html[data-layout=large] #editor-layers {
+  position: unset;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+html[data-layout=large] #editor-layers #control_object {
+  background-color: white;
+  border-radius: 0 0 10px 10px;
+  grid-template-rows: 2rem;
+  width: 20vw;
+}
+html[data-layout=large] #editor-layers, html[data-layout=large] #editor-options {
+  background: none;
+}
+html[data-layout=large] #editor #control_styles {
+  display: none;
+}
+html[data-layout=large] #editor .editor-controls {
+  align-items: center;
+  display: flex;
+  height: 2rem;
+  justify-content: center;
+  transform-origin: top center;
+  backface-visibility: hidden;
+  position: initial;
+  z-index: 5;
+}
+html[data-layout=large] #editor .hidden {
+  display: none;
+}
+html[data-layout=large] #editor.onEdit {
+  grid-template-rows: 2rem 1fr;
+}
+html[data-layout=large] #tools {
+  align-items: center;
+  background-color: #1f1f1f;
+  display: flex;
+  flex-direction: column;
+  justify-content: initial;
+}
+html[data-layout=large] #tools_controls {
+  height: auto;
+  justify-content: space-between;
+  margin: 1rem 0;
+  width: 90%;
+}
+html[data-layout=large] #tools_controls button {
+  background-color: #1f1f1f;
+  border-bottom: 2px solid #1f1f1f;
+  color: white;
+  padding: 0 0 0.5rem 0;
+  width: 40%;
+}
+html[data-layout=large] #tools_controls button:hover {
+  border-bottom: 2px solid white;
+}
+html[data-layout=large] #tools_controls button::after {
+  display: flex;
+  font-size: 10px;
+  flex-direction: column-reverse;
+  line-height: 1.5rem;
+  margin-left: 0;
+}
+html[data-layout=large] #tools_editor {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+html[data-layout=large] #tools_editor_txt img {
+  place-self: center;
+}
+html[data-layout=large] #tools_editor_txt #font, html[data-layout=large] #tools_editor_txt #alignement, html[data-layout=large] #tools_editor_txt #style {
+  background-color: #1f1f1f;
+  border: 2px solid #1f1f1f;
+  border-radius: 0.2rem;
+  display: grid;
+  grid-template-columns: 25px 55fr 20fr;
+  grid-gap: 5%;
+  place-content: center;
+  min-height: 35px;
+  margin: 0.5rem 0;
+}
+html[data-layout=large] #tools_editor_txt #font .field, html[data-layout=large] #tools_editor_txt #alignement .field, html[data-layout=large] #tools_editor_txt #style .field {
+  width: 100%;
+}
+html[data-layout=large] #tools_editor_txt #alignement .field, html[data-layout=large] #tools_editor_txt #style .field {
+  grid-column-start: 2;
+  grid-column-end: 4;
+  display: grid;
+  grid-gap: 0.5rem;
+  grid-template-columns: repeat(4, 1fr);
+  place-items: center;
+}
+html[data-layout=large] #tools_editor_txt #alignement input[type=radio], html[data-layout=large] #tools_editor_txt #alignement input[type=checkbox], html[data-layout=large] #tools_editor_txt #style input[type=radio], html[data-layout=large] #tools_editor_txt #style input[type=checkbox] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  margin: 0;
+  padding: 0;
+}
+html[data-layout=large] #tools_editor_txt #alignement input[type=radio]::before, html[data-layout=large] #tools_editor_txt #alignement input[type=checkbox]::before, html[data-layout=large] #tools_editor_txt #style input[type=radio]::before, html[data-layout=large] #tools_editor_txt #style input[type=checkbox]::before {
+  content: " ";
+  border-radius: 2.5px;
+  color: white;
+  display: inline-block;
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  line-height: 20px;
+  padding: 0;
+  text-align: center;
+  margin: 0;
+  width: 20px;
+}
+html[data-layout=large] #tools_editor_txt #alignement input[type=radio]:checked, html[data-layout=large] #tools_editor_txt #alignement input[type=checkbox]:checked, html[data-layout=large] #tools_editor_txt #style input[type=radio]:checked, html[data-layout=large] #tools_editor_txt #style input[type=checkbox]:checked {
+  background-color: #fa5b9e;
+  padding: 0.25rem;
+  border-radius: 5px;
+}
+html[data-layout=large] #tools_editor_txt #alignement input[type=radio]:nth-child(1)::before {
+  content: "\f036";
+}
+html[data-layout=large] #tools_editor_txt #alignement input[type=radio]:nth-child(2)::before {
+  content: "\f037";
+}
+html[data-layout=large] #tools_editor_txt #alignement input[type=radio]:nth-child(3)::before {
+  content: "\f038";
+}
+html[data-layout=large] #tools_editor_txt #alignement input[type=radio]:nth-child(4)::before {
+  content: "\f039";
+}
+html[data-layout=large] #tools_editor_txt #style input[type=checkbox]:nth-child(1)::before {
+  content: "\f032";
+}
+html[data-layout=large] #tools_editor_txt #style input[type=checkbox]:nth-child(2)::before {
+  content: "\f033";
+}
+html[data-layout=large] #tools_editor_txt #style input[type=checkbox]:nth-child(3)::before {
+  content: "\f0cc";
+}
+html[data-layout=large] #tools_editor_txt #style input[type=checkbox]:nth-child(4)::before {
+  content: "\f0cd";
+}
+html[data-layout=large] #tools_editor_txt #font {
+  /* Input color — base */
+}
+html[data-layout=large] #tools_editor_txt #font #txt_font {
+  background: #1f1f1f;
+  border: none;
+  color: white;
+  padding: 0.5rem 0;
+  width: 100%;
+}
+html[data-layout=large] #tools_editor_txt #font #container_colorpicker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border-left: 1px solid #323232;
+}
+html[data-layout=large] #tools_editor_txt #font #txt_color {
+  width: 1rem;
+  height: 1rem;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.5098039216);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.503);
+  border-radius: 50%;
+  background-color: #e4af13;
+  cursor: pointer;
+  /* Reset général */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  /* Chrome / Edge / Safari */
+  /* Firefox */
+  /* Focus visible (accessibilité) */
+}
+html[data-layout=large] #tools_editor_txt #font #txt_color::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+html[data-layout=large] #tools_editor_txt #font #txt_color::-webkit-color-swatch {
+  border: none;
+  border-radius: 50%;
+}
+html[data-layout=large] #tools_editor_txt #font #txt_color::-moz-color-swatch {
+  border: none;
+  border-radius: 50%;
+}
+html[data-layout=large] #tools_editor_txt #font #txt_color:focus-visible {
+  outline: 2px solid #4d9fff;
+  outline-offset: 2px;
+}
+html[data-layout=large] #tools_editor_txt #custom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 0.25rem;
+}
+html[data-layout=large] #tools_editor_txt #custom .field_number:first-child {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+html[data-layout=large] #tools_editor .editor_containers {
+  background-color: #282828;
+  border: 1px solid #323232;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+html[data-layout=large] #tools_editor .editor_containers.open {
+  height: auto;
+  overflow: auto;
+}
+html[data-layout=large] #tools_editor .editor_containers.close {
+  height: 2rem;
+  overflow: hidden;
+}
+html[data-layout=large] #tools_editor .hidden {
+  display: none !important;
+}
+html[data-layout=large] #colors_containers {
+  font-size: 12px;
+}
+html[data-layout=large] #colors_containers .radio_option label {
+  top: -1.5rem;
+}
+html[data-layout=large] #popovers {
+  display: none;
 }/*# sourceMappingURL=main.css.map */

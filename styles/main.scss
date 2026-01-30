@@ -777,7 +777,8 @@ button, select, input[type="range"], input[type="checkbox"], input[type="radio"]
 }
 
 // Version desktop
-@media (min-width: 768px) {
+html[data-layout="large"] {
+//@media (min-width: 768px) {
 
     #module {
         grid-template-columns: 250px calc(100% - 250px);
@@ -1117,6 +1118,7 @@ button, select, input[type="range"], input[type="checkbox"], input[type="radio"]
     }
 
     #popovers {display: none;}
+//}
 }
 
 
