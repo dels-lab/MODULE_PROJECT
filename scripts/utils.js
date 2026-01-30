@@ -186,13 +186,6 @@
         }
     }
 
-    // Appel initial au chargement
-    resizeCanvasToScreen();
-
-    // Événement sur le redimensionnement de la fenêtre
-    let resizeTimer; // Stock le timer
-
-
 // =============================
 // Détection de support (mobile, tablette, pc) (V1 : initialisation qu'au chargement, donnée statique))
 // =============================
@@ -200,10 +193,6 @@
 const DEVICE = {
     get deviceOrientation() {
         return window.innerWidth > window.innerHeight ? "landscape" : "portrait";
-    },
-
-    get PixelRatio() {
-        return window.devicePixelRatio;
     },
 
     get support() {
@@ -227,13 +216,27 @@ const DEVICE = {
 
     get layout() {
         return this.support.isMobileLike ? "compact" : "large";
+    },
+
+    get pixelRatio() {
+        // Si disponible dans le navigateur
+        if (window.devicePixelRatio) return Math.min(window.devicePixelRatio, 2); // Plafonné à 2 pour la perf
+
+        // Sinon on se base sur support + layout
+        const { isDesktop, isTablet, isMobile } = this.support;
+
+        if (isDesktop) return 1;          // Desktop → 1px CSS = 1 pixel physique
+        if (isTablet) return 2;           // Tablet → 2x
+        if (isMobile) return 2.625;       // Mobile → 2.625x
+        return 2;                          // fallback général
     }
+
 };
 
 
 // Définir la hauteur exploitable pour le canva (ex: hauteur sans barre de recherche pour mobile & tablette)
 function updateLayoutHeight() {
-  const layoutHeight = window.innerHeight;
+  const layoutHeight = window.innerHeight /** DEVICE.pixelRatio*/;
 
   document.documentElement.style.setProperty(
     "--layout-height",
@@ -249,7 +252,7 @@ function syncLayout() {
 
 // Ajustement dynamique en fonction du support (rotation etc.)
 function onViewportChange() {
-  updateLayoutHeight();
+  //updateLayoutHeight();
   syncLayout();
   resizeCanvasToScreen(); // version corrigée DPR si besoin
 }
@@ -269,7 +272,7 @@ function renderDevice() {
     <strong>V2:</strong><br>
     <strong>deviceOrientation :</strong> ${DEVICE.deviceOrientation}<br>
     <strong>Layout :</strong> ${DEVICE.layout}<br>
-    <strong>Pixel Ratio :</strong> ${DEVICE.PixelRatio}<br>
+    <strong>Pixel Ratio :</strong> ${DEVICE.pixelRatio}<br>
     <strong>Support :</strong><br>
     Mobile: ${support.isMobile}<br>
     Tablet: ${support.isTablet}<br>

@@ -43,7 +43,7 @@ button, select, input[type=range], input[type=checkbox], input[type=radio] {
   box-sizing: border-box;
   display: grid !important;
   font-family: Arial, Helvetica, sans-serif;
-  grid-template-rows: calc(0.1 * var(--layout-height)) 40px 1fr calc(0.1 * var(--layout-height)); /* footer / marge */
+  grid-template-rows: 60px 40px calc(100vh - 160px) 60px;
   grid-template-columns: 100vw;
   grid-template-areas: "header" "footer" "editor" "tools";
   max-height: 100%;
@@ -179,7 +179,7 @@ button, select, input[type=range], input[type=checkbox], input[type=radio] {
   display: none !important;
 }
 #editor.onEdit {
-  grid-template-rows: 1fr auto calc(0.1 * var(--layout-height));
+  grid-template-rows: 40px calc(100vh - 200px) 60px;
 }
 
 #tools_controls {
@@ -332,7 +332,7 @@ button, select, input[type=range], input[type=checkbox], input[type=radio] {
 
 #popovers {
   position: fixed;
-  bottom: calc(0.09 * var(--layout-height));
+  bottom: 60px;
   box-shadow: 0px 15px -5px #4e4e4e;
   width: 100vw;
   z-index: 3;
@@ -691,7 +691,7 @@ button, select, input[type=range], input[type=checkbox], input[type=radio] {
 
 html[data-layout=large] #module {
   grid-template-columns: 250px calc(100% - 250px);
-  grid-template-rows: 100px calc(var(--layout-height) - 140px) 40px;
+  grid-template-rows: 100px calc(100vh - 140px) 40px;
   grid-template-areas: "header header" "tools editor" "footer footer";
 }
 html[data-layout=large] #module_header {
