@@ -25,7 +25,7 @@ button, select, input[type=range], input[type=checkbox], input[type=radio] {
   background-color: #1a1a1a;
   padding: 1rem 0;
   width: 250px;
-  bottom: 5vh;
+  bottom: 5dvh;
   flex-direction: column;
   align-items: center;
 }
@@ -43,7 +43,7 @@ button, select, input[type=range], input[type=checkbox], input[type=radio] {
   box-sizing: border-box;
   display: grid !important;
   font-family: Arial, Helvetica, sans-serif;
-  grid-template-rows: 60px 40px calc(100vh - 160px) 60px;
+  grid-template-rows: 60px 40px calc(100dvh - 160px) 60px;
   grid-template-columns: 100vw;
   grid-template-areas: "header" "footer" "editor" "tools";
   max-height: 100%;
@@ -179,7 +179,7 @@ button, select, input[type=range], input[type=checkbox], input[type=radio] {
   display: none !important;
 }
 #editor.onEdit {
-  grid-template-rows: 40px calc(100vh - 200px) 60px;
+  grid-template-rows: 40px calc(100dvh - 200px) 60px;
 }
 
 #tools_controls {
@@ -788,7 +788,7 @@ html[data-layout=large] #editor .hidden {
   display: none;
 }
 html[data-layout=large] #editor.onEdit {
-  grid-template-rows: 2rem 1fr;
+  grid-template-rows: 50px 1fr;
 }
 html[data-layout=large] #tools {
   align-items: center;

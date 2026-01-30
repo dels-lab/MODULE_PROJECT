@@ -269,7 +269,7 @@ function renderDevice() {
   const support = DEVICE.support;
 
   showDEVICE.innerHTML = `
-    <strong>V3:</strong><br>
+    <strong>V1:</strong><br>
     <strong>deviceOrientation :</strong> ${DEVICE.deviceOrientation}<br>
     <strong>Layout :</strong> ${DEVICE.layout}<br>
     <strong>Pixel Ratio :</strong> ${DEVICE.pixelRatio}<br>
