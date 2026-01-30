@@ -48,7 +48,7 @@ button, select, input[type="range"], input[type="checkbox"], input[type="radio"]
     box-sizing: border-box;
     display: grid !important;
     font-family: Arial, Helvetica, sans-serif;
-    grid-template-rows: 10% 40px 75% calc(0.1 * var(--screen-height));
+    grid-template-rows: 10% 40px 75% calc(0.1 * var(--layout-height));
     grid-template-columns : 100vw;
     grid-template-areas:
         "header"
@@ -203,7 +203,7 @@ button, select, input[type="range"], input[type="checkbox"], input[type="radio"]
         }
 
         .hidden {display: none !important;}
-        &.onEdit {grid-template-rows: 1fr auto calc(0.1 * var(--screen-height));} // Personnalise le style à l'édition
+        &.onEdit {grid-template-rows: 1fr auto calc(0.1 * var(--layout-height));} // Personnalise le style à l'édition
 }
 
 #tools {
@@ -383,7 +383,7 @@ button, select, input[type="range"], input[type="checkbox"], input[type="radio"]
 
 #popovers {
     position: fixed;
-    bottom: calc(0.09 * var(--screen-height));
+    bottom: calc(0.09 * var(--layout-height));
     box-shadow: 0px 15px -5px #4e4e4e;
     width: 100vw;
     z-index: 3;
@@ -782,7 +782,7 @@ html[data-layout="large"] {
 
     #module {
         grid-template-columns: 250px calc(100% - 250px);
-        grid-template-rows: 100px calc(100vh - 140px) 40px;
+        grid-template-rows: 100px calc(var(--layout-height) - 140px) 40px; 
         grid-template-areas:
         "header header"
         "tools editor"

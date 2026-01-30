@@ -186,140 +186,24 @@
         }
     }
 
-    function getScreenHeightWithoutUrlBar() {
-        const screenHeight = window.screen.height; // hauteur totale de l'écran
-        const windowHeight = window.innerHeight; // hauteur de la fenêtre visible (inclut la barre d'adresse sur mobile)
-        
-        // Si la hauteur de la fenêtre visible est plus petite que la hauteur totale de l'écran, cela signifie qu'une barre d'URL est présente
-        if (screenHeight > windowHeight) {
-            return windowHeight; // Cela donne la hauteur visible de la fenêtre sans la barre d'URL
-        } else {
-            return screenHeight; // Pas de barre d'URL visible
-        }
-    }
-
-    const availableHeight = getScreenHeightWithoutUrlBar();
-    document.documentElement.style.height = availableHeight + "px"; // Attribution à la balise <html>, le reste sera calculé en % en css
-    document.documentElement.style.setProperty('--screen-height', `${availableHeight}px`); // mise à dispo CSS
-
     // Appel initial au chargement
     resizeCanvasToScreen();
 
     // Événement sur le redimensionnement de la fenêtre
     let resizeTimer; // Stock le timer
 
-    window.addEventListener('resize', () => {
-        // Annule le timer précédent si la fenêtre continue à être redimensionnée
-        clearTimeout(resizeTimer);
-
-        // Crée un nouveau timer pour exécuter la fonction après 150ms d’inactivité
-        resizeTimer = setTimeout(() => {
-            resizeCanvasToScreen(); // ta fonction qui ajuste le canvas
-        }, 150);
-    });
-
-// =============================
-// Détection de support (mobile, tablette, pc) (V1 : initialisation qu'au chargement, donnée statique))
-// =============================
-
-/*
-const DeviceInfo = {
-    // Détection simple & stricte via userAgent + dimensions écran
-        isMobile: /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) 
-                || (window.innerWidth < 768),
-
-        isTablet: /iPad|Tablet|Android(?!.*Mobile)/i.test(navigator.userAgent)
-                || (window.innerWidth >= 768 && window.innerWidth < 1024),
-
-        isDesktop: function () {
-            return !this.isMobile && !this.isTablet;
-        },
-
-
-    // Détection affinée pour le responsive
-        isMobileLike: function () {
-            return this.isMobile || (this.isTablet && this.isPortrait());
-        },
-
-        isDesktopLike: function () {
-            return this.isDesktop() || (this.isTablet && this.isLandscape());
-        },
-
-    // Ratio Retina / DPR
-        pixelRatio: window.devicePixelRatio || 1,
-
-    // Taille réelle de l'écran en pixels (physiques)
-        screenWidthPx: screen.width * (window.devicePixelRatio || 1),
-        screenHeightPx: screen.height * (window.devicePixelRatio || 1),
-
-    // Taille CSS
-        viewportWidth: window.innerWidth,
-        viewportHeight: window.innerHeight,
-
-    // Orientation (portrait / landscape)
-        orientation: (screen.orientation || {}).type || 
-(window.innerWidth > window.innerHeight ? "landscape" : "portrait"),
-
-        isPortrait: function () {
-            return this.orientation.includes('portrait');
-        },
-
-        isLandscape: function () {
-            return this.orientation.includes('landscape');
-        },
-
-    // Peut-on toucher ?
-        isTouchEnabled: 'ontouchstart' in window || navigator.maxTouchPoints > 0,
-
-    // PPI/densité estimée (variable selon navigateur, mais utile)
-        estimatedPPI: function () {
-            // Valeur approximative uniquement pour adaptation
-            // On compare la diagonale CSS à la diagonale physique
-            const diagonalPx = Math.sqrt(this.screenWidthPx**2 + this.screenHeightPx**2);
-            const diagonalInch = Math.sqrt(screen.width**2 + screen.height**2) / 96;
-
-            return diagonalPx / diagonalInch;
-        },
-
-    // Méthode utilitaire
-    summary: function () {
-        return {
-            device: this.isMobile ? "mobile" : this.isTablet ? "tablet" : "desktop",
-            layout: this.isMobileLike() ? "compact" : "large",
-            pixelRatio: this.pixelRatio,
-            screenPx: `${this.screenWidthPx} × ${this.screenHeightPx}`,
-            viewport: `${this.viewportWidth} × ${this.viewportHeight}`,
-            orientation: this.orientation,
-            touch: this.isTouchEnabled,
-            estimatedPPI: Math.round(this.estimatedPPI())
-        };
-    }
-};
-
-const DEVICE = DeviceInfo.summary();
-
-console.log("DEVICE INFO ===>", DEVICE);
-
-// Place les composants en fonction du device (élement commun multi-support)
-function loadComponent(target) {
-    fetch('components/colorpicker.php')
-        .then(r => r.text())
-        .then(html => {document.querySelector(target).innerHTML += html;});
-}
-
-if (DEVICE.layout === "compact") { // Mobile ou tablet portrait
-    loadComponent('#popover_colors_containers');
-} else { // desktop ou tablet paysage
-    loadComponent('#tools_colors');
-}*/
 
 // =============================
 // Détection de support (mobile, tablette, pc) (V1 : initialisation qu'au chargement, donnée statique))
 // =============================
 
 const DEVICE = {
-  get deviceOrientation() {
+  get orientation() {
     return window.innerWidth > window.innerHeight ? "landscape" : "portrait";
+  },
+
+  get safeHeight() {
+    return window.innerHeight;
   },
 
   get support() {
@@ -336,12 +220,9 @@ const DEVICE = {
     const isDesktop = !isMobile && !isTablet;
 
     const isMobileLike =
-      isMobile || (isTablet && this.deviceOrientation === "portrait");
+      isMobile || (isTablet && this.orientation === "portrait");
 
-    const isDesktopLike =
-      isDesktop || (isTablet && this.deviceOrientation === "landscape");
-
-    return { isMobile, isTablet, isDesktop, isMobileLike, isDesktopLike };
+    return { isMobile, isTablet, isDesktop, isMobileLike };
   },
 
   get layout() {
@@ -350,16 +231,36 @@ const DEVICE = {
 };
 
 
+// Définir la hauteur exploitable pour le canva (ex: hauteur sans barre de recherche pour mobile & tablette)
+function updateLayoutHeight() {
+  const layoutHeight = DEVICE.support.isDesktop
+    ? window.innerHeight
+    : DEVICE.safeHeight;
+
+  document.documentElement.style.setProperty(
+    "--layout-height",
+    `${layoutHeight}px`
+  );
+}
+
+
 // Synchronisation CSS
 function syncLayout() {
   document.documentElement.dataset.layout = DEVICE.layout;
 }
 
+// Ajustement dynamique en fonction du support (rotation etc.)
+function onViewportChange() {
+  updateLayoutHeight();
+  syncLayout();
+  resizeCanvasToScreen(); // version corrigée DPR si besoin
+}
+
 ["resize", "orientationchange"].forEach(event =>
-  window.addEventListener(event, syncLayout)
+  window.addEventListener(event, onViewportChange) // Au changement
 );
 
-syncLayout();
+onViewportChange(); // Appel initial
 
 // Afficher visuellement les infos responsive
 const showDEVICE = document.getElementById("showDEVICE");
