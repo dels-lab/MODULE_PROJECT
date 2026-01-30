@@ -268,7 +268,7 @@ function renderDevice() {
   const support = DEVICE.support;
 
   showDEVICE.innerHTML = `
-    <strong>V4:</strong><br>
+    <strong>V1:</strong><br>
     <strong>deviceOrientation :</strong> ${DEVICE.deviceOrientation}<br>
     <strong>Layout :</strong> ${DEVICE.layout}<br>
     <strong>Support :</strong><br>
