@@ -220,7 +220,7 @@ const DEVICE = {
     const isDesktop = !isMobile && !isTablet;
 
     const isMobileLike =
-      isMobile || (isTablet && this.orientation === "portrait");
+      isMobile || (isTablet && this.deviceOrientation === "portrait");
 
     return { isMobile, isTablet, isDesktop, isMobileLike };
   },

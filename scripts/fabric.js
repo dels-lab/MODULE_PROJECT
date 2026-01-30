@@ -282,7 +282,9 @@
             });
 
             if (DEVICE.layout === "compact")  {
-                module.style.gridTemplateRows = "10% 40px 75% calc(0.1 * var(--screen-height))";
+                //module.style.gridTemplateRows = "10% 40px 75% calc(0.1 * var(--screen-height))";
+                module.style.gridTemplateRows = "calc(0.1 * var(--layout-height)) 40px 1fr calc(0.1 * var(--layout-height));"
+
                 tools.style.display = "flex";
             }
         } else {
@@ -313,7 +315,8 @@
             }
 
             if (DEVICE.layout === "compact")  {
-                module.style.gridTemplateRows = "10% 40px 85% 0";
+                //module.style.gridTemplateRows = "10% 40px 85% 0";
+                module.style.gridTemplateRows = "calc(0.1 * var(--layout-height)) 40px 1fr 0;"
                 tools.style.display = "none"
             }
         }
