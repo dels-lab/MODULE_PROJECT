@@ -143,6 +143,9 @@
     const PROD_WIDTH_PDF_PT = PROD_WIDTH_PRINT * CM_TO_PT;
     const PROD_HEIGHT_PDF_PT = PROD_HEIGHT_PRINT * CM_TO_PT;
 
+    // Zoom export PDF
+    const EXPORT_SCALE = DPI_PRINT / DPI_SCREEN; // 300 / 96 ≈ 3.125
+
 // =============================
 // BORD PERDU
 // =============================
@@ -158,74 +161,74 @@
 // =============================
 // Détection de support (mobile, tablette, pc) (V1 : initialisation qu'au chargement, donnée statique))
 // =============================
-const DEVICE = {
-    get deviceOrientation() {
-        return window.innerWidth > window.innerHeight ? "landscape" : "portrait";
-    },
+    const DEVICE = {
+        get deviceOrientation() {
+            return window.innerWidth > window.innerHeight ? "landscape" : "portrait";
+        },
 
-    get support() {
-        const ua = navigator.userAgent;
+        get support() {
+            const ua = navigator.userAgent;
 
-        const isMobile =
-        /Android|iPhone|iPod|Mobile/i.test(ua) ||
-        window.innerWidth < 768;
+            const isMobile =
+            /Android|iPhone|iPod|Mobile/i.test(ua) ||
+            window.innerWidth < 768;
 
-        const isTablet =
-        /iPad|Tablet|Android(?!.*Mobile)/i.test(ua) ||
-        (window.innerWidth >= 768 && window.innerWidth < 1024);
+            const isTablet =
+            /iPad|Tablet|Android(?!.*Mobile)/i.test(ua) ||
+            (window.innerWidth >= 768 && window.innerWidth < 1024);
 
-        const isDesktop = !isMobile && !isTablet;
+            const isDesktop = !isMobile && !isTablet;
 
-        const isMobileLike =
-        isMobile || (isTablet && this.deviceOrientation === "portrait");
+            const isMobileLike =
+            isMobile || (isTablet && this.deviceOrientation === "portrait");
 
-        return { isMobile, isTablet, isDesktop, isMobileLike };
-    },
+            return { isMobile, isTablet, isDesktop, isMobileLike };
+        },
 
-    get layout() {
-        return this.support.isMobileLike ? "compact" : "large";
+        get layout() {
+            return this.support.isMobileLike ? "compact" : "large";
+        }
+
+    };
+
+    // Synchronisation CSS
+    function syncLayout() {
+    document.documentElement.dataset.layout = DEVICE.layout;
     }
 
-};
+    // Ajustement dynamique en fonction du support (rotation etc.)
+    function onViewportChange() {
+    syncLayout();
+    }
 
-// Synchronisation CSS
-function syncLayout() {
-  document.documentElement.dataset.layout = DEVICE.layout;
-}
+    ["resize", "orientationchange"].forEach(event =>
+    window.addEventListener(event, onViewportChange) // Au changement
+    );
 
-// Ajustement dynamique en fonction du support (rotation etc.)
-function onViewportChange() {
-  syncLayout();
-}
+    onViewportChange(); // Appel initial
 
-["resize", "orientationchange"].forEach(event =>
-  window.addEventListener(event, onViewportChange) // Au changement
-);
+    // Afficher visuellement les infos responsive
+    const showDEVICE = document.getElementById("showDEVICE");
+    function renderDevice() {
+    const support = DEVICE.support;
 
-onViewportChange(); // Appel initial
+    showDEVICE.innerHTML = `
+        <strong>V1:</strong><br>
+        <strong>deviceOrientation :</strong> ${DEVICE.deviceOrientation}<br>
+        <strong>Layout :</strong> ${DEVICE.layout}<br>
+        <strong>Support :</strong><br>
+        Mobile: ${support.isMobile}<br>
+        Tablet: ${support.isTablet}<br>
+        Desktop: ${support.isDesktop}<br><br>
+        isMobileLike: ${support.isMobileLike}
+    `;
+    }
 
-// Afficher visuellement les infos responsive
-const showDEVICE = document.getElementById("showDEVICE");
-function renderDevice() {
-  const support = DEVICE.support;
+    ["resize", "orientationchange"].forEach(event =>
+    window.addEventListener(event, renderDevice)
+    );
 
-  showDEVICE.innerHTML = `
-    <strong>V1:</strong><br>
-    <strong>deviceOrientation :</strong> ${DEVICE.deviceOrientation}<br>
-    <strong>Layout :</strong> ${DEVICE.layout}<br>
-    <strong>Support :</strong><br>
-    Mobile: ${support.isMobile}<br>
-    Tablet: ${support.isTablet}<br>
-    Desktop: ${support.isDesktop}<br><br>
-    isMobileLike: ${support.isMobileLike}
-  `;
-}
-
-["resize", "orientationchange"].forEach(event =>
-  window.addEventListener(event, renderDevice)
-);
-
-renderDevice();
+    renderDevice();
 
 // =============================
 // Module de gestion des popovers (click)

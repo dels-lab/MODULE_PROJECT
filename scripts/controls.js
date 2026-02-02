@@ -153,4 +153,5 @@ document.addEventListener("DOMContentLoaded", (event) => {
             // Sinon : tout fermer
             document.querySelectorAll(".popover").forEach(p => p.classList.add("hidden"));
         });
+
 });

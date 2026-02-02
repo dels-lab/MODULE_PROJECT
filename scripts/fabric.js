@@ -8,8 +8,6 @@
     var activeObj = null;
 
     // Cible le recto et le verso
-    //canvasRecto = new fabric.Canvas('canvas-recto');
-    //canvasVerso = new fabric.Canvas('canvas-verso');
 
     canvasRecto = new fabric.Canvas('canvas-recto', {
         width: WIDTH_SCREEN,
@@ -25,19 +23,12 @@
         renderOnAddRemove: true
     });
 
-
     if (DEVICE.layout === "compact")  {
         // Contrôles des popovers
         createGlobalClickManager({
             canvasList: [canvasRecto, canvasVerso],
         });
     }
-
-    // Défini la taille des canvas
-    /*canvasRecto.setWidth(WIDTH_SCREEN);
-    canvasRecto.setHeight(HEIGHT_SCREEN);
-    canvasVerso.setWidth(WIDTH_SCREEN);
-    canvasVerso.setHeight(HEIGHT_SCREEN);*/
 
     // Écouteur d'événements sur les deux canvas
     canvaEvents(canvasRecto);
@@ -90,8 +81,6 @@
     // Ajouter du texte
     addTextBtn.addEventListener('click', () => {
         const targetCanvas = getCurrentCanva();
-
-        //const VAR_TOKEN = '\uE001';
 
         const text = new fabric.Textbox('Bonjour !', {
             left: 50,
@@ -178,7 +167,7 @@
     // Cloner l'object actif
     cloneElement.addEventListener('click', () => {
         const targetCanvas = getCurrentCanva();
-                const activeObject = targetCanvas.getActiveObject();
+        const activeObject = targetCanvas.getActiveObject();
         if (activeObject) {
             activeObject.clone((clonedObj) => {
                 clonedObj.set({
@@ -212,9 +201,43 @@
         }
     });
 
+    // Zoom In / Zoom Out
+    window.addEventListener('resize', resizeCanvasToScreen);
+    resizeCanvasToScreen();
+
 // =============================
 // FONCTIONS UTILITAIRES
 // =============================
+
+    function resizeCanvasToScreen() {
+        const availableWidth = window.innerWidth * 0.9;  // 90% de la largeur de l'écran
+        const availableHeight = window.innerHeight * 0.9; // 90% de la hauteur
+
+        const scaleW = availableWidth / WIDTH_SCREEN;
+        const scaleH = availableHeight / HEIGHT_SCREEN;
+        const scale = Math.min(scaleW, scaleH); // on conserve le ratio
+
+        const allCanvas = document.getElementsByClassName('canvas');
+
+        for (let index = 0; index < allCanvas.length; index++) {
+            const canvas = allCanvas[index];
+            canvas.style.height = HEIGHT_SCREEN + 'px';
+            canvas.style.width = WIDTH_SCREEN + 'px';
+
+            // Réinitialise d’abord la transformation (important si l’écran a grandi)
+            canvas.style.transform = '';
+
+            // Applique la réduction si nécessaire
+            if (scale < 1 || DEVICE.layout === "compact") {
+                canvas.style.transform = `scale(${scale})`;
+            }
+
+            // Centre le canvas visuellement (optionnel)
+            canvas.style.transformOrigin = 'center center';
+            canvas.style.margin = 'auto';
+            canvas.style.display = 'block';
+        }
+    }
 
     function getCurrentCanva() {
         const target = addTextBtn.getAttribute('data-target');
@@ -455,3 +478,45 @@
 
         canvas.renderAll();
     }
+
+    /// TEST ZOOM
+    const ZOOM_MIN = 0.3;
+    const ZOOM_MAX = 4;
+    const ZOOM_STEP = 1.15;
+
+
+    function zoomToCenter(newZoom) {
+        const targetCanvas = getCurrentCanva();
+        const center = targetCanvas.getCenter();
+
+        targetCanvas.zoomToPoint(
+            new fabric.Point(center.left, center.top),
+            newZoom
+        );
+
+        targetCanvas.requestRenderAll();
+    }
+
+    function zoomIn() {
+        const targetCanvas = getCurrentCanva();
+        let zoom = targetCanvas.getZoom();
+        zoom = Math.min(zoom * ZOOM_STEP, ZOOM_MAX);
+        zoomToCenter(zoom);
+    }
+
+    function zoomOut() {
+        const targetCanvas = getCurrentCanva();
+        let zoom = targetCanvas.getZoom();
+        zoom = Math.max(zoom / ZOOM_STEP, ZOOM_MIN);
+        zoomToCenter(zoom);
+    }
+
+    function resetZoom() {
+        const targetCanvas = getCurrentCanva();
+        targetCanvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
+        targetCanvas.setZoom(1);
+        targetCanvas.requestRenderAll();
+    }
+
+
+

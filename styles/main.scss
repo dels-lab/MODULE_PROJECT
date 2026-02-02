@@ -853,9 +853,7 @@ html[data-layout="large"] {
         grid-area: editor;
         display: grid;
         grid-template-columns: 75% 25%;
-        grid-template-rows:   
-            2rem   
-            1fr;  
+        grid-template-rows: 50px 1fr;  
         grid-template-areas:
             "options layers"
             "canvas canvas";

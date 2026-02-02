@@ -213,6 +213,12 @@
                 <div class="btn_container">
                     <div><a href="#"><img src="./assets/svg/zoom_in_16dp_E3E3E3_FILL0_wght400_GRAD0_opsz20.svg" alt=""></a></div>
                     <div><a href="#"><img src="./assets/svg/zoom_out_16dp_E3E3E3_FILL0_wght400_GRAD0_opsz20.svg" alt=""></a></div>
+
+                    <!--<div class="zoom-controls">
+                    <button onclick="zoomOut()">−</button>
+                    <button onclick="resetZoom()">100%</button>
+                    <button onclick="zoomIn()">+</button>
+                    </div>-->
                 </div>
 
                 <div class="btn_container">
@@ -221,7 +227,7 @@
                 </div>
             </div>
 
-            <button id="btn_download" type="button" onclick="exportCanvasToPDF()"><i class="fa-solid fa-floppy-disk"></i></button>
+            <button id="btn_download" type="button" onclick="exportPDF()"><i class="fa-solid fa-floppy-disk"></i></button>
         </footer>
 
         <!-- Popover mobile -->
@@ -317,7 +323,7 @@
     <script src="./scripts/controlStyle/control_avance.js"></script>
     <script src="./scripts/controlStyle/control_variable.js"></script>-->
 
-    <script src="./scripts/download-pdf.js"></script>
+    <script type="module" src="./scripts/exportPDF.js"></script>
     
     </body>
 
