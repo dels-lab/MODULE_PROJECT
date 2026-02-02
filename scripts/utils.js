@@ -187,46 +187,19 @@
 
         get layout() {
             return this.support.isMobileLike ? "compact" : "large";
+        },
+
+        get isTactile() {
+            return navigator.maxTouchPoints > 0;
         }
+
 
     };
 
     // Synchronisation CSS
     function syncLayout() {
-    document.documentElement.dataset.layout = DEVICE.layout;
+        document.documentElement.dataset.layout = DEVICE.layout;
     }
-
-    // Ajustement dynamique en fonction du support (rotation etc.)
-    function onViewportChange() {
-    syncLayout();
-    }
-
-    ["resize", "orientationchange"].forEach(event =>
-    window.addEventListener(event, onViewportChange) // Au changement
-    );
-
-    onViewportChange(); // Appel initial
-
-    // Afficher visuellement les infos responsive
-    const showDEVICE = document.getElementById("showDEVICE");
-    function renderDevice() {
-
-    showDEVICE.innerHTML = `
-        <strong>deviceOrientation :</strong> ${DEVICE.deviceOrientation}<br>
-        <strong>Layout :</strong> ${DEVICE.layout}<br>
-        <strong>Support :</strong>
-        Mobile: ${DEVICE.support.isMobile}<br>
-        Tablet: ${DEVICE.support.isTablet}<br>
-        Desktop: ${DEVICE.support.isDesktop}<br>
-        isMobileLike: ${DEVICE.support.isMobileLike}
-    `;
-    }
-
-    ["resize", "orientationchange"].forEach(event =>
-    window.addEventListener(event, renderDevice)
-    );
-
-    renderDevice();
 
     // Ajuster la taille du canva selon support
     function resizeCanvasToScreen() {
@@ -259,8 +232,31 @@
         }
     }
 
-    window.addEventListener('resize', resizeCanvasToScreen);
-    resizeCanvasToScreen();
+    // Afficher visuellement les infos responsive (pour test)
+    const showDEVICE = document.getElementById("showDEVICE");
+    function renderDevice() {
+        showDEVICE.innerHTML = `
+            <strong>deviceOrientation :</strong> ${DEVICE.deviceOrientation}<br>
+            <strong>Layout :</strong> ${DEVICE.layout}<br>
+            <strong>Tactile : </strong> ${DEVICE.isTactile}<br>
+            <strong>Support :</strong><br>
+            Mobile: ${DEVICE.support.isMobile} | Tablet: ${DEVICE.support.isTablet} | Desktop: ${DEVICE.support.isDesktop}<br>
+            isMobileLike: ${DEVICE.support.isMobileLike}
+        `;
+    }
+
+    // Ajustement dynamique en fonction du support (rotation etc.)
+    function onViewportChange() {
+        syncLayout();
+        resizeCanvasToScreen();
+        renderDevice();
+    }
+
+    ["resize", "orientationchange"].forEach(event =>
+        window.addEventListener(event, onViewportChange) // Au changement
+    );
+
+    onViewportChange(); // Appel initial
 
 // =============================
 // Module de gestion des popovers (click)

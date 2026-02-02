@@ -23,7 +23,7 @@
         renderOnAddRemove: true
     });
 
-    if (DEVICE.layout === "compact")  {
+    if (DEVICE.isTactile)  {
         // Contrôles des popovers
         createGlobalClickManager({
             canvasList: [canvasRecto, canvasVerso],
@@ -107,7 +107,7 @@
             br: false,
         });
 
-        if (DEVICE.layout === "compact")  {
+        if (DEVICE.isTactile)  {
             targetCanvas.freeDrawingBrush.width = 1; // Pression du doigt = 1px (précision)
 
             fabric.Object.prototype.cornerSize = 24;        // taille visible
