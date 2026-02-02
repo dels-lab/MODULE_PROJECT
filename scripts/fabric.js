@@ -35,9 +35,9 @@
     canvaEvents(canvasVerso);
 
     // Cible l'éditeur graphique
-    const editor = document.getElementById('editor');
-    const editor_controls = document.getElementsByClassName('editor-controls');
-    const text_editor = document.getElementsByClassName('text_editor');
+    var editor = document.getElementById('editor');
+    var editor_controls = document.getElementsByClassName('editor-controls');
+    var text_editor = document.getElementsByClassName('text_editor');
 
 // =============================
 // PREALOAD FONT
@@ -201,43 +201,9 @@
         }
     });
 
-    // Zoom In / Zoom Out
-    window.addEventListener('resize', resizeCanvasToScreen);
-    resizeCanvasToScreen();
-
 // =============================
 // FONCTIONS UTILITAIRES
 // =============================
-
-    function resizeCanvasToScreen() {
-        const availableWidth = window.innerWidth * 0.9;  // 90% de la largeur de l'écran
-        const availableHeight = window.innerHeight * 0.9; // 90% de la hauteur
-
-        const scaleW = availableWidth / WIDTH_SCREEN;
-        const scaleH = availableHeight / HEIGHT_SCREEN;
-        const scale = Math.min(scaleW, scaleH); // on conserve le ratio
-
-        const allCanvas = document.getElementsByClassName('canvas');
-
-        for (let index = 0; index < allCanvas.length; index++) {
-            const canvas = allCanvas[index];
-            canvas.style.height = HEIGHT_SCREEN + 'px';
-            canvas.style.width = WIDTH_SCREEN + 'px';
-
-            // Réinitialise d’abord la transformation (important si l’écran a grandi)
-            canvas.style.transform = '';
-
-            // Applique la réduction si nécessaire
-            if (scale < 1 || DEVICE.layout === "compact") {
-                canvas.style.transform = `scale(${scale})`;
-            }
-
-            // Centre le canvas visuellement (optionnel)
-            canvas.style.transformOrigin = 'center center';
-            canvas.style.margin = 'auto';
-            canvas.style.display = 'block';
-        }
-    }
 
     function getCurrentCanva() {
         const target = addTextBtn.getAttribute('data-target');

@@ -210,17 +210,15 @@
     // Afficher visuellement les infos responsive
     const showDEVICE = document.getElementById("showDEVICE");
     function renderDevice() {
-    const support = DEVICE.support;
 
     showDEVICE.innerHTML = `
-        <strong>V1:</strong><br>
         <strong>deviceOrientation :</strong> ${DEVICE.deviceOrientation}<br>
         <strong>Layout :</strong> ${DEVICE.layout}<br>
-        <strong>Support :</strong><br>
-        Mobile: ${support.isMobile}<br>
-        Tablet: ${support.isTablet}<br>
-        Desktop: ${support.isDesktop}<br><br>
-        isMobileLike: ${support.isMobileLike}
+        <strong>Support :</strong>
+        Mobile: ${DEVICE.support.isMobile}<br>
+        Tablet: ${DEVICE.support.isTablet}<br>
+        Desktop: ${DEVICE.support.isDesktop}<br>
+        isMobileLike: ${DEVICE.support.isMobileLike}
     `;
     }
 
@@ -229,6 +227,40 @@
     );
 
     renderDevice();
+
+    // Ajuster la taille du canva selon support
+    function resizeCanvasToScreen() {
+        const availableWidth = editor.clientWidth * 0.9;  // 90% de la largeur du container
+        const availableHeight = editor.clientHeight * 0.9; // 90% de la hauteur
+
+        const scaleW = availableWidth / WIDTH_SCREEN;
+        const scaleH = availableHeight / HEIGHT_SCREEN;
+        const scale = Math.min(scaleW, scaleH); // on conserve le ratio
+
+        const allCanvas = document.getElementsByClassName('canvas');
+
+        for (let index = 0; index < allCanvas.length; index++) {
+            const canvas = allCanvas[index];
+            canvas.style.height = HEIGHT_SCREEN + 'px';
+            canvas.style.width = WIDTH_SCREEN + 'px';
+
+            // Réinitialise d’abord la transformation (important si l’écran a grandi)
+            canvas.style.transform = '';
+
+            // Applique la réduction si nécessaire
+            if (scale < 1 || DEVICE.layout === "compact") {
+                canvas.style.transform = `scale(${scale})`;
+            }
+
+            // Centre le canvas visuellement (optionnel)
+            canvas.style.transformOrigin = 'center center';
+            canvas.style.margin = 'auto';
+            canvas.style.display = 'block';
+        }
+    }
+
+    window.addEventListener('resize', resizeCanvasToScreen);
+    resizeCanvasToScreen();
 
 // =============================
 // Module de gestion des popovers (click)

@@ -1,4 +1,4 @@
-async function exportCanvasToPDF() {
+async function exportPDF() {
     const { PDFDocument } = PDFLib;
     const pdfDoc = await PDFDocument.create();
 

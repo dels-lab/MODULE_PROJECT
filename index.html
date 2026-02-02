@@ -14,10 +14,6 @@
 
     <body id="module">
 
-        <div id="test_responsive" style="display:none;position: fixed;background-color: white;z-index: 10;padding: 2rem;">
-            <p id="showDEVICE"></p>
-        </div>
-
         <!-- En-tête global -->
         <header id="module_header">
             <!-- EN TETE -->
@@ -39,7 +35,7 @@
                 </div>
             </div>
 
-            <div id="configFormat" style="display:none">
+            <div id="configFormat">
                 <!-- FORMAT FAIRE-PART -->
                 <div id="config_canvas_format">
                     <span>Format faire-part</span>
@@ -71,8 +67,14 @@
                         <label for="imposition"> Imposition :</label>
                         <input name="imposition" id="imposition" type="text" value="4"> 
                     </div>
+                </div> 
+                
+                <div>
+                    <span>Configuration support</span><br>
+                    <p id="showDEVICE" style="padding: 0; margin:0;"></p>
                 </div>
-            <div>
+
+            </div>
         </header>
 
         <!-- Outils -->
@@ -323,7 +325,7 @@
     <script src="./scripts/controlStyle/control_avance.js"></script>
     <script src="./scripts/controlStyle/control_variable.js"></script>-->
 
-    <script type="module" src="./scripts/exportPDF.js"></script>
+    <script src="./scripts/exportPDF.js"></script>
     
     </body>
 
