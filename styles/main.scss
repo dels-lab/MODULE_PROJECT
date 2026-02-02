@@ -19,6 +19,7 @@
 
 // Version Mobile / Tablette
 button, select, input[type="range"], input[type="checkbox"], input[type="radio"] {cursor: pointer;}
+button, input, textarea, select {touch-action: manipulation;}
 
 #configFormat {
     display: flex;
@@ -51,6 +52,7 @@ button, select, input[type="range"], input[type="checkbox"], input[type="radio"]
     box-sizing: border-box;
     display: grid !important;
     font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
     grid-template-rows: 60px 40px calc(100vh - 160px) 60px;
     grid-template-rows: 60px 40px calc(100dvh - 160px) 60px;
     grid-template-columns : 100dvw;
@@ -174,6 +176,8 @@ button, select, input[type="range"], input[type="checkbox"], input[type="radio"]
             #controlText {
                 display: grid;
                 grid-template-columns: repeat(5,1fr);
+
+                button {font-size: 16px;}
             }
         }
 
@@ -338,14 +342,14 @@ button, select, input[type="range"], input[type="checkbox"], input[type="radio"]
 
         &:before,
         &:after {
-        width: 30px;
-        height: 10px;
-        color: #4e4e4e;
-        font-size: 8px;
-        font-weight: bold;
-        text-align: center;
-        line-height: 1;
-        padding: 9px 4px;
+            width: 30px;
+            height: 10px;
+            color: #4e4e4e;
+            font-size: 8px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 1;
+            padding: 9px 4px;
         }
 
         &:before {
@@ -434,7 +438,7 @@ button, select, input[type="range"], input[type="checkbox"], input[type="radio"]
                     max-width: 70px;
                     width: 70px;
                     height: 40px;
-                    font-size: 14px;
+                    font-size: 16px;
                     overflow: hidden;
                     text-overflow: ellipsis;
                     white-space: nowrap;
@@ -493,6 +497,7 @@ button, select, input[type="range"], input[type="checkbox"], input[type="radio"]
 
     // Style
     #option_style {
+        font-size: 16px;
         .popover_container {
             display: grid;
             grid-template-columns: 100%;
@@ -781,7 +786,7 @@ button, select, input[type="range"], input[type="checkbox"], input[type="radio"]
         grid-row-end: 3;
     }
 
-    button {font-size: 0.8rem;}
+    button {font-size: 16px;}
 }
 
 // Version desktop (global)
@@ -1135,7 +1140,7 @@ html[data-layout="large"]  {
 html[data-layout="large"][data-support="tablet"] {
     .field_number {
         grid-template-rows: 1rem 1rem;
-        button {font-size: 0.8rem;}
+        button {font-size: 16px;}
     }
 
      #module {
