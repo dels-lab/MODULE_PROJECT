@@ -120,6 +120,9 @@
 
     const CM_TO_PT = 72 / 2.54;
 
+    // Pixel Ratio
+    const DPR = window.devicePixelRatio || 1; // 1 par défaut
+
     // Format faire-part
     const WIDTH_PRINT = parseFloat(document.getElementById('largeur').value); // cm
     const HEIGHT_PRINT = parseFloat(document.getElementById('hauteur').value); // cm
@@ -151,40 +154,6 @@
 // IMPOSITION
 // =============================
     const PROD_IMPOSITION = document.getElementById('imposition').value; // ex: 4
-
-// =============================
-// REDIMENSIONNEMENT DES CANVAS : taille réel de l'écran
-// =============================
-
-    function resizeCanvasToScreen() {
-        const availableWidth = window.innerWidth * 0.9;  // 90% de la largeur de l'écran
-        const availableHeight = window.innerHeight * 0.9; // 90% de la hauteur
-
-        const scaleW = availableWidth / WIDTH_SCREEN;
-        const scaleH = availableHeight / HEIGHT_SCREEN;
-        const scale = Math.min(scaleW, scaleH); // on conserve le ratio
-
-        const allCanvas = document.getElementsByClassName('canvas');
-
-        for (let index = 0; index < allCanvas.length; index++) {
-            const canvas = allCanvas[index];
-            canvas.style.height = HEIGHT_SCREEN + 'px';
-            canvas.style.width = WIDTH_SCREEN + 'px';
-
-            // Réinitialise d’abord la transformation (important si l’écran a grandi)
-            canvas.style.transform = '';
-
-            // Applique la réduction si nécessaire
-            if (scale < 1) {
-                canvas.style.transform = `scale(${scale})`;
-            }
-
-            // Centre le canvas visuellement (optionnel)
-            canvas.style.transformOrigin = 'center center';
-            canvas.style.margin = 'auto';
-            canvas.style.display = 'block';
-        }
-    }
 
 // =============================
 // Détection de support (mobile, tablette, pc) (V1 : initialisation qu'au chargement, donnée statique))
@@ -227,7 +196,6 @@ function syncLayout() {
 // Ajustement dynamique en fonction du support (rotation etc.)
 function onViewportChange() {
   syncLayout();
-  resizeCanvasToScreen();
 }
 
 ["resize", "orientationchange"].forEach(event =>

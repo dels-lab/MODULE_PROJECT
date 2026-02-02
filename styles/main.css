@@ -129,7 +129,7 @@ button, select, input[type=range], input[type=checkbox], input[type=radio] {
   background-color: #292a2a;
   grid-area: editor;
   display: grid;
-  grid-template-rows: 1fr auto auto;
+  grid-template-rows: 40px 1fr auto;
   grid-template-areas: "layers" "canvas" "options";
 }
 #editor-options, #editor-layers {

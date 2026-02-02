@@ -8,8 +8,23 @@
     var activeObj = null;
 
     // Cible le recto et le verso
-    canvasRecto = new fabric.Canvas('canvas-recto');
-    canvasVerso = new fabric.Canvas('canvas-verso');
+    //canvasRecto = new fabric.Canvas('canvas-recto');
+    //canvasVerso = new fabric.Canvas('canvas-verso');
+
+    canvasRecto = new fabric.Canvas('canvas-recto', {
+        width: WIDTH_SCREEN,
+        height: HEIGHT_SCREEN,
+        enableRetinaScaling: true,
+        renderOnAddRemove: true
+    });
+
+    canvasVerso = new fabric.Canvas('canvas-verso', {
+        width: WIDTH_SCREEN,
+        height: HEIGHT_SCREEN,
+        enableRetinaScaling: true,
+        renderOnAddRemove: true
+    });
+
 
     if (DEVICE.layout === "compact")  {
         // Contrôles des popovers
@@ -19,10 +34,10 @@
     }
 
     // Défini la taille des canvas
-    canvasRecto.setWidth(WIDTH_SCREEN);
+    /*canvasRecto.setWidth(WIDTH_SCREEN);
     canvasRecto.setHeight(HEIGHT_SCREEN);
     canvasVerso.setWidth(WIDTH_SCREEN);
-    canvasVerso.setHeight(HEIGHT_SCREEN);
+    canvasVerso.setHeight(HEIGHT_SCREEN);*/
 
     // Écouteur d'événements sur les deux canvas
     canvaEvents(canvasRecto);
