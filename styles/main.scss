@@ -547,6 +547,7 @@ button, select, input[type="range"], input[type="checkbox"], input[type="radio"]
                 .field {
                     display: grid;
                     grid-template-columns: repeat(4,1fr);
+                    grid-template-rows: 40px;
                     grid-gap: 5px;
                     margin: 0 5px;
                     place-items: center;
@@ -1131,7 +1132,7 @@ html[data-layout="large"]  {
 
 }
 
-html[data-support="tablet"] {
+html[data-layout="large"][data-support="tablet"] {
     .field_number {
         grid-template-rows: 1rem 1rem;
         button {font-size: 0.8rem;}
@@ -1139,6 +1140,12 @@ html[data-support="tablet"] {
 
      #module {
         grid-template-rows: 100px calc(100dvh - 140px) 40px !important; 
+     }
+
+     #alignement {
+        .fontStyle_alignement {
+            padding: 0 !important;
+        }
      }
 }
 

@@ -167,24 +167,24 @@
         },
 
         get support() {
-        const ua = navigator.userAgent;
+            const ua = navigator.userAgent;
 
-        const isTouch = navigator.maxTouchPoints > 0;
+            const isTouch = navigator.maxTouchPoints > 0;
 
-        const isMobile = /Android|iPhone|iPod|Mobile/i.test(ua);
+            const isMobile = /Android|iPhone|iPod|Mobile/i.test(ua);
 
-        const isTablet =
-            isTouch &&
-            (
-            /iPad|Tablet/i.test(ua) ||
-            (window.matchMedia('(pointer: coarse)').matches &&
-            window.matchMedia('(hover: none)').matches &&
-            window.innerWidth >= 768)
-            );
+            const isTablet =
+                isTouch &&
+                (
+                /iPad|Tablet/i.test(ua) ||
+                (window.matchMedia('(pointer: coarse)').matches &&
+                window.matchMedia('(hover: none)').matches &&
+                window.innerWidth >= 768)
+                );
 
-        if (isMobile) return 'mobile';
-        if (isTablet) return 'tablet';
-        return 'desktop';
+            if (isMobile) return 'mobile';
+            if (isTablet) return 'tablet';
+            return 'desktop';
         },
 
 

@@ -475,6 +475,7 @@ button, select, input[type=range], input[type=checkbox], input[type=radio] {
 #popovers #option_style .popover_container #styleContainer .field {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 40px;
   grid-gap: 5px;
   margin: 0 5px;
   place-items: center;
@@ -998,12 +999,15 @@ html[data-layout=large] .field_number button {
   font-size: 0.5rem;
 }
 
-html[data-support=tablet] .field_number {
+html[data-layout=large][data-support=tablet] .field_number {
   grid-template-rows: 1rem 1rem;
 }
-html[data-support=tablet] .field_number button {
+html[data-layout=large][data-support=tablet] .field_number button {
   font-size: 0.8rem;
 }
-html[data-support=tablet] #module {
+html[data-layout=large][data-support=tablet] #module {
   grid-template-rows: 100px calc(100dvh - 140px) 40px !important;
+}
+html[data-layout=large][data-support=tablet] #alignement .fontStyle_alignement {
+  padding: 0 !important;
 }/*# sourceMappingURL=main.css.map */
