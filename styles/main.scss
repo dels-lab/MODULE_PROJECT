@@ -778,9 +778,8 @@ button, select, input[type="range"], input[type="checkbox"], input[type="radio"]
     button {font-size: 0.5rem;}
 }
 
-// Version desktop
+// Version desktop (global)
 html[data-layout="large"] {
-//@media (min-width: 768px) {
 
     #module {
         grid-template-columns: 250px calc(100% - 250px);
@@ -1118,7 +1117,13 @@ html[data-layout="large"] {
     }
 
     #popovers {display: none;}
-//}
+
+}
+
+// Version hybride (ex: tablette paysage) 
+// Version desktop
+html[data-layout="large"][data-support="tablet"] {
+    #module {grid-template-rows: 100px calc(100dvh - 140px) 40px; }
 }
 
 

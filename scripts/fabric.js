@@ -23,7 +23,7 @@
         renderOnAddRemove: true
     });
 
-    if (DEVICE.isTactile)  {
+    if (DEVICE.layout === "compact")  {
         // Contrôles des popovers
         createGlobalClickManager({
             canvasList: [canvasRecto, canvasVerso],
@@ -286,7 +286,7 @@
             });
 
             if (DEVICE.layout === "compact")  {
-                module.style.gridTemplateRows = "60px 40px calc(100vh - 160px) 60px";
+                module.style.gridTemplateRows = "60px 40px calc(100dvh - 160px) 60px";
                 tools.style.display = "flex";
             }
         } else {
@@ -317,7 +317,7 @@
             }
 
             if (DEVICE.layout === "compact")  {
-                module.style.gridTemplateRows = "60px 40px calc(100vh - 100px) 0";
+                module.style.gridTemplateRows = "60px 40px calc(100dvh - 100px) 0";
                 tools.style.display = "none"
             }
         }

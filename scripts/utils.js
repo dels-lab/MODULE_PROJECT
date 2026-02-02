@@ -177,17 +177,19 @@
             /iPad|Tablet|Android(?!.*Mobile)/i.test(ua) ||
             (window.innerWidth >= 768 && window.innerWidth < 1024);
 
-            const isDesktop = !isMobile && !isTablet;
-
-            const isMobileLike =
-            isMobile || (isTablet && this.deviceOrientation === "portrait");
-
-            return { isMobile, isTablet, isDesktop, isMobileLike };
+            if (isMobile) return 'mobile';
+            if (isTablet) return 'tablet';
+            return 'desktop';
         },
 
         get layout() {
-            return this.support.isMobileLike ? "compact" : "large";
+            const isMobileLike =
+                this.support === 'mobile' ||
+                (this.support === 'tablet' && this.deviceOrientation === 'portrait');
+
+            return isMobileLike ? 'compact' : 'large';
         },
+
 
         get isTactile() {
             return navigator.maxTouchPoints > 0;
@@ -199,6 +201,7 @@
     // Synchronisation CSS
     function syncLayout() {
         document.documentElement.dataset.layout = DEVICE.layout;
+        document.documentElement.dataset.support = DEVICE.support;
     }
 
     // Ajuster la taille du canva selon support
@@ -239,9 +242,7 @@
             <strong>deviceOrientation :</strong> ${DEVICE.deviceOrientation}<br>
             <strong>Layout :</strong> ${DEVICE.layout}<br>
             <strong>Tactile : </strong> ${DEVICE.isTactile}<br>
-            <strong>Support :</strong><br>
-            Mobile: ${DEVICE.support.isMobile} | Tablet: ${DEVICE.support.isTablet} | Desktop: ${DEVICE.support.isDesktop}<br>
-            isMobileLike: ${DEVICE.support.isMobileLike}
+            <strong>Support :</strong> ${DEVICE.support}
         `;
     }
 
