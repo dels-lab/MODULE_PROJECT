@@ -694,6 +694,7 @@ button, select, input[type=range], input[type=checkbox], input[type=radio] {
 
 html[data-layout=large] #module {
   grid-template-columns: 250px calc(100% - 250px);
+  grid-template-rows: 100px calc(100dvh - 140px) 40px;
   grid-template-rows: 100px calc(100vh - 140px) 40px;
   grid-template-areas: "header header" "tools editor" "footer footer";
 }
@@ -986,8 +987,4 @@ html[data-layout=large] #colors_containers .radio_option label {
 }
 html[data-layout=large] #popovers {
   display: none;
-}
-
-html[data-layout=large][data-support=tablet] #module {
-  grid-template-rows: 100px calc(100dvh - 140px) 40px !important;
 }/*# sourceMappingURL=main.css.map */

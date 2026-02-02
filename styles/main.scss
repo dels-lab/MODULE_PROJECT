@@ -783,6 +783,7 @@ html[data-layout="large"]  {
 
     #module {
         grid-template-columns: 250px calc(100% - 250px);
+        grid-template-rows: 100px calc(100dvh - 140px) 40px; 
         grid-template-rows: 100px calc(100vh - 140px) 40px; 
         grid-template-areas:
         "header header"
@@ -1118,9 +1119,4 @@ html[data-layout="large"]  {
 
     #popovers {display: none;}
 
-}
-
-// Version hybride (ex: tablette paysage) 
-html[data-layout="large"][data-support="tablet"] {
-    #module {grid-template-rows: 100px calc(100dvh - 140px) 40px !important;}
 }
