@@ -35,18 +35,18 @@
                 </div>
             </div>
 
-            <div id="configFormat">
+            <div id="configFormat" style="display:none">
                 <!-- FORMAT FAIRE-PART -->
                 <div id="config_canvas_format">
                     <span>Format faire-part</span>
                     <div>
                         <label for="largeur">Largeur (cm) :</label>
-                        <input name="largeur" id="largeur" type="text" value="15"> 
+                        <input name="largeur" id="largeur" type="text" value="16"> 
                     </div>
 
                     <div>
                         <label for="hauteur"> Hauteur (cm) :</label>
-                        <input name="hauteur" id="hauteur" type="text" value="15"> 
+                        <input name="hauteur" id="hauteur" type="text" value="16"> 
                     </div>
                 </div>
 
@@ -97,8 +97,8 @@
 
                         <div class="field">
                             <select name="txt_font" id="txt_font">
-                                <option value="Pacifico">Pacifico</option>
-                                <option value="Oswald">Oswald</option>
+                                <option value="Pacifico" style="font-family: Pacifico;">Pacifico</option>
+                                <option value="Oswald" style="font-family: Oswald;">Oswald</option>
                             </select>
                         </div>
 
@@ -215,12 +215,6 @@
                 <div class="btn_container">
                     <div><a href="#"><img src="./assets/svg/zoom_in_16dp_E3E3E3_FILL0_wght400_GRAD0_opsz20.svg" alt=""></a></div>
                     <div><a href="#"><img src="./assets/svg/zoom_out_16dp_E3E3E3_FILL0_wght400_GRAD0_opsz20.svg" alt=""></a></div>
-
-                    <!--<div class="zoom-controls">
-                    <button onclick="zoomOut()">−</button>
-                    <button onclick="resetZoom()">100%</button>
-                    <button onclick="zoomIn()">+</button>
-                    </div>-->
                 </div>
 
                 <div class="btn_container">
@@ -326,6 +320,7 @@
     <script src="./scripts/controlStyle/control_variable.js"></script>-->
 
     <script src="./scripts/exportPDF.js"></script>
+    <script src="./scripts/exportGIF.js"></script>
     
     </body>
 
