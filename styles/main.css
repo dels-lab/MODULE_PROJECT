@@ -25,6 +25,7 @@ button, select, input[type=range], input[type=checkbox], input[type=radio] {
   background-color: #1a1a1a;
   padding: 1rem 0;
   width: 250px;
+  bottom: 5vh;
   bottom: 5dvh;
   flex-direction: column;
   align-items: center;
@@ -46,6 +47,7 @@ button, select, input[type=range], input[type=checkbox], input[type=radio] {
   box-sizing: border-box;
   display: grid !important;
   font-family: Arial, Helvetica, sans-serif;
+  grid-template-rows: 60px 40px calc(100vh - 160px) 60px;
   grid-template-rows: 60px 40px calc(100dvh - 160px) 60px;
   grid-template-columns: 100dvw;
   grid-template-areas: "header" "footer" "editor" "tools";
@@ -182,6 +184,7 @@ button, select, input[type=range], input[type=checkbox], input[type=radio] {
   display: none !important;
 }
 #editor.onEdit {
+  grid-template-rows: 40px calc(100vh - 200px) 60px;
   grid-template-rows: 40px calc(100dvh - 200px) 60px;
 }
 
@@ -664,7 +667,7 @@ button, select, input[type=range], input[type=checkbox], input[type=radio] {
   border-radius: 0.2rem;
   display: grid;
   grid-template-columns: 25px minmax(0, 55fr) minmax(0, 20fr);
-  grid-template-rows: 0.6rem 0.6rem;
+  grid-template-rows: 1rem 1rem;
   place-content: center;
   min-height: 35px;
 }
@@ -689,7 +692,7 @@ button, select, input[type=range], input[type=checkbox], input[type=radio] {
   grid-row-end: 3;
 }
 .field_number button {
-  font-size: 0.5rem;
+  font-size: 0.8rem;
 }
 
 html[data-layout=large] #module {

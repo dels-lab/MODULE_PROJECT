@@ -167,20 +167,26 @@
         },
 
         get support() {
-            const ua = navigator.userAgent;
+        const ua = navigator.userAgent;
 
-            const isMobile =
-            /Android|iPhone|iPod|Mobile/i.test(ua) ||
-            window.innerWidth < 768;
+        const isTouch = navigator.maxTouchPoints > 0;
 
-            const isTablet =
-            /iPad|Tablet|Android(?!.*Mobile)/i.test(ua) ||
-            (window.innerWidth >= 768 && window.innerWidth < 1024);
+        const isMobile = /Android|iPhone|iPod|Mobile/i.test(ua);
 
-            if (isTablet) return 'tablet';
-            if (isMobile) return 'mobile';
-            return 'desktop';
+        const isTablet =
+            isTouch &&
+            (
+            /iPad|Tablet/i.test(ua) ||
+            (window.matchMedia('(pointer: coarse)').matches &&
+            window.matchMedia('(hover: none)').matches &&
+            window.innerWidth >= 768)
+            );
+
+        if (isMobile) return 'mobile';
+        if (isTablet) return 'tablet';
+        return 'desktop';
         },
+
 
         get layout() {
             const isMobileLike =
