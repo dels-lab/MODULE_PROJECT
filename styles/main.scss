@@ -1122,8 +1122,8 @@ html[data-layout="large"] {
 
 // Version hybride (ex: tablette paysage) 
 // Version desktop
-html[data-layout="large"][data-support="tablet"] {
-    #module {grid-template-rows: 100px calc(100dvh - 140px) 40px; }
+html[data-support="tablet"] {
+    #module {grid-template-rows: 100px calc(100dvh - 140px) 40px !important;}
 }
 
 
