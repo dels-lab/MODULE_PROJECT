@@ -1124,4 +1124,21 @@ html[data-layout="large"]  {
 
     #popovers {display: none;}
 
+    .field_number {
+        grid-template-rows: 0.6rem .6rem;
+        button {font-size: 0.5rem;}
+    }
+
 }
+
+html[data-support="tablet"] {
+    .field_number {
+        grid-template-rows: 1rem 1rem;
+        button {font-size: 0.8rem;}
+    }
+
+     #module {
+        grid-template-rows: 100px calc(100dvh - 140px) 40px !important; 
+     }
+}
+

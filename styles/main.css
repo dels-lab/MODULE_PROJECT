@@ -990,4 +990,20 @@ html[data-layout=large] #colors_containers .radio_option label {
 }
 html[data-layout=large] #popovers {
   display: none;
+}
+html[data-layout=large] .field_number {
+  grid-template-rows: 0.6rem 0.6rem;
+}
+html[data-layout=large] .field_number button {
+  font-size: 0.5rem;
+}
+
+html[data-support=tablet] .field_number {
+  grid-template-rows: 1rem 1rem;
+}
+html[data-support=tablet] .field_number button {
+  font-size: 0.8rem;
+}
+html[data-support=tablet] #module {
+  grid-template-rows: 100px calc(100dvh - 140px) 40px !important;
 }/*# sourceMappingURL=main.css.map */
