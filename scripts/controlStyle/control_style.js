@@ -140,7 +140,7 @@ if (DEVICE.layout === "compact") {
 
     // Gestion focus sur input
     inputs.forEach(input => {
-        input.addEventListener('focus', (e) => {
+        input.addEventListener('click', (e) => {
             selectContainer.parentElement.style.gridTemplateRows = "repeat(3,40px)";
             configText.classList.remove('hidden');
 
