@@ -177,8 +177,8 @@
             /iPad|Tablet|Android(?!.*Mobile)/i.test(ua) ||
             (window.innerWidth >= 768 && window.innerWidth < 1024);
 
-            if (isMobile) return 'mobile';
             if (isTablet) return 'tablet';
+            if (isMobile) return 'mobile';
             return 'desktop';
         },
 

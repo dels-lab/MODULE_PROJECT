@@ -51,7 +51,7 @@ button, select, input[type="range"], input[type="checkbox"], input[type="radio"]
     display: grid !important;
     font-family: Arial, Helvetica, sans-serif;
     grid-template-rows: 60px 40px calc(100dvh - 160px) 60px;
-    grid-template-columns : 100vw;
+    grid-template-columns : 100dvw;
     grid-template-areas:
         "header"
         "footer"
@@ -387,7 +387,7 @@ button, select, input[type="range"], input[type="checkbox"], input[type="radio"]
     position: fixed;
     bottom: 60px;
     box-shadow: 0px 15px -5px #4e4e4e;
-    width: 100vw;
+    width: 100dvw;
     z-index: 3;
 
     label {
@@ -779,7 +779,7 @@ button, select, input[type="range"], input[type="checkbox"], input[type="radio"]
 }
 
 // Version desktop (global)
-html[data-layout="large"] {
+html[data-layout="large"]  {
 
     #module {
         grid-template-columns: 250px calc(100% - 250px);
@@ -1121,9 +1121,6 @@ html[data-layout="large"] {
 }
 
 // Version hybride (ex: tablette paysage) 
-// Version desktop
-html[data-support="tablet"] {
+html[data-layout="large"][data-support="tablet"] {
     #module {grid-template-rows: 100px calc(100dvh - 140px) 40px !important;}
 }
-
-
