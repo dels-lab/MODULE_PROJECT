@@ -115,8 +115,8 @@
     function getRVBbyHSL(HSL) {
         // 1. Normalisation (0 → 1)
         const H = Number(HSL.H);
-        const S = HSL.S / 100;
-        const L = HSL.L / 100;
+        const S = Number(HSL.S) / 100;
+        const L = Number(HSL.L) / 100;
 
         // 1. Calcul de la Chroma
         const C = (1 - Math.abs(2 * L - 1)) * S;

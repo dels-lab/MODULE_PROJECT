@@ -13,8 +13,17 @@
   font-style: normal;
   font-display: swap;
 }
-button, select, input[type=range], input[type=checkbox], input[type=radio] {
+button, select, input[type=range], input[type=checkbox], input[type=radio], input[type=number], input {
   cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+button::-webkit-slider-thumb, select::-webkit-slider-thumb, input[type=range]::-webkit-slider-thumb, input[type=checkbox]::-webkit-slider-thumb, input[type=radio]::-webkit-slider-thumb, input[type=number]::-webkit-slider-thumb, input::-webkit-slider-thumb {
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
 button, input, textarea, select {
@@ -235,12 +244,8 @@ button, input, textarea, select {
   font-size: 0.8rem;
 }
 #tools .tools_editor_header input[type=checkbox] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-       appearance: none;
   background: none;
   border: none;
-  cursor: pointer;
   position: absolute;
   height: 2rem;
   width: 190px;
@@ -408,14 +413,11 @@ button, input, textarea, select {
 #popovers #option_taille input[type=range] {
   background-color: #282828;
   border: 1px solid #323232;
-  -webkit-appearance: none;
   border-radius: 2rem;
   height: 2rem;
   outline: none;
 }
 #popovers #option_taille input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 50%;
@@ -483,9 +485,6 @@ button, input, textarea, select {
   place-items: center;
 }
 #popovers #option_style .popover_container #styleContainer input[type=checkbox] {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   margin: 5px 0;
   padding: 0;
   text-align: center;
@@ -554,11 +553,8 @@ button, input, textarea, select {
   z-index: 0;
 }
 #popovers #option_style .popover_container #selectContainer div input {
-  appearance: none;
   background: none;
   border: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   color: white;
   margin: 0;
   padding: 0;
@@ -568,7 +564,6 @@ button, input, textarea, select {
   z-index: 1;
   height: 100%;
   padding-left: 25px;
-  cursor: pointer;
 }
 #popovers #option_style .popover_container #selectContainer div input:focus, #popovers #option_style .popover_container #selectContainer div input:focus-visible {
   outline: none;
@@ -587,9 +582,6 @@ button, input, textarea, select {
   width: 100%;
 }
 #popovers #option_style .popover_container #alignement input[type=radio] {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   margin: 0;
   padding: 0;
   height: 30px;
@@ -690,40 +682,69 @@ button, input, textarea, select {
   display: grid;
   grid-gap: 10px;
   justify-items: center;
-  height: 30px;
-  margin-top: 30px;
+  height: 60px;
+  place-content: "space-evenly";
   overflow-x: auto;
   scroll-behavior: smooth; /* scroll fluide */
   -webkit-overflow-scrolling: touch; /* smooth iOS */
 }
 #colorpicker_color #container_palette #grid_palette input[type=radio] {
   border-radius: 20px;
-  height: 30px;
-  width: 30px;
-  min-width: 30px;
+  height: 40px;
+  width: 40px;
+  min-width: 40px;
 }
 #colorpicker_color #colorpicker {
   background-color: #202020;
   height: 100px;
 }
-#colorpicker_color #colorpicker .hsl input[type=range] {
+#colorpicker_color #colorpicker #subcontainer_hsl input[type=range] {
   margin: 0;
   background: linear-gradient(to right, red, yellow, lime, cyan, blue, magenta, red);
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
   outline: none;
   width: 100%;
 }
-#colorpicker_color #colorpicker .hsl input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-          appearance: none;
+#colorpicker_color #colorpicker #subcontainer_hsl input[type=range]::-webkit-slider-thumb {
   width: 20px;
   height: 20px;
   background: white;
   border-radius: 50%;
   border: 2px solid #ccc;
-  cursor: pointer;
+}
+#colorpicker_color #colorpicker #subcontainer_rvb {
+  background-color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+#colorpicker_color #colorpicker #subcontainer_rvb label {
+  font-size: 16px;
+}
+#colorpicker_color #colorpicker #subcontainer_rvb input {
+  -webkit-appearance: textfield;
+          appearance: textfield;
+  -moz-appearance: textfield;
+  background: none;
+  border: none;
+  color: white;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  font-size: 16px;
+  text-align: center;
+}
+#colorpicker_color #colorpicker #subcontainer_hex input {
+  background-color: black;
+  border: none;
+  color: white;
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  line-height: 30px;
+  text-transform: uppercase;
 }
 #colorpicker_color div > input[type=radio] {
   margin: 0;
@@ -732,9 +753,6 @@ button, input, textarea, select {
   width: 100%;
   position: relative;
   z-index: 1;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
 }
 #colorpicker_color .hidden {
   display: none;
@@ -937,9 +955,6 @@ html[data-layout=large] #tools_editor_txt #alignement .field, html[data-layout=l
   place-items: center;
 }
 html[data-layout=large] #tools_editor_txt #alignement input[type=radio], html[data-layout=large] #tools_editor_txt #alignement input[type=checkbox], html[data-layout=large] #tools_editor_txt #style input[type=radio], html[data-layout=large] #tools_editor_txt #style input[type=checkbox] {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   margin: 0;
   padding: 0;
 }
@@ -1010,11 +1025,6 @@ html[data-layout=large] #tools_editor_txt #font #txt_color {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.503);
   border-radius: 50%;
   background-color: #e4af13;
-  cursor: pointer;
-  /* Reset général */
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   /* Chrome / Edge / Safari */
   /* Firefox */
   /* Focus visible (accessibilité) */
@@ -1099,24 +1109,32 @@ html[data-layout=large] #colorpicker_color #container_palette #grid_palette inpu
   width: 13px;
   min-width: 13px;
 }
-html[data-layout=large] #colorpicker .hsl input[type=range] {
+html[data-layout=large] #colorpicker #subcontainer_hsl input[type=range] {
   height: 10px;
   /* Firefox */
 }
-html[data-layout=large] #colorpicker .hsl input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-          appearance: none;
+html[data-layout=large] #colorpicker #subcontainer_hsl input[type=range]::-webkit-slider-thumb {
   width: 5px;
   height: 5px;
 }
-html[data-layout=large] #colorpicker .hsl input[type=range]::-moz-range-track {
+html[data-layout=large] #colorpicker #subcontainer_hsl input[type=range]::-moz-range-track {
   height: 10px;
 }
-html[data-layout=large] #colorpicker .hsl input[type=range]::-moz-range-thumb {
+html[data-layout=large] #colorpicker #subcontainer_hsl input[type=range]::-moz-range-thumb {
   width: 5px;
   height: 5px;
   background: white;
-  cursor: pointer;
+}
+html[data-layout=large] #colorpicker #subcontainer_rvb {
+  justify-content: space-between;
+}
+html[data-layout=large] #colorpicker #subcontainer_rvb label, html[data-layout=large] #colorpicker #subcontainer_rvb input {
+  font-size: 10px !important;
+  color: white;
+}
+html[data-layout=large] #colorpicker #subcontainer_hex input {
+  font-size: 10px !important;
+  line-height: 1.5rem;
 }
 
 html[data-layout=large][data-support=tablet] .field_number {

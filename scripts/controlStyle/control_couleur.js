@@ -15,22 +15,108 @@
 
     function synchroStyleColor(activeObj) {
         if (activeObj.fill) {
-            txt_color.value = activeObj.fill;
-            txt_color.style.color = activeObj.fill;
-            txt_color.style.background = activeObj.fill;
+            synchroColorPicker(activeObj.fill);
         }
     }
 
-    function centerElement(element, container) {
-        const elementWidth = element.offsetWidth;
-        const elementLeft = element.offsetLeft;
-        const containerWidth = container.offsetWidth;
+    function synchroColorPicker(COLORCODE) {
+        var TYPE = null;
+        var RVB = null;
+        var HSL = null;
 
-        const scrollPosition = elementLeft - (containerWidth / 2) + (elementWidth / 2);
+        // 1. Détecte le type de code
+        switch (typeof COLORCODE) {
+            case "string":
+                if(COLORCODE.charAt(0) == "#") {
+                    TYPE = 'HEX';
+                }
+                break;
 
-        container.scrollTo({
-            left: scrollPosition,
-            behavior: 'smooth'
+            case "object":
+                if ("R" in COLORCODE && "V" in COLORCODE && "B" in COLORCODE) {
+                    console.log("Type détecté : RVB");
+                    TYPE = "RVB";
+                }
+
+                if ("H" in COLORCODE && "S" in COLORCODE && "L" in COLORCODE) {
+                    console.log("Type détecté : HSL");
+                    TYPE = "HSL";
+                }
+
+                break;
+        
+            default:
+                console.log("COLORCODE : entrée inconnue");
+                return false;
+                break;
+        }
+
+        if(TYPE) {
+            switch (TYPE) {
+                case "HEX":
+
+                    // Attribution HEX
+                    HEX.value = COLORCODE;
+
+                    // Attribution RVB 
+                    RVB = getRVBbyHEXA(COLORCODE);
+                    R.value = RVB.R;
+                    V.value = RVB.V;
+                    B.value = RVB.B;
+
+                    // Attribution HSL
+                    HSL = getHSLbyRVB(RVB)
+                    H.value = HSL.H;
+                    S.value = HSL.S;
+                    L.value = HSL.L;
+
+                    break;
+
+                case "RVB":
+                    // Attribution HEX
+                    HEX.value = getHEXbyRVB(COLORCODE);
+
+                    // Attribution RVB 
+                    RVB = COLORCODE;
+
+                    // Attribution HSL
+                    HSL = getHSLbyRVB(COLORCODE)
+                    H.value = HSL.H;
+                    S.value = HSL.S;
+                    L.value = HSL.L;
+
+                    break;
+            
+                case "HSL":
+                    // Attribution HSL
+                    HSL = COLORCODE;
+
+                    // Attribution RVB 
+                    RVB = getRVBbyHSL(COLORCODE);
+                    R.value = RVB.R;
+                    V.value = RVB.V;
+                    B.value = RVB.B;
+
+                    // Attribution HEX
+                    HEX.value = getHEXbyRVB(RVB)
+                    break;
+            }
+
+            circleColor.style.backgroundColor = HEX.value;
+            updateColor(HEX.value);
+        }
+
+    }
+
+    function showColorContainer(input) {
+        selectedColorPicker = input.id.split('_')[1];
+        colorPickercontainers.forEach(container => {
+            var key = container.id.split('_')[1];
+            if(key === selectedColorPicker) {
+                container.classList.remove('hidden')
+            } else {
+                container.classList.add('hidden')
+            }
         });
     }
 
@@ -113,6 +199,18 @@
         ]
     }
 
+    const circleColor = document.getElementById('txt_color');
+
+    var HEX = document.getElementById('hex');
+
+    var H = document.getElementById('hslH');
+    var S = document.getElementById('hslS');
+    var L = document.getElementById('hslL');
+
+    var R = document.getElementById('rvbR');
+    var V = document.getElementById('rvbV');
+    var B = document.getElementById('rvbB');
+
     // Surveiller le switcher
     const colorpickerColors = document.getElementById('colorpicker_color'); // Container colorpicker
     var colorPickercontainers = colorpickerColors.querySelectorAll("div[id^='container_']")
@@ -120,7 +218,6 @@
     const toolsColors = document.getElementById('tools_colors'); // Container du colorpicker sur desktop
     const popoverColorsContainers = document.getElementById('popover_colors_containers'); // Container du colorpicker sur mobile
 
-    var counter_colorType = 0;
     var counter_colorHexa = 0;
 
     // Switcher
@@ -129,32 +226,17 @@
         // Cible les inputs 
         const colorPickerType = Array.from(document.getElementsByName('colorPickerType'));
         colorPickerType.forEach(input => {
-            input.addEventListener('change', (e) => {
-                selectedColorPicker = e.target.id.split('_')[1];
-
-                colorPickercontainers.forEach(container => {
-                    var key = container.id.split('_')[1];
-                    if(key === selectedColorPicker) {
-                        container.classList.remove('hidden')
-                    } else {
-                        container.classList.add('hidden')
-                    }
-                });
-            })
-            
+            input.addEventListener('change', (e) => {showColorContainer(e.target)})
+            if(input.checked) {showColorContainer(input)}
         });
 
     // Remplir la palette
         const containerPalette = document.getElementById('grid_palette');
-        const containerAnchor = document.getElementById('container_anchor');
 
         for (const colorName in colors) {
             if (!Object.hasOwn(colors, colorName)) continue;
 
             const colorHexa = colors[colorName];
-            counter_colorType += 1;
-
-            const middleIndex = Math.floor(colorHexa.length / 2);
 
             colorHexa.forEach((color, index) => {
                 counter_colorHexa += 1;
@@ -166,76 +248,52 @@
                 createColor.classList.add('radio_color');
                 createColor.style.backgroundColor = color;
 
-                // Ancre couleur
-                if (index === middleIndex) {
-                    // Création du lien
-                    const anchor = document.createElement('a');
-                    anchor.setAttribute('href',`#anchor-${colorName}`);
-                    anchor.innerHTML = `${colorName}`;
-                    containerAnchor.appendChild(anchor);
-
-                    containerAnchor.style.gridTemplateColumns = `repeat(${counter_colorType}, 1fr)`
-
-                    // Encrage de la couleur médiane
-                    createColor.id = `anchor-${colorName}`;
-
-                    // Class active sur la 1ere occurence
-                    if(colorName == 'rouge') {
-                        anchor.classList.add('active');
-                    }
-                }
-
                 containerPalette.appendChild(createColor);
 
                 createColor.addEventListener('focus', (e) => {
-                    updateColor(e.target.dataset.color);
-                    synchroStyleColor(activeObj);
-
-                    // Centrage au clic
-                    const anchor = document.getElementById(`anchor-${e.target.dataset.colorGroup}`);
-                    const anchors = Array.from(containerAnchor.children);
-
-                    anchors.forEach(anchorLink => {
-                        anchorLink.classList.remove('active')
-                    });
-
-                    if (anchor) {
-                        anchors.forEach(anchorLink => {
-                            if(anchorLink.innerHTML == anchor.dataset.colorGroup) {
-                                anchorLink.classList.add('active');
-                            }
-                        });
-
-                        //Empêche le scroll automatique + ajout du #
-                        e.preventDefault(); // Désactive le scroll natif
-                        centerElement(anchor, containerPalette);
-                        history.replaceState(null, null, window.location.pathname + window.location.search); // retirer l'encre de l'url
-                    }
+                    synchroColorPicker(e.target.dataset.color) 
                 });
             });
         }
 
     // Placer le colorpicker dans le bon container en fonction du support
-    if (DEVICE.layout === "compact") {
-        containerPalette.style.gridTemplateColumns = `repeat(${counter_colorHexa}, 30px)`
-        popoverColorsContainers.appendChild(colorpickerColors);
-    } else {
-        toolsColors.appendChild(colorpickerColors);
-    }
+        if (DEVICE.layout === "compact") {
+            containerPalette.style.gridTemplateColumns = `repeat(${counter_colorHexa}, 40px)`
+            popoverColorsContainers.appendChild(colorpickerColors);
+        } else {
+            toolsColors.appendChild(colorpickerColors);
+        }
 
-    // Contrôle HSL 
-    const HSL = {
-        H : 0,
-        S : 100,
-        L : 50
-    }
+    // Synchronisation des inputs
+    const allInputColors = Array.from(colorpickerColors.querySelectorAll("input.colorInput"));
+    allInputColors.forEach(input => {
+        input.addEventListener('input', (e) => {
+            switch (e.target.dataset.colorgroup) {
+                case "hex":
+                    synchroColorPicker(e.target.value)  
+                    break;
 
-    const hslInput = document.getElementById("hsl");
-    hslInput.addEventListener("input", e => {
-        HSL.H = e.target.value;
-        var RVB = getRVBbyHSL(HSL);
-        var HEXA = getHEXbyRVB(RVB)
-        updateColor(HEXA);
-        synchroStyleColor(activeObj);
+                case "hsl":
+                    const groupHSL = {
+                        H: H.value,
+                        S: S.value,
+                        L: L.value
+                    };
+                    synchroColorPicker(groupHSL)  
+                    break;
 
+                case "rvb":
+                    const groupRVB = {
+                        R: R.value,
+                        V: V.value,
+                        B: B.value
+                    };
+
+                    synchroColorPicker(groupRVB)  
+                    break;
+            }
+        })
     });
+
+
+

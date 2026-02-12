@@ -16,9 +16,20 @@
   font-display: swap;
 }
 
+button, select, input[type="range"], input[type="checkbox"], input[type="radio"], input[type="number"], input {
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 
-// Version Mobile / Tablette
-button, select, input[type="range"], input[type="checkbox"], input[type="radio"] {cursor: pointer;}
+    &::-webkit-slider-thumb {
+        cursor: pointer;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+    }
+}
+
 button, input, textarea, select {touch-action: manipulation;}
 
 #configFormat {
@@ -254,11 +265,8 @@ button, input, textarea, select {touch-action: manipulation;}
         h2 {font-size: 0.8rem;}
 
         input[type="checkbox"] {
-            -webkit-appearance: none;
-            appearance: none;
             background: none;
             border: none;
-            cursor: pointer;
 
             position: absolute;
             height: 2rem;
@@ -473,20 +481,17 @@ button, input, textarea, select {touch-action: manipulation;}
         input[type="range"] {
             background-color: #282828;
             border: 1px solid #323232;
-            -webkit-appearance: none;
             border-radius: 2rem;
             height: 2rem;
             outline: none;
-        }
 
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 1.5rem;
-            height: 1.5rem;
-            border-radius: 50%;
-            background: #e4af13;
-            border: none;
+            &::-webkit-slider-thumb {
+                width: 1.5rem;
+                height: 1.5rem;
+                border-radius: 50%;
+                background: #e4af13;
+                border: none;
+            }
         }
     }
 
@@ -553,9 +558,6 @@ button, input, textarea, select {touch-action: manipulation;}
                 }
 
                 input[type="checkbox"] {
-                    appearance: none;
-                    -webkit-appearance: none;
-                    -moz-appearance: none;
                     margin: 5px 0;
                     padding: 0;
                     text-align: center;
@@ -623,11 +625,8 @@ button, input, textarea, select {touch-action: manipulation;}
                     }
 
                     input {
-                        appearance: none;
                         background: none;
                         border: none;
-                        -webkit-appearance: none;
-                        -moz-appearance: none;
 
                         color: white;
                         margin: 0;
@@ -638,7 +637,6 @@ button, input, textarea, select {touch-action: manipulation;}
                         z-index: 1;
                         height: 100%;
                         padding-left: 25px;
-                        cursor: pointer;
 
                         &:focus,
                         &:focus-visible {
@@ -666,9 +664,6 @@ button, input, textarea, select {touch-action: manipulation;}
                 }
 
                 input[type="radio"] {
-                    appearance: none;
-                    -webkit-appearance: none;
-                    -moz-appearance: none;
                     margin: 0;
                     padding: 0;
 
@@ -775,8 +770,8 @@ button, input, textarea, select {touch-action: manipulation;}
             display: grid;
             grid-gap: 10px;
             justify-items: center;
-            height: 30px;
-            margin-top: 30px;
+            height: 60px;
+            place-content: "space-evenly";
 
             overflow-x: auto;
             scroll-behavior: smooth; /* scroll fluide */
@@ -784,9 +779,9 @@ button, input, textarea, select {touch-action: manipulation;}
 
             input[type="radio"] {
                 border-radius: 20px;
-                height: 30px;
-                width: 30px;
-                min-width: 30px;
+                height: 40px;
+                width: 40px;
+                min-width: 40px;
             }
         }
     }
@@ -795,24 +790,62 @@ button, input, textarea, select {touch-action: manipulation;}
         background-color: #202020;
         height: 100px;
 
-        .hsl {
+        #subcontainer_hsl {
+
             input[type="range"] {
                 margin: 0;
                 background: linear-gradient(to right,
                 red, yellow, lime, cyan, blue, magenta, red);
-                appearance: none;
                 outline: none;
                 width: 100%;
 
                 &::-webkit-slider-thumb {
-                    appearance: none;
                     width: 20px;
                     height: 20px;
                     background: white;
                     border-radius: 50%;
                     border: 2px solid #ccc;
-                    cursor: pointer;
                 }
+            }
+        }
+
+        #subcontainer_rvb {
+            background-color: black;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+
+            label {
+                font-size: 16px;
+            }
+
+            input{
+                appearance: textfield;
+                -moz-appearance: textfield;
+                background: none;
+                border: none;
+                color: white;
+                margin: 0;
+                padding: 0;
+                outline: none;
+                font-size: 16px;
+                text-align: center;
+            }
+        }
+
+        #subcontainer_hex {
+            input {
+                background-color: black;
+                border: none;
+                color: white;
+                margin: 0;
+                padding: 0;
+                outline: 0;
+                width: 100%;
+                text-align: center;
+                font-size: 16px;
+                line-height: 30px;
+                text-transform: uppercase;
             }
         }
     }
@@ -825,9 +858,6 @@ button, input, textarea, select {touch-action: manipulation;}
             width: 100%;
             position: relative;
             z-index: 1;
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
         }
     }
 
@@ -1063,9 +1093,6 @@ html[data-layout="large"]  {
                     }
 
                     input[type="radio"], input[type="checkbox"] {
-                        appearance: none;
-                        -webkit-appearance: none;
-                        -moz-appearance: none;
                         margin: 0;
                         padding: 0;
 
@@ -1136,12 +1163,6 @@ html[data-layout="large"]  {
                         box-shadow: 0 0 5px rgba(0, 0, 0, 0.503);
                         border-radius: 50%;
                         background-color: #e4af13;
-                        cursor: pointer;
-
-                        /* Reset général */
-                        appearance: none;
-                        -webkit-appearance: none;
-                        -moz-appearance: none;
 
                         /* Chrome / Edge / Safari */
                         &::-webkit-color-swatch-wrapper {
@@ -1249,12 +1270,11 @@ html[data-layout="large"]  {
     }
 
     #colorpicker {
-        .hsl {
+        #subcontainer_hsl {
             input[type="range"] {
                 height: 10px;
 
                 &::-webkit-slider-thumb {
-                    appearance: none;
                     width: 5px;
                     height: 5px;
                 }
@@ -1268,9 +1288,19 @@ html[data-layout="large"]  {
                     width: 5px;
                     height: 5px;
                     background: white;
-
-                    cursor: pointer;
                 }
+            }
+        }
+
+        #subcontainer_rvb {
+            justify-content: space-between;
+            label, input {font-size: 10px!important; color: white;}
+        }
+
+        #subcontainer_hex {
+            input {
+                font-size: 10px!important;
+                line-height: 1.5rem;
             }
         }
     }

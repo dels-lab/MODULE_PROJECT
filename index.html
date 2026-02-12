@@ -123,21 +123,21 @@
                     <div id="custom">
                         <div class="field_number" id="custom_fontSize">
                             <img src="./assets/svg/format_size_16dp_E3E3E3_FILL0_wght300_GRAD0_opsz20.svg" alt="">
-                            <input type="number" inputmode="numeric" id="txt_fontSize" step="1" value="12" min="0" max="100" inputmode="none">
+                            <input type="number" id="txt_fontSize" step="1" value="12" min="0" max="100" inputmode="none">
                             <button name="up"><i class="fa-solid fa-angle-up" name="up"></i></button>
                             <button name="down"><i class="fa-solid fa-chevron-down" name="down"></i></button>
                         </div>
 
                         <div class="field_number" id="custom_linespacing">
                             <img src="./assets/svg/format_line_spacing_16dp_E3E3E3_FILL0_wght300_GRAD0_opsz20.svg" alt="">
-                            <input type="number" inputmode="numeric" id="txt_linespacing" step="0.2" value="1.2"  min="0.8" max="3" inputmode="none">
+                            <input type="number" id="txt_linespacing" step="0.2" value="1.2"  min="0.8" max="3" inputmode="none">
                             <button name="up"><i class="fa-solid fa-angle-up" name="up"></i></button>
                             <button name="down"><i class="fa-solid fa-chevron-down" name="down"></i></button>
                         </div>
 
                         <div class="field_number" id="custom_charspacing">
                             <img src="./assets/svg/format_letter_spacing_2_16dp_E3E3E3_FILL0_wght300_GRAD0_opsz20.svg" alt="">
-                            <input type="number" inputmode="numeric" id="txt_charspacing" step="50" value="0"  min="0" max="500" inputmode="none">
+                            <input type="number" id="txt_charspacing" step="50" value="0"  min="0" max="500" inputmode="none">
                             <button name="up"><i class="fa-solid fa-angle-up" name="up"></i></button>
                             <button name="down"><i class="fa-solid fa-chevron-down" name="down"></i></button>
                         </div>
@@ -313,10 +313,7 @@
                 <input type="radio" name="colorPickerType" id="colorPickerType_nuancier">
             </div>
 
-            <div id="container_design"></div>
-
             <div id="container_palette">
-                <div id="container_anchor"></div>
                 <div id="grid_palette"></div>
             </div>
             
@@ -325,8 +322,32 @@
 
                     <div class="picker" role="application" aria-label="Color Picker avancé">
 
-                        <div class="hsl">
-                            <input type="range" min="0" max="360" value="220" id="hsl">
+                        <div id="subcontainer_hsl">
+                            <input type="range" class="colorInput" data-colorgroup="hsl" min="0" max="360"id="hslH">
+                            <input type="hidden" class="colorInput" data-colorgroup="hsl" id="hslS">
+                            <input type="hidden" class="colorInput" data-colorgroup="hsl"id="hslL">
+                        </div>
+
+                        <div id="subcontainer_rvb">
+                            <div>
+                                <label for="rvbR">R:</label>
+                                <input type="number"class="colorInput" data-colorgroup="rvb" inputmode="none" min="0" max="255" name="rvbR" id="rvbR">
+                            </div>
+
+                            <div>
+                                <label for="rvbV">V:</label>
+                                <input type="number"class="colorInput" data-colorgroup="rvb" inputmode="none" min="0" max="255" name="rvbV" id="rvbV">
+                            </div>
+
+                            <div>
+                                <label for="rvbB">B:</label>
+                                <input type="number"class="colorInput" data-colorgroup="rvb" inputmode="none" min="0" max="255" name="rvbB" id="rvbB">
+                            </div>
+
+                        </div>
+
+                        <div id="subcontainer_hex">
+                            <input type="text" class="colorInput" data-colorgroup="hex" name="hex" id="hex">
                         </div>
 
                     </div>
