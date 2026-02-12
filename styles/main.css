@@ -215,12 +215,10 @@ button, input, textarea, select {
 #tools_colors {
   width: 172px;
   height: 155px;
-  overflow-X: hidden;
-  overflow-y: scroll;
   padding: 10px;
-  position: absolute;
   background-color: #202020;
   box-shadow: 0px 30px 28px -20px #111;
+  overflow: hidden;
 }
 #tools_editor {
   display: none;
@@ -634,19 +632,100 @@ button, input, textarea, select {
   display: none;
 }
 
-#colors_containers {
+#colorpicker_color #switcher_colorPickerType {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 1rem;
   background-color: #282828;
   border: 1px solid #323232;
-  border-radius: 10px;
-  margin: 0.5rem 0;
-  padding: 0.5rem;
+  border-radius: 5px;
   text-align: center;
   color: white;
+  margin-bottom: 10px;
 }
-#colors_containers .radio_option input[type=radio] {
+#colorpicker_color #switcher_colorPickerType input[type=radio] {
+  text-align: center;
+  line-height: 30px;
+  color: white;
+}
+#colorpicker_color #switcher_colorPickerType input[type=radio]:checked {
+  background-color: rgba(255, 255, 255, 0.2117647059);
+  border-radius: 5px;
+}
+#colorpicker_color #switcher_colorPickerType input[type=radio]:first-child::before {
+  content: "Palette";
+}
+#colorpicker_color #switcher_colorPickerType input[type=radio]:last-child::before {
+  content: "Nuancier";
+}
+#colorpicker_color #switcher_colorPickerType input[type=radio]:first-child::before, #colorpicker_color #switcher_colorPickerType input[type=radio]:nth-child(2)::before, #colorpicker_color #switcher_colorPickerType input[type=radio]:last-child::before {
+  font-size: 10px;
+}
+#colorpicker_color #switcher_colorPickerType label {
+  position: relative;
+  top: -1.9rem;
+}
+#colorpicker_color #container_palette {
+  overflow-X: scroll;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #202020;
+}
+#colorpicker_color #container_palette #container_anchor {
+  display: grid;
+  position: fixed;
+  width: 95vw;
+  text-align: center;
+}
+#colorpicker_color #container_palette #container_anchor a {
+  color: #323232;
+  text-transform: capitalize;
+  text-decoration: none;
+  font-size: 14px;
+}
+#colorpicker_color #container_palette #container_anchor .active {
+  color: white;
+}
+#colorpicker_color #container_palette #grid_palette {
+  display: grid;
+  grid-gap: 10px;
+  justify-items: center;
+  height: 30px;
+  margin-top: 30px;
+  overflow-x: auto;
+  scroll-behavior: smooth; /* scroll fluide */
+  -webkit-overflow-scrolling: touch; /* smooth iOS */
+}
+#colorpicker_color #container_palette #grid_palette input[type=radio] {
+  border-radius: 20px;
+  height: 30px;
+  width: 30px;
+  min-width: 30px;
+}
+#colorpicker_color #colorpicker {
+  background-color: #202020;
+  height: 100px;
+}
+#colorpicker_color #colorpicker .hsl input[type=range] {
+  margin: 0;
+  background: linear-gradient(to right, red, yellow, lime, cyan, blue, magenta, red);
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  outline: none;
+  width: 100%;
+}
+#colorpicker_color #colorpicker .hsl input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+          appearance: none;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  cursor: pointer;
+}
+#colorpicker_color div > input[type=radio] {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -657,13 +736,8 @@ button, input, textarea, select {
   -webkit-appearance: none;
   -moz-appearance: none;
 }
-#colors_containers .radio_option input[type=radio]:checked {
-  background-color: rgba(255, 255, 255, 0.2117647059);
-  border-radius: 10px;
-}
-#colors_containers .radio_option label {
-  position: relative;
-  top: -1.9rem;
+#colorpicker_color .hidden {
+  display: none;
 }
 
 .field_number {
@@ -978,7 +1052,7 @@ html[data-layout=large] #tools_editor .editor_containers {
 }
 html[data-layout=large] #tools_editor .editor_containers.open {
   height: auto;
-  overflow: auto;
+  overflow: hidden;
 }
 html[data-layout=large] #tools_editor .editor_containers.close {
   height: 2rem;
@@ -1001,6 +1075,48 @@ html[data-layout=large] .field_number {
 }
 html[data-layout=large] .field_number button {
   font-size: 0.5rem;
+}
+html[data-layout=large] #colorpicker_color #switcher_colorPickerType {
+  margin-bottom: 5px;
+}
+html[data-layout=large] #colorpicker_color #container_palette {
+  overflow-X: hidden;
+  overflow-y: scroll;
+  padding: 3px;
+}
+html[data-layout=large] #colorpicker_color #container_palette #container_anchor {
+  display: none;
+}
+html[data-layout=large] #colorpicker_color #container_palette #grid_palette {
+  display: grid;
+  grid-template-columns: repeat(9, 13px);
+  grid-gap: 6px;
+  height: 115px;
+  margin-top: 0;
+}
+html[data-layout=large] #colorpicker_color #container_palette #grid_palette input[type=radio] {
+  height: 13px;
+  width: 13px;
+  min-width: 13px;
+}
+html[data-layout=large] #colorpicker .hsl input[type=range] {
+  height: 10px;
+  /* Firefox */
+}
+html[data-layout=large] #colorpicker .hsl input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+          appearance: none;
+  width: 5px;
+  height: 5px;
+}
+html[data-layout=large] #colorpicker .hsl input[type=range]::-moz-range-track {
+  height: 10px;
+}
+html[data-layout=large] #colorpicker .hsl input[type=range]::-moz-range-thumb {
+  width: 5px;
+  height: 5px;
+  background: white;
+  cursor: pointer;
 }
 
 html[data-layout=large][data-support=tablet] .field_number {

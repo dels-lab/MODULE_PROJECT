@@ -20,200 +20,222 @@
             txt_color.style.background = activeObj.fill;
         }
     }
+
+    function centerElement(element, container) {
+        const elementWidth = element.offsetWidth;
+        const elementLeft = element.offsetLeft;
+        const containerWidth = container.offsetWidth;
+
+        const scrollPosition = elementLeft - (containerWidth / 2) + (elementWidth / 2);
+
+        container.scrollTo({
+            left: scrollPosition,
+            behavior: 'smooth'
+        });
+    }
+
   
 // =============================
 // CONTROL
 // =============================
 
-    const couleurs = [
-        "#ffebee",
-        "#ffcdd2",
-        "#ef9a9a",
-        "#e57373",
-        "#ef5350",
-        "#f44336",
-        "#e53935",
-        "#d32f2f",
-        "#c62828",
-        "#b71c1c",
-        "#fce4ec",
-        "#f8bbd0",
-        "#f48fb1",
-        "#f06292",
-        "#ec407a",
-        "#e91e63",
-        "#d81b60",
-        "#c2185b",
-        "#ad1457",
-        "#880e4f",
-        "#f3e5f5",
-        "#e1bee7",
-        "#ce93d8",
-        "#ba68c8",
-        "#ab47bc",
-        "#9c27b0",
-        "#8e24aa",
-        "#7b1fa2",
-        "#6a1b9a",
-        "#4a148c",
-        "#ede7f6",
-        "#d1c4e9",
-        "#b39ddb",
-        "#9575cd",
-        "#7e57c2",
-        "#673ab7",
-        "#5e35b1",
-        "#512da8",
-        "#4527a0",
-        "#311b92",
-        "#e8eaf6",
-        "#c5cae9",
-        "#9fa8da",
-        "#7986cb",
-        "#5c6bc0",
-        "#3f51b5",
-        "#3949ab",
-        "#303f9f",
-        "#283593",
-        "#1a237e",
-        "#e3f2fd",
-        "#bbdefb",
-        "#90caf9",
-        "#64b5f6",
-        "#42a5f5",
-        "#2196f3",
-        "#1e88e5",
-        "#1976d2",
-        "#1565c0",
-        "#0d47a1",
-        "#e1f5fe",
-        "#b3e5fc",
-        "#81d4fa",
-        "#4fc3f7",
-        "#29b6f6",
-        "#03a9f4",
-        "#039be5",
-        "#0288d1",
-        "#0277bd",
-        "#01579b",
-        "#e0f7fa",
-        "#b2ebf2",
-        "#80deea",
-        "#4dd0e1",
-        "#26c6da",
-        "#00bcd4",
-        "#00acc1",
-        "#0097a7",
-        "#00838f",
-        "#006064",
-        "#e0f2f1",
-        "#b2dfdb",
-        "#80cbc4",
-        "#4db6ac",
-        "#26a69a",
-        "#009688",
-        "#00897b",
-        "#00796b",
-        "#00695c",
-        "#004d40",
-        "#e8f5e9",
-        "#c8e6c9",
-        "#a5d6a7",
-        "#81c784",
-        "#66bb6a",
-        "#4caf50",
-        "#43a047",
-        "#388e3c",
-        "#2e7d32",
-        "#1b5e20",
-        "#f1f8e9",
-        "#dcedc8",
-        "#c5e1a5",
-        "#aed581",
-        "#9ccc65",
-        "#8bc34a",
-        "#7cb342",
-        "#689f38",
-        "#558b2f",
-        "#33691e",
-        "#f9fbe7",
-        "#f0f4c3",
-        "#e6ee9c",
-        "#dce775",
-        "#d4e157",
-        "#cddc39",
-        "#c0ca33",
-        "#afb42b",
-        "#9e9d24",
-        "#827717",
-        "#fffde7",
-        "#fff9c4",
-        "#fff59d",
-        "#fff176",
-        "#ffee58",
-        "#ffeb3b",
-        "#fdd835",
-        "#fbc02d",
-        "#f9a825",
-        "#f57f17",
-        "#fff8e1",
-        "#ffecb3",
-        "#ffe082",
-        "#ffd54f",
-        "#ffca28",
-        "#ffc107",
-        "#ffb300",
-        "#ffa000",
-        "#ff8f00",
-        "#ff6f00",
-        "#fff3e0",
-        "#ffe0b2",
-        "#ffcc80",
-        "#ffb74d",
-        "#ffa726",
-        "#ff9800",
-        "#fb8c00",
-        "#f57c00",
-        "#ef6c00",
-        "#e65100",
-        "#fbe9e7",
-        "#ffccbc",
-        "#ffab91",
-        "#ff8a65",
-        "#ff7043",
-        "#ff5722",
-        "#f4511e",
-        "#e64a19",
-        "#d84315",
-        "#bf360c",
-        "#efebe9",
-        "#d7ccc8",
-        "#bcaaa4",
-        "#a1887f",
-        "#8d6e63",
-        "#795548",
-        "#6d4c41",
-        "#5d4037",
-        "#4e342e",
-        "#3e2723"
-    ]
+    const colors = {
+        "rouge": [
+            "#ffcdd2",
+            "#ef9a9a",
+            "#e57373",
+            "#ef5350",
+            "#f44336",
+            "#e53935",
+            "#d32f2f",
+            "#c62828",
+            "#b71c1c"
+        ]
+        ,
+        "orange": [
+            "#ffe0b2",
+            "#ffcc80",
+            "#ffb74d",
+            "#ffa726",
+            "#ff9800",
+            "#fb8c00",
+            "#f57c00",
+            "#ef6c00",
+            "#e65100"
+        ]
+        ,
+        "jaune": [
+            "#fff9c4",
+            "#fff59d",
+            "#fff176",
+            "#ffee58",
+            "#ffeb3b",
+            "#fdd835",
+            "#fbc02d",
+            "#f9a825",
+            "#f57f17"
+        ]
+        ,
+        "vert": [
+            "#c8e6c9",
+            "#a5d6a7",
+            "#81c784",
+            "#66bb6a",
+            "#4caf50",
+            "#43a047",
+            "#388e3c",
+            "#2e7d32",
+            "#1b5e20"
+        ]
+        ,
+        "bleu": [
+            "#bbdefb",
+            "#90caf9",
+            "#64b5f6",
+            "#42a5f5",
+            "#2196f3",
+            "#1e88e5",
+            "#1976d2",
+            "#1565c0",
+            "#0d47a1"
+        ]
+        ,
+        "violet": [
+            "#e1bee7",
+            "#ce93d8",
+            "#ba68c8",
+            "#ab47bc",
+            "#9c27b0",
+            "#8e24aa",
+            "#7b1fa2",
+            "#6a1b9a",
+            "#4a148c"
+        ]
+    }
 
     // Surveiller le switcher
-    const colorpickerColors = document.getElementsByName('colorpicker_color');
+    const colorpickerColors = document.getElementById('colorpicker_color'); // Container colorpicker
+    var colorPickercontainers = colorpickerColors.querySelectorAll("div[id^='container_']")
 
-    // Choix de couleur : via palette fixe
-    const paletteContainers = document.getElementById('palette_containers');
+    const toolsColors = document.getElementById('tools_colors'); // Container du colorpicker sur desktop
+    const popoverColorsContainers = document.getElementById('popover_colors_containers'); // Container du colorpicker sur mobile
 
-    // Choix de couleur : via nuancier
-    const nuancierContainers = document.getElementById('nuancier_containers');
+    var counter_colorType = 0;
+    var counter_colorHexa = 0;
 
-    console.log(colorpickerColors)
+    // Switcher
+        var selectedColorPicker = "palette" // Initialisation
 
-    /*for (let index = 0; index < couleurs.length; index++) {
-        const color = couleurs[index];
-        var button = document.createElement('button');
-        button.setAttribute('type', 'input')
-        button.style.backgroundColor = color;
-        paletteContainers.appendChild(button);
-        
-    }*/
+        // Cible les inputs 
+        const colorPickerType = Array.from(document.getElementsByName('colorPickerType'));
+        colorPickerType.forEach(input => {
+            input.addEventListener('change', (e) => {
+                selectedColorPicker = e.target.id.split('_')[1];
+
+                colorPickercontainers.forEach(container => {
+                    var key = container.id.split('_')[1];
+                    if(key === selectedColorPicker) {
+                        container.classList.remove('hidden')
+                    } else {
+                        container.classList.add('hidden')
+                    }
+                });
+            })
+            
+        });
+
+    // Remplir la palette
+        const containerPalette = document.getElementById('grid_palette');
+        const containerAnchor = document.getElementById('container_anchor');
+
+        for (const colorName in colors) {
+            if (!Object.hasOwn(colors, colorName)) continue;
+
+            const colorHexa = colors[colorName];
+            counter_colorType += 1;
+
+            const middleIndex = Math.floor(colorHexa.length / 2);
+
+            colorHexa.forEach((color, index) => {
+                counter_colorHexa += 1;
+
+                const createColor = document.createElement('input');
+                createColor.setAttribute('type', 'radio');
+                createColor.dataset.color = color;
+                createColor.dataset.colorGroup = colorName;
+                createColor.classList.add('radio_color');
+                createColor.style.backgroundColor = color;
+
+                // Ancre couleur
+                if (index === middleIndex) {
+                    // Création du lien
+                    const anchor = document.createElement('a');
+                    anchor.setAttribute('href',`#anchor-${colorName}`);
+                    anchor.innerHTML = `${colorName}`;
+                    containerAnchor.appendChild(anchor);
+
+                    containerAnchor.style.gridTemplateColumns = `repeat(${counter_colorType}, 1fr)`
+
+                    // Encrage de la couleur médiane
+                    createColor.id = `anchor-${colorName}`;
+
+                    // Class active sur la 1ere occurence
+                    if(colorName == 'rouge') {
+                        anchor.classList.add('active');
+                    }
+                }
+
+                containerPalette.appendChild(createColor);
+
+                createColor.addEventListener('focus', (e) => {
+                    updateColor(e.target.dataset.color);
+                    synchroStyleColor(activeObj);
+
+                    // Centrage au clic
+                    const anchor = document.getElementById(`anchor-${e.target.dataset.colorGroup}`);
+                    const anchors = Array.from(containerAnchor.children);
+
+                    anchors.forEach(anchorLink => {
+                        anchorLink.classList.remove('active')
+                    });
+
+                    if (anchor) {
+                        anchors.forEach(anchorLink => {
+                            if(anchorLink.innerHTML == anchor.dataset.colorGroup) {
+                                anchorLink.classList.add('active');
+                            }
+                        });
+
+                        //Empêche le scroll automatique + ajout du #
+                        e.preventDefault(); // Désactive le scroll natif
+                        centerElement(anchor, containerPalette);
+                        history.replaceState(null, null, window.location.pathname + window.location.search); // retirer l'encre de l'url
+                    }
+                });
+            });
+        }
+
+    // Placer le colorpicker dans le bon container en fonction du support
+    if (DEVICE.layout === "compact") {
+        containerPalette.style.gridTemplateColumns = `repeat(${counter_colorHexa}, 30px)`
+        popoverColorsContainers.appendChild(colorpickerColors);
+    } else {
+        toolsColors.appendChild(colorpickerColors);
+    }
+
+    // Contrôle HSL 
+    const HSL = {
+        H : 0,
+        S : 100,
+        L : 50
+    }
+
+    const hslInput = document.getElementById("hsl");
+    hslInput.addEventListener("input", e => {
+        HSL.H = e.target.value;
+        var RVB = getRVBbyHSL(HSL);
+        var HEXA = getHEXbyRVB(RVB)
+        updateColor(HEXA);
+        synchroStyleColor(activeObj);
+
+    });

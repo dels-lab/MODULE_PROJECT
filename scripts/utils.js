@@ -112,6 +112,66 @@
         };
     } 
 
+    function getRVBbyHSL(HSL) {
+        // 1. Normalisation (0 → 1)
+        const H = Number(HSL.H);
+        const S = HSL.S / 100;
+        const L = HSL.L / 100;
+
+        // 1. Calcul de la Chroma
+        const C = (1 - Math.abs(2 * L - 1)) * S;
+        
+        // 2. Calcul de X (position intermédiaire)
+        const X = C * (1 - Math.abs((H / 60) % 2 - 1));
+
+        // 3. Décalage lumineux
+        const m = L - C / 2;
+        let r1, g1, b1;
+
+        // 4. Détermination du secteur de teinte
+        if (H >= 0 && H < 60) {
+            r1 = C; g1 = X; b1 = 0;
+        } else if (H < 120) {
+            r1 = X; g1 = C; b1 = 0;
+        } else if (H < 180) {
+            r1 = 0; g1 = C; b1 = X;
+        } else if (H < 240) {
+            r1 = 0; g1 = X; b1 = C;
+        } else if (H < 300) {
+            r1 = X; g1 = 0; b1 = C;
+        } else {
+            r1 = C; g1 = 0; b1 = X;
+        }
+
+        // 5. Conversion finale 0-255
+        const R = Math.round((r1 + m) * 255);
+        const V = Math.round((g1 + m) * 255);
+        const B = Math.round((b1 + m) * 255);
+
+        return { R, V, B};
+    }
+
+    function getHEXbyRVB(RVB) {
+        // Vérifie que les valeurs sont valides (0 à 255)
+        if (
+            RVB.R < 0 || RVB.R > 255 ||
+            RVB.V < 0 || RVB.V > 255 ||
+            RVB.B < 0 || RVB.B > 255
+        ) {
+            return "Valeurs RVB invalides (doivent être entre 0 et 255)";
+        }
+
+        // Convertit chaque valeur en hexadécimal sur 2 caractères
+        const toHex = (value) => {
+            return value.toString(16).padStart(2, "0").toUpperCase();
+        };
+
+        const HEX = "#" + toHex(RVB.R) + toHex(RVB.V) + toHex(RVB.B);
+        return HEX;
+    }
+
+    
+
 // =============================
 // CONFIGURATION DU FORMAT
 // =============================
