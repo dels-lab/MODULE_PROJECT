@@ -103,6 +103,7 @@
             }
 
             circleColor.style.backgroundColor = HEX.value;
+            console.log("INITIALISATION COLORPICKER ICI")
             updateColor(HEX.value);
         }
 
@@ -119,6 +120,97 @@
             }
         });
     }
+
+    // TEST
+    function resizeCanvas() {
+        var rect = square.getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+        drawSquare();
+
+        // Repositionnement curseur
+        cursor.style.left = (saturation / 100) * rect.width + "px";
+        cursor.style.top = ((100 - lightness) / 100) * rect.height + "px";
+    }
+
+    function drawSquare() {
+        const w = canvas.width;
+        const h = canvas.height;
+
+        ctx.clearRect(0, 0, w, h);
+
+        // Couleur base (Hue)
+        ctx.fillStyle = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+        ctx.fillRect(0, 0, w, h);
+
+        // Dégradé blanc (saturation)
+        const whiteGradient = ctx.createLinearGradient(0, 0, w, 0);
+        whiteGradient.addColorStop(0, "white");
+        whiteGradient.addColorStop(1, "transparent");
+        ctx.fillStyle = whiteGradient;
+        ctx.fillRect(0, 0, w, h);
+
+        // Dégradé noir (lightness)
+        const blackGradient = ctx.createLinearGradient(0, 0, 0, h);
+        blackGradient.addColorStop(0, "transparent");
+        blackGradient.addColorStop(1, "black");
+        ctx.fillStyle = blackGradient;
+        ctx.fillRect(0, 0, w, h);
+    }
+
+    function hslToRgb(h, s, l) {
+        s /= 100;
+        l /= 100;
+
+        const k = n => (n + h / 30) % 12;
+        const a = s * Math.min(l, 1 - l);
+        const f = n =>
+            l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+
+        return [
+            Math.round(255 * f(0)),
+            Math.round(255 * f(8)),
+            Math.round(255 * f(4))
+        ];
+    }
+
+    function rgbToHex(r, g, b) {
+        return "#" + [r, g, b]
+            .map(x => x.toString(16).padStart(2, "0"))
+            .join("");
+    }
+
+    function updateAll() {
+        S.value = Math.round(saturation);
+        L.value = Math.round(lightness);
+
+        const [r, g, b] = hslToRgb(hue, saturation, lightness);
+
+        R.value = r;
+        V.value = g;
+        B.value = b;
+
+        HEX.value = rgbToHex(r, g, b);
+    }
+
+    function updateFromPointer(e) {
+        var rect = canvas.getBoundingClientRect();
+
+        let x = e.clientX - rect.left;
+        let y = e.clientY - rect.top;
+
+        x = Math.max(0, Math.min(x, rect.width));
+        y = Math.max(0, Math.min(y, rect.height));
+
+        saturation = (x / rect.width) * 100;
+        lightness = 100 - (y / rect.height) * 100;
+
+        cursor.style.left = x + "px";
+        cursor.style.top = y + "px";
+
+        updateAll();
+    }
+    // FIN TEST
 
   
 // =============================
@@ -199,17 +291,17 @@
         ]
     }
 
-    const circleColor = document.getElementById('txt_color');
+    const circleColor = document.getElementById("txt_color");
 
-    var HEX = document.getElementById('hex');
+    var HEX = document.getElementById("hex");
 
-    var H = document.getElementById('hslH');
-    var S = document.getElementById('hslS');
-    var L = document.getElementById('hslL');
+    var H = document.getElementById("hslH");
+    var S = document.getElementById("hslS");
+    var L = document.getElementById("hslL");
 
-    var R = document.getElementById('rvbR');
-    var V = document.getElementById('rvbV');
-    var B = document.getElementById('rvbB');
+    var R = document.getElementById("rvbR");
+    var V = document.getElementById("rvbV");
+    var B = document.getElementById("rvbB");
 
     // Surveiller le switcher
     const colorpickerColors = document.getElementById('colorpicker_color'); // Container colorpicker
@@ -296,4 +388,53 @@
     });
 
 
+    // COLORPICKER NUANCIER
+    const container = document.getElementById("subcontainer_nuancier");
 
+    // Création du carré
+    const square = document.createElement("div");
+    square.className = "color-square";
+
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    const cursor = document.createElement("div");
+    cursor.className = "color-cursor";
+
+    square.appendChild(canvas);
+    square.appendChild(cursor);
+    container.appendChild(square);
+
+    let hue = parseFloat(H.value) || 0;
+    let saturation = 100;
+    let lightness = 50;
+
+    let isDown = false;
+
+    square.addEventListener("pointerdown", e => {
+        isDown = true;
+        square.setPointerCapture(e.pointerId);
+        updateFromPointer(e);
+    });
+
+    square.addEventListener("pointermove", e => {
+        if (isDown) updateFromPointer(e);
+    });
+
+    square.addEventListener("pointerup", e => {
+        square.releasePointerCapture(e.pointerId);
+        isDown = false;
+    });
+
+    H.addEventListener("input", e => {
+        hue = parseFloat(e.target.value);
+        drawSquare();
+        updateAll();
+    });
+
+    window.addEventListener("resize", resizeCanvas);
+
+    window.addEventListener("load", () => {
+        resizeCanvas();
+        updateAll();
+    });
