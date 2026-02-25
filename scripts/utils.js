@@ -152,25 +152,23 @@
     }
 
     function getHEXbyRVB(RVB) {
-        // Vérifie que les valeurs sont valides (0 à 255)
-        if (
-            RVB.R < 0 || RVB.R > 255 ||
-            RVB.V < 0 || RVB.V > 255 ||
-            RVB.B < 0 || RVB.B > 255
-        ) {
-            return "Valeurs RVB invalides (doivent être entre 0 et 255)";
-        }
 
-        // Convertit chaque valeur en hexadécimal sur 2 caractères
+        const clamp = (value) => {
+            value = parseInt(value);
+            if (isNaN(value)) value = 0;
+            return Math.max(0, Math.min(255, value));
+        };
+
         const toHex = (value) => {
             return value.toString(16).padStart(2, "0").toUpperCase();
         };
 
-        const HEX = "#" + toHex(RVB.R) + toHex(RVB.V) + toHex(RVB.B);
-        return HEX;
-    }
+        const R = clamp(RVB.R);
+        const V = clamp(RVB.V);
+        const B = clamp(RVB.B);
 
-    
+        return "#" + toHex(R) + toHex(V) + toHex(B);
+    }
 
 // =============================
 // CONFIGURATION DU FORMAT

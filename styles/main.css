@@ -754,28 +754,32 @@ button, input, textarea, select {
   width: 100%;
   height: 55px;
 }
-#colorpicker_color #colorpicker #subcontainer_nuancier .color-square {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  cursor: crosshair;
+#colorpicker_color #colorpicker #subcontainer_nuancier #colorpicker_sl {
   position: relative;
-  touch-action: none;
-}
-#colorpicker_color #colorpicker #subcontainer_nuancier .color-square canvas {
   width: 100%;
   height: 100%;
-  display: block;
+  background: hsl(0, 100%, 50%);
+  cursor: crosshair;
+  /* Saturation */
+  /* Lightness */
 }
-#colorpicker_color #colorpicker #subcontainer_nuancier .color-cursor {
+#colorpicker_color #colorpicker #subcontainer_nuancier #colorpicker_sl .white-layer {
   position: absolute;
-  width: 16px;
-  height: 16px;
+  inset: 0;
+  background: linear-gradient(to right, white, transparent);
+}
+#colorpicker_color #colorpicker #subcontainer_nuancier #colorpicker_sl .black-layer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, black, transparent);
+}
+#colorpicker_color #colorpicker #subcontainer_nuancier #colorpicker_sl #cursorSL {
+  position: absolute;
+  width: 14px;
+  height: 14px;
   border: 2px solid white;
   border-radius: 50%;
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.4);
   transform: translate(-50%, -50%);
-  pointer-events: none;
 }
 #colorpicker_color div > input[type=radio] {
   margin: 0;

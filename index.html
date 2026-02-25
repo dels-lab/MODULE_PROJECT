@@ -323,12 +323,18 @@
                     <div class="picker" role="application" aria-label="Color Picker avancé">
 
                         <div id="subcontainer_hsl">
-                            <input type="range" class="colorInput" data-colorgroup="hsl" min="0" max="360"id="hslH">
+                            <input type="range" class="colorInput" data-colorgroup="hsl" min="0" max="360" id="hslH">
                             <input type="hidden" class="colorInput" data-colorgroup="hsl" id="hslS">
                             <input type="hidden" class="colorInput" data-colorgroup="hsl"id="hslL">
                         </div>
 
-                        <div id="subcontainer_nuancier"></div>
+                        <div id="subcontainer_nuancier">
+                            <div id="colorpicker_sl">
+                                <div class="white-layer"></div>
+                                <div class="black-layer"></div>
+                                <div id="cursorSL"></div>
+                            </div>
+                        </div>
 
                         <div id="subcontainer_rvb">
                             <div>
@@ -349,7 +355,7 @@
                         </div>
 
                         <div id="subcontainer_hex">
-                            <input type="text" class="colorInput" data-colorgroup="hex" name="hex" id="hex">
+                            <input type="text" data-colorgroup="hex" name="hex" id="hex">
                         </div>
 
                     </div>
