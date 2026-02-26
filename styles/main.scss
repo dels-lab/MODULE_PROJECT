@@ -587,8 +587,8 @@ button, input, textarea, select {touch-action: manipulation;}
 
                     &:nth-child(1)::before  {content: "\f032";}
                     &:nth-child(2)::before  {content: "\f033";}
-                    &:nth-child(3)::before  {content: "\f0cc";}
-                    &:nth-child(4)::before  {content: "\f0cd";}
+                    &:nth-child(3)::before  {content: "\f0cd";}
+                    &:nth-child(4)::before  {content: "\f0cc";}
                 }
             }
 
@@ -1176,8 +1176,8 @@ html[data-layout="large"]  {
                     input[type="checkbox"] {
                         &:nth-child(1)::before  {content: "\f032";}
                         &:nth-child(2)::before  {content: "\f033";}
-                        &:nth-child(3)::before  {content: "\f0cc";}
-                        &:nth-child(4)::before  {content: "\f0cd";}
+                        &:nth-child(3)::before  {content: "\f0cd";}
+                        &:nth-child(4)::before  {content: "\f0cc";}
                     }
                 }
 
@@ -1246,6 +1246,13 @@ html[data-layout="large"]  {
                         grid-column-end: 3;
                        } 
                     }
+                }
+
+                .inactif {
+                   img {opacity: 0.3;}
+                   input, input::before {color: grey !important;}
+                   input[type="radio"]:checked{background-color: #363535 !important;}
+                   button i {color: grey;}
                 }
                 
             }

@@ -38,7 +38,8 @@
         if (!activeObj) return;
         const val = Number(value);
         if (isNaN(val)) return;
-        setStyle(attributes, val);
+        controlSelect(activeObj, attributes, val)
+        //setStyle(attributes, val);
     }
 
     function synchroStyleAvance(activeObj) {
@@ -56,7 +57,8 @@
 const btnAlignement = document.getElementsByName('fontStyle_alignement');
 btnAlignement.forEach(option => {
     option.addEventListener('click', (e) => {
-        setStyle(e.target.dataset.style, e.target.value);
+        controlSelect(activeObj, e.target.dataset.style, e.target.value)
+        //setStyle(e.target.dataset.style, e.target.value);
     })
 });
 
@@ -67,26 +69,31 @@ btnStyle.forEach(option => {
             switch (e.target.value) {
                 case "italic":
                     setDefaultStyleOnChar(activeObj, "italic");
-                    setStyle(e.target.dataset.style, e.target.value);
+                    controlSelect(activeObj, e.target.dataset.style, e.target.value)
+                    //setStyle(e.target.dataset.style, e.target.value);
                     break;
 
                 default:
-                    setStyle(e.target.dataset.style, e.target.value);
+                    controlSelect(activeObj, e.target.dataset.style, e.target.value)
+                    //setStyle(e.target.dataset.style, e.target.value);
                     break;
             }
         } else {
             switch (e.target.value) {
                 case "italic":
                     setDefaultStyleOnChar(activeObj, "normal");
-                    setStyle(e.target.dataset.style, "normal");
+                    controlSelect(activeObj, e.target.dataset.style, "normal")
+                    //setStyle(e.target.dataset.style, "normal");
                     break;
 
                 case "bold":
-                    setStyle(e.target.dataset.style, "normal");
+                    controlSelect(activeObj, e.target.dataset.style, "normal")
+                    //setStyle(e.target.dataset.style, "normal");
                     break;
 
                 default:
-                    setStyle(e.target.dataset.style, false);
+                    controlSelect(activeObj, e.target.dataset.style, false)
+                    //setStyle(e.target.dataset.style, false);
                     break;
             }
         }

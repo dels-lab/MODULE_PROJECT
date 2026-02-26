@@ -10,7 +10,8 @@
             var currentSelect = watchCursor(activeObj);
             setStyleOnSelection("fontSize", policeSize, currentSelect)
         } else { // Application sur l'objet global
-            setStyle("fontSize", policeSize);
+            controlSelect(activeObj, "fontSize", policeSize)
+            //setStyle("fontSize", policeSize);
         }
   }
 

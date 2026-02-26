@@ -517,10 +517,10 @@ button, input, textarea, select {
   content: "\f033";
 }
 #popovers #option_style .popover_container #styleContainer input[type=checkbox]:nth-child(3)::before {
-  content: "\f0cc";
+  content: "\f0cd";
 }
 #popovers #option_style .popover_container #styleContainer input[type=checkbox]:nth-child(4)::before {
-  content: "\f0cd";
+  content: "\f0cc";
 }
 #popovers #option_style .popover_container #selectContainer {
   display: grid;
@@ -1033,10 +1033,10 @@ html[data-layout=large] #tools_editor_txt #style input[type=checkbox]:nth-child(
   content: "\f033";
 }
 html[data-layout=large] #tools_editor_txt #style input[type=checkbox]:nth-child(3)::before {
-  content: "\f0cc";
+  content: "\f0cd";
 }
 html[data-layout=large] #tools_editor_txt #style input[type=checkbox]:nth-child(4)::before {
-  content: "\f0cd";
+  content: "\f0cc";
 }
 html[data-layout=large] #tools_editor_txt #font {
   /* Input color — base */
@@ -1090,6 +1090,18 @@ html[data-layout=large] #tools_editor_txt #custom {
 html[data-layout=large] #tools_editor_txt #custom .field_number:first-child {
   grid-column-start: 1;
   grid-column-end: 3;
+}
+html[data-layout=large] #tools_editor_txt .inactif img {
+  opacity: 0.3;
+}
+html[data-layout=large] #tools_editor_txt .inactif input, html[data-layout=large] #tools_editor_txt .inactif input::before {
+  color: grey !important;
+}
+html[data-layout=large] #tools_editor_txt .inactif input[type=radio]:checked {
+  background-color: #363535 !important;
+}
+html[data-layout=large] #tools_editor_txt .inactif button i {
+  color: grey;
 }
 html[data-layout=large] #tools_editor .editor_containers {
   background-color: #282828;

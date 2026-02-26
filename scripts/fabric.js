@@ -240,6 +240,8 @@
 
         canvas.on('mouse:up', () => {
             if (!activeObj) return;
+            var isSelect = selectionIsActive(watchCursor(activeObj));
+            toggleBlockOnlyStyles(isSelect);
             synchronizeStyles(activeObj); // Association des styles  
         })
 
@@ -263,7 +265,8 @@
 
         canvas.on('text:selection:changed', (e) => {
             //console.log('Selection changed', e.target.selectionStart, e.target.selectionEnd);
-            //console.log(watchCursor(activeObj))
+            var isSelect = selectionIsActive(watchCursor(activeObj));
+            toggleBlockOnlyStyles(isSelect);
         });
 
     }
@@ -323,10 +326,7 @@
         }
     }
 
-    function setDefaultStyleOnChar(textbox, fontStyle) {
-        if (!textbox || !textbox.text) return;
-
-        // Fabric.js gère les styles par ligne
+    function displayStyleOnEachLine(textbox, fontStyle) {
         textbox._textLines.forEach((line, lineIndex) => {
             textbox.styles[lineIndex] = {};
             for (let charIndex = 0; charIndex < line.length; charIndex++) {
@@ -335,6 +335,20 @@
                 };
             }
         });
+    }
+
+    function setDefaultStyleOnChar(textbox, fontStyle) {
+        if (!textbox || !textbox.text) return;
+
+        if(watchCursor(activeObj)) {
+            if(!selectionIsActive(watchCursor(activeObj))) { // Application sur une sélection active
+                // Fabric.js gère les styles par ligne
+                displayStyleOnEachLine(textbox, fontStyle);
+            }
+        } else {
+            // Fabric.js gère les styles par ligne
+            displayStyleOnEachLine(textbox, fontStyle);
+        }
     }
 
     function watchCursor(obj) {
@@ -352,7 +366,7 @@
 
     function setStyle(attribute, value) {
         if (!activeObj) return;
-        resetCharStyles(); // Reset des styles par caractère
+        resetCharStyles(attribute); // Reset des styles par caractère
         activeObj.set(attribute, value); // Application du style global
         activeObj.dirty = true;
         activeCanvas.requestRenderAll();
@@ -373,9 +387,22 @@
         activeCanvas.requestRenderAll();
     }
 
-    function resetCharStyles() {
+    function resetCharStyles(attribute) {
         if (!activeObj) return;
-        activeObj.styles = {};
+
+        if(attribute) {
+            for (const key in activeObj.styles) {
+                if (!Object.hasOwn(activeObj.styles, key)) continue;
+                const letters = activeObj.styles[key];
+                for (const index in letters) {
+                    if (!Object.hasOwn(letters, index)) continue;
+                    const letter = letters[index];
+                    delete letter[attribute];
+                }          
+            }
+        }
+
+        //activeObj.styles = {};
     }
 
     function forEachChar(activeObj, callback) {
@@ -445,44 +472,34 @@
         canvas.renderAll();
     }
 
-    /// TEST ZOOM
-    const ZOOM_MIN = 0.3;
-    const ZOOM_MAX = 4;
-    const ZOOM_STEP = 1.15;
-
-
-    function zoomToCenter(newZoom) {
-        const targetCanvas = getCurrentCanva();
-        const center = targetCanvas.getCenter();
-
-        targetCanvas.zoomToPoint(
-            new fabric.Point(center.left, center.top),
-            newZoom
-        );
-
-        targetCanvas.requestRenderAll();
+    function controlSelect(activeObj, attributes, value) {
+        if(selectionIsActive(watchCursor(activeObj))) { // Application sur une sélection active
+            var currentSelect = watchCursor(activeObj);
+            setStyleOnSelection(attributes, value, currentSelect)
+        } else { // Application sur l'objet global
+            setStyle(attributes, value);
+        }
     }
 
-    function zoomIn() {
-        const targetCanvas = getCurrentCanva();
-        let zoom = targetCanvas.getZoom();
-        zoom = Math.min(zoom * ZOOM_STEP, ZOOM_MAX);
-        zoomToCenter(zoom);
-    }
+    function toggleBlockOnlyStyles(selectionIsActive) {
+        const blocks = document.querySelectorAll('.blocOnly');
 
-    function zoomOut() {
-        const targetCanvas = getCurrentCanva();
-        let zoom = targetCanvas.getZoom();
-        zoom = Math.max(zoom / ZOOM_STEP, ZOOM_MIN);
-        zoomToCenter(zoom);
-    }
+        blocks.forEach(block => {
+            // Ajout / suppression de la classe
+            block.classList.toggle('inactif', selectionIsActive);
 
-    function resetZoom() {
-        const targetCanvas = getCurrentCanva();
-        targetCanvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
-        targetCanvas.setZoom(1);
-        targetCanvas.requestRenderAll();
-    }
+            // Récupération des controls
+            const controls = block.querySelectorAll('input, button');
 
+            controls.forEach(control => {
+                control.disabled = selectionIsActive;
+
+                // readOnly uniquement pour les inputs
+                if (control.tagName === 'INPUT') {
+                    control.readOnly = selectionIsActive;
+                }
+            });
+        });
+    }
 
 
