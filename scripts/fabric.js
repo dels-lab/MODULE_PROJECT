@@ -36,7 +36,6 @@
 
     // Cible l'éditeur graphique
     var editor = document.getElementById('editor');
-    var popovers = document.getElementById('popovers');
     var editor_controls = document.getElementsByClassName('editor-controls');
     var text_editor = document.getElementsByClassName('text_editor');
 
@@ -220,7 +219,6 @@
 
         // Actions 
         canvas.on('selection:created', (e) => {
-            console.log('A')
             const obj = e.selected?.[0];
             activeCanvas = canvas;
             activeObj = obj;
@@ -229,7 +227,6 @@
         });
 
         canvas.on('selection:updated', (e) => {
-            console.log('B')
             const obj = e.selected?.[0];
             activeCanvas = canvas;
             activeObj = obj;
@@ -237,13 +234,11 @@
         });
 
         canvas.on('selection:cleared', () => {
-            console.log('C')
             activeObj = null;
             displayEditor(null);
         });
 
         canvas.on('mouse:up', () => {
-            console.log('D')
             if (!activeObj) return;
             var isSelect = selectionIsActive(watchCursor(activeObj));
             toggleBlockOnlyStyles(isSelect);
@@ -272,12 +267,6 @@
             //console.log('Selection changed', e.target.selectionStart, e.target.selectionEnd);
             var isSelect = selectionIsActive(watchCursor(activeObj));
             toggleBlockOnlyStyles(isSelect);
-
-            if (DEVICE.layout === "compact") {
-                // Ajustement du grid
-                editor.classList.add('onEditTextEditing');
-                popovers.classList.add('onEditTextEditing');
-            }
         });
 
     }
@@ -300,7 +289,7 @@
             });
 
             if (DEVICE.layout === "compact")  {
-                module.style.gridTemplateRows = "60px 40px 60px calc(100dvh - 160px)";
+                module.style.gridTemplateRows = "60px 40px calc(100dvh - 160px) 60px";
                 tools.style.display = "flex";
             }
         } else {
@@ -331,7 +320,7 @@
             }
 
             if (DEVICE.layout === "compact")  {
-                module.style.gridTemplateRows = "60px 40px 0px calc(100dvh - 100px)";
+                module.style.gridTemplateRows = "60px 40px calc(100dvh - 100px) 0";
                 tools.style.display = "none"
             }
         }
