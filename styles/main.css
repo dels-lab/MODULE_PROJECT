@@ -1,0 +1,1201 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "Oswald";
+  src: url("./../assets/fonts/Oswald/Oswald-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Pacifico";
+  src: url("./../assets/fonts/Pacifico/Pacifico-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+button, select, input[type=range], input[type=checkbox], input[type=radio], input[type=number], input {
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+button::-webkit-slider-thumb, select::-webkit-slider-thumb, input[type=range]::-webkit-slider-thumb, input[type=checkbox]::-webkit-slider-thumb, input[type=radio]::-webkit-slider-thumb, input[type=number]::-webkit-slider-thumb, input::-webkit-slider-thumb {
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+button, input, textarea, select {
+  touch-action: manipulation;
+}
+
+#configFormat {
+  display: flex;
+  position: fixed;
+  left: 0;
+  z-index: 10;
+  background-color: #1a1a1a;
+  padding: 1rem 0;
+  width: 250px;
+  bottom: 5vh;
+  bottom: 5dvh;
+  flex-direction: column;
+  align-items: center;
+}
+#configFormat * {
+  color: white;
+  font-size: 10px;
+}
+#configFormat input {
+  background: none;
+  border: none;
+  width: 80px;
+}
+#configFormat div {
+  width: 90%;
+}
+
+#module {
+  box-sizing: border-box;
+  display: grid !important;
+  font-family: Arial, Helvetica, sans-serif;
+  grid-template-rows: 60px 40px 60px calc(100vh - 160px);
+  grid-template-columns: 100dvw;
+  grid-template-areas: "header" "footer" "tools" "editor";
+  max-height: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+#module_header {
+  align-items: center;
+  background-color: #1f1f1f;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  grid-area: header;
+  justify-content: space-between;
+  padding: 0 2.5%;
+}
+#module_header h1 {
+  font-size: 0.8rem;
+  margin: 0;
+  padding: 0;
+}
+#module_header span {
+  font-size: 0.7rem;
+  color: #04b6cd;
+}
+#module_footer {
+  background-color: #04b6cd;
+  display: flex;
+  justify-content: center;
+  grid-area: footer;
+  height: 40px;
+}
+#module_footer button {
+  background-color: #04b6cd;
+  border: none;
+  color: white;
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  border-radius: 25px;
+}
+#module_footer button i {
+  font-size: 1rem;
+}
+#module_footer #tools_canva {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 5%;
+  width: 100%;
+}
+#module_footer #tools_canva .btn_container {
+  display: flex;
+  flex-direction: row;
+}
+#module_footer #tools_canva .btn_container div {
+  align-items: center;
+  background: none;
+  border-radius: 15%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 30px;
+  width: 30px;
+}
+#module_footer #tools_canva .btn_container:first-child div {
+  margin-right: 0.5rem;
+}
+#module_footer #tools_canva .btn_container:last-child div {
+  margin-left: 0.5rem;
+}
+
+#tools, #editor-layers, #editor-options {
+  grid-area: tools;
+}
+
+#editor {
+  background-color: #292a2a;
+  grid-area: editor;
+  display: grid;
+  grid-template-rows: 40px 1fr auto;
+  grid-template-areas: "layers" "options" "canvas";
+}
+#editor-options, #editor-layers {
+  background-color: white;
+}
+#editor-options button, #editor-layers button {
+  background: none;
+  border: none;
+}
+#editor-options {
+  grid-area: options;
+  position: relative;
+  z-index: 3;
+}
+#editor-options div {
+  height: 100%;
+}
+#editor-options #controlText {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+#editor-layers {
+  grid-area: layers;
+  position: fixed;
+  width: 100%;
+}
+#editor-layers #control_object {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 40px;
+}
+#editor-canvas {
+  display: flex;
+  grid-area: canvas;
+  justify-content: center;
+  overflow: hidden;
+}
+#editor-canvas div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#editor-canvas #canvas-recto, #editor-canvas #canvas-verso {
+  position: initial !important;
+}
+#editor .hidden {
+  display: none !important;
+}
+#editor.onEdit {
+  grid-template-rows: 40px 60px calc(100vh - 200px);
+}
+
+#tools_controls {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+}
+#tools_controls button {
+  background: none;
+  border: none;
+  width: 50%;
+}
+#tools_controls button:nth-child(1)::after {
+  content: "Ajouter texte";
+}
+#tools_controls button:nth-child(2)::after {
+  content: "Ajouter image";
+}
+#tools_controls button::after {
+  margin-left: 0.5rem;
+}
+#tools_colors {
+  width: 172px;
+  height: 155px;
+  padding: 10px;
+  background-color: #202020;
+  box-shadow: 0px 30px 28px -20px #111;
+  overflow: hidden;
+}
+#tools_editor {
+  display: none;
+}
+#tools .tools_editor_header {
+  align-items: center;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+#tools .tools_editor_header h2 {
+  font-size: 0.8rem;
+}
+#tools .tools_editor_header input[type=checkbox] {
+  background: none;
+  border: none;
+  position: absolute;
+  height: 2rem;
+  width: 190px;
+  z-index: 3;
+}
+
+#switcherCanva_container .switcherCanva-container {
+  height: 100%;
+  display: flex;
+}
+#switcherCanva_container .knob,
+#switcherCanva_container .btn-bg {
+  position: absolute;
+  inset: 0;
+}
+#switcherCanva_container .btn {
+  position: relative;
+  top: 50%;
+  width: 90px;
+  height: 36px;
+  overflow: hidden;
+}
+#switcherCanva_container .btn.btn-pill {
+  border-radius: 100px;
+}
+#switcherCanva_container .btn.btn-pill > .btn-bg {
+  border-radius: 100px;
+}
+#switcherCanva_container .btn.btn-rect {
+  border-radius: 2px;
+}
+#switcherCanva_container .checkbox {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  z-index: 3;
+}
+#switcherCanva_container .knob {
+  z-index: 2;
+}
+#switcherCanva_container .btn-bg {
+  width: 100%;
+  background-color: #ebf7fc;
+  transition: 0.3s ease all;
+  z-index: 1;
+}
+#switcherCanva_container #switcherCanva {
+  overflow: visible;
+}
+#switcherCanva_container #switcherCanva .knob {
+  perspective: 70px;
+}
+#switcherCanva_container #switcherCanva .knob:before, #switcherCanva_container #switcherCanva .knob:after,
+#switcherCanva_container #switcherCanva .knob span {
+  position: absolute;
+  top: 4px;
+  border-radius: 2px;
+}
+#switcherCanva_container #switcherCanva .knob:before, #switcherCanva_container #switcherCanva .knob:after {
+  width: 30px;
+  height: 10px;
+  color: #4e4e4e;
+  font-size: 8px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1;
+  padding: 9px 4px;
+}
+#switcherCanva_container #switcherCanva .knob:before {
+  content: "RECTO";
+  left: 4px;
+}
+#switcherCanva_container #switcherCanva .knob:after {
+  content: "VERSO";
+  right: 4px;
+}
+#switcherCanva_container #switcherCanva .knob span {
+  right: 4px;
+  width: 41px;
+  height: 28px;
+  background-color: #e4af13;
+  transform: rotateY(0);
+  transform-origin: 0% 50%;
+  transition: 0.6s ease all;
+  z-index: 1;
+}
+#switcherCanva_container #switcherCanva .checkbox:checked + .knob span {
+  transform: rotateY(-180deg);
+  background-color: #fa5b9e;
+}
+#switcherCanva_container #switcherCanva .checkbox:checked ~ .btn-bg {
+  background-color: #fcebeb;
+}
+
+#popovers {
+  position: fixed;
+  top: 200px;
+  box-shadow: 0px 15px -5px #4e4e4e;
+  width: 100dvw;
+  z-index: 3;
+}
+#popovers label {
+  color: white;
+  font-size: 12px;
+  text-align: center;
+}
+#popovers .popover {
+  background-color: #1f1f1f;
+  padding: 0.5rem;
+}
+#popovers .popover button {
+  background-color: #282828;
+  border: 1px solid #323232;
+  border-radius: 0.5rem;
+  color: white;
+}
+#popovers .popover.hidden {
+  visibility: hidden;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+#popovers #option_police .popover_container {
+  display: grid;
+  grid-template-columns: 20% 75%;
+  grid-gap: 5%;
+}
+#popovers #option_police .popover_container #availableFont, #popovers #option_police .popover_container #selectedFont {
+  display: flex;
+  flex-direction: row;
+}
+#popovers #option_police .popover_container #availableFont button, #popovers #option_police .popover_container #selectedFont button {
+  margin-right: 10px;
+  min-width: 70px;
+  max-width: 70px;
+  width: 70px;
+  height: 40px;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  text-align: center;
+  line-height: 40px; /* Pour aligner le texte verticalement */
+}
+#popovers #option_police .popover_container #selectedFont button {
+  background-color: #e4af13;
+  border: none;
+  border: 1px solid #e4af13;
+  color: white;
+}
+#popovers #option_police .popover_container #availableFont {
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+#popovers #option_taille .popover_container {
+  display: grid;
+  grid-template-columns: 75% 15%;
+  grid-gap: 5%;
+  place-content: center;
+}
+#popovers #option_taille .popover_container #inputSize {
+  border: none;
+}
+#popovers #option_taille input[type=range] {
+  background-color: #282828;
+  border: 1px solid #323232;
+  border-radius: 2rem;
+  height: 2rem;
+  outline: none;
+}
+#popovers #option_taille input[type=range]::-webkit-slider-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: #e4af13;
+  border: none;
+}
+#popovers #option_style .popover_container {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: repeat(2, 40px);
+  grid-gap: 10px;
+  place-items: center;
+}
+#popovers #option_style .popover_container #configText {
+  width: 100%;
+  background: #282828;
+  height: 40px;
+  border-radius: 10px;
+  place-content: center;
+}
+#popovers #option_style .popover_container #configText .hidden {
+  display: none;
+}
+#popovers #option_style .popover_container #configText #custom_linespacing, #popovers #option_style .popover_container #configText #custom_charspacing {
+  background: none;
+  border: none;
+  grid-template-rows: 30px;
+  grid-template-columns: 40px 1fr 40px;
+  margin: auto;
+  width: 95%;
+}
+#popovers #option_style .popover_container #configText #custom_linespacing img, #popovers #option_style .popover_container #configText #custom_charspacing img {
+  display: none;
+}
+#popovers #option_style .popover_container #configText #custom_linespacing input, #popovers #option_style .popover_container #configText #custom_charspacing input {
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+#popovers #option_style .popover_container #configText #custom_linespacing button, #popovers #option_style .popover_container #configText #custom_charspacing button {
+  grid-row-start: 1;
+}
+#popovers #option_style .popover_container #configText #custom_linespacing button[name=up], #popovers #option_style .popover_container #configText #custom_charspacing button[name=up] {
+  grid-column-start: 3;
+  grid-column-end: 4;
+}
+#popovers #option_style .popover_container #configText #custom_linespacing button[name=down], #popovers #option_style .popover_container #configText #custom_charspacing button[name=down] {
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+#popovers #option_style .popover_container #styleContainer {
+  border: 1px solid #323232;
+  border-radius: 5px;
+  margin: 5px;
+  width: 100%;
+}
+#popovers #option_style .popover_container #styleContainer img {
+  display: none;
+}
+#popovers #option_style .popover_container #styleContainer .field {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 40px;
+  grid-gap: 5px;
+  margin: 0 5px;
+  place-items: center;
+}
+#popovers #option_style .popover_container #styleContainer input[type=checkbox] {
+  margin: 5px 0;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+}
+#popovers #option_style .popover_container #styleContainer input[type=checkbox]::before {
+  content: " ";
+  border-radius: 2.5px;
+  color: white;
+  display: inline-block;
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  line-height: 30px;
+  padding: 0;
+  text-align: center;
+  margin: 0;
+  width: 30px;
+}
+#popovers #option_style .popover_container #styleContainer input[type=checkbox]:checked {
+  background-color: #fa5b9e;
+  border-radius: 5px;
+}
+#popovers #option_style .popover_container #styleContainer input[type=checkbox]:nth-child(1)::before {
+  content: "\f032";
+}
+#popovers #option_style .popover_container #styleContainer input[type=checkbox]:nth-child(2)::before {
+  content: "\f033";
+}
+#popovers #option_style .popover_container #styleContainer input[type=checkbox]:nth-child(3)::before {
+  content: "\f0cd";
+}
+#popovers #option_style .popover_container #styleContainer input[type=checkbox]:nth-child(4)::before {
+  content: "\f0cc";
+}
+#popovers #option_style .popover_container #selectContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  place-items: center;
+  width: 100%;
+}
+#popovers #option_style .popover_container #selectContainer div {
+  background: none;
+  border: 1px solid #323232;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 40px;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: white;
+  text-align: center;
+}
+#popovers #option_style .popover_container #selectContainer div:first-child {
+  place-content: center;
+}
+#popovers #option_style .popover_container #selectContainer div:first-child input {
+  color: rgba(31, 31, 31, 0);
+  padding-left: 0;
+}
+#popovers #option_style .popover_container #selectContainer div img, #popovers #option_style .popover_container #selectContainer div i {
+  margin: 2.5px;
+  position: absolute;
+  z-index: 0;
+}
+#popovers #option_style .popover_container #selectContainer div input {
+  background: none;
+  border: none;
+  color: white;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  position: relative;
+  text-align: center;
+  z-index: 1;
+  height: 100%;
+  padding-left: 25px;
+}
+#popovers #option_style .popover_container #selectContainer div input:focus, #popovers #option_style .popover_container #selectContainer div input:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+#popovers #option_style .popover_container #alignement img {
+  display: none;
+}
+#popovers #option_style .popover_container #alignement .field {
+  grid-column-start: 2;
+  grid-column-end: 4;
+  display: grid;
+  grid-gap: 0.5rem;
+  grid-template-columns: repeat(4, 1fr);
+  place-items: center;
+  width: 100%;
+}
+#popovers #option_style .popover_container #alignement input[type=radio] {
+  margin: 0;
+  padding: 0;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#popovers #option_style .popover_container #alignement input[type=radio]:nth-child(1)::before {
+  content: "\f036";
+}
+#popovers #option_style .popover_container #alignement input[type=radio]:nth-child(2)::before {
+  content: "\f037";
+}
+#popovers #option_style .popover_container #alignement input[type=radio]:nth-child(3)::before {
+  content: "\f038";
+}
+#popovers #option_style .popover_container #alignement input[type=radio]:nth-child(4)::before {
+  content: "\f039";
+}
+#popovers #option_style .popover_container #alignement input[type=radio]::before {
+  content: " ";
+  border-radius: 2.5px;
+  color: white;
+  display: inline-block;
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  line-height: 20px;
+  padding: 0;
+  text-align: center;
+  margin: 0;
+  width: 20px;
+}
+#popovers #option_style .popover_container #alignement input[type=radio]:checked {
+  background-color: #fa5b9e;
+  padding: 0.25rem;
+  border-radius: 5px;
+}
+#popovers #option_style .popover_container .hidden {
+  display: none;
+}
+
+#colorpicker_color #switcher_colorPickerType {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1rem;
+  background-color: #282828;
+  border: 1px solid #323232;
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+  margin-bottom: 10px;
+}
+#colorpicker_color #switcher_colorPickerType input[type=radio] {
+  text-align: center;
+  line-height: 30px;
+  color: white;
+}
+#colorpicker_color #switcher_colorPickerType input[type=radio]:checked {
+  background-color: rgba(255, 255, 255, 0.2117647059);
+  border-radius: 5px;
+}
+#colorpicker_color #switcher_colorPickerType input[type=radio]:first-child::before {
+  content: "Palette";
+}
+#colorpicker_color #switcher_colorPickerType input[type=radio]:last-child::before {
+  content: "Nuancier";
+}
+#colorpicker_color #switcher_colorPickerType input[type=radio]:first-child::before, #colorpicker_color #switcher_colorPickerType input[type=radio]:nth-child(2)::before, #colorpicker_color #switcher_colorPickerType input[type=radio]:last-child::before {
+  font-size: 10px;
+}
+#colorpicker_color #switcher_colorPickerType label {
+  position: relative;
+  top: -1.9rem;
+}
+#colorpicker_color #container_palette {
+  overflow-X: scroll;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #202020;
+}
+#colorpicker_color #container_palette #container_anchor {
+  display: grid;
+  position: fixed;
+  width: 95vw;
+  text-align: center;
+}
+#colorpicker_color #container_palette #container_anchor a {
+  color: #323232;
+  text-transform: capitalize;
+  text-decoration: none;
+  font-size: 14px;
+}
+#colorpicker_color #container_palette #container_anchor .active {
+  color: white;
+}
+#colorpicker_color #container_palette #grid_palette {
+  display: grid;
+  grid-gap: 10px;
+  justify-items: center;
+  height: 60px;
+  place-content: "space-evenly";
+  overflow-x: auto;
+  scroll-behavior: smooth; /* scroll fluide */
+  -webkit-overflow-scrolling: touch; /* smooth iOS */
+}
+#colorpicker_color #container_palette #grid_palette input[type=radio] {
+  border-radius: 20px;
+  height: 40px;
+  width: 40px;
+  min-width: 40px;
+}
+#colorpicker_color #colorpicker {
+  background-color: #202020;
+  height: 130px;
+}
+#colorpicker_color #colorpicker #subcontainer_hsl input[type=range] {
+  margin: 0;
+  background: linear-gradient(to right, red, yellow, lime, cyan, blue, magenta, red);
+  outline: none;
+  width: 100%;
+}
+#colorpicker_color #colorpicker #subcontainer_hsl input[type=range]::-webkit-slider-thumb {
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+}
+#colorpicker_color #colorpicker #subcontainer_rvb {
+  background-color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+#colorpicker_color #colorpicker #subcontainer_rvb label {
+  font-size: 16px;
+}
+#colorpicker_color #colorpicker #subcontainer_rvb input {
+  -webkit-appearance: textfield;
+          appearance: textfield;
+  -moz-appearance: textfield;
+  background: none;
+  border: none;
+  color: white;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  font-size: 16px;
+  text-align: center;
+}
+#colorpicker_color #colorpicker #subcontainer_hex input {
+  background-color: black;
+  border: none;
+  color: white;
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  line-height: 30px;
+  text-transform: uppercase;
+}
+#colorpicker_color #colorpicker #subcontainer_nuancier {
+  background-color: black;
+  width: 100%;
+  height: 55px;
+}
+#colorpicker_color #colorpicker #subcontainer_nuancier #colorpicker_sl {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: hsl(0, 100%, 50%);
+  cursor: crosshair;
+  /* Saturation */
+  /* Lightness */
+}
+#colorpicker_color #colorpicker #subcontainer_nuancier #colorpicker_sl .white-layer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, white, transparent);
+}
+#colorpicker_color #colorpicker #subcontainer_nuancier #colorpicker_sl .black-layer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, black, transparent);
+}
+#colorpicker_color #colorpicker #subcontainer_nuancier #colorpicker_sl #cursorSL {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 2px solid white;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+#colorpicker_color div > input[type=radio] {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+#colorpicker_color .hidden {
+  visibility: hidden;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.field_number {
+  background-color: #1f1f1f;
+  border: 2px solid #1f1f1f;
+  border-radius: 0.2rem;
+  display: grid;
+  grid-template-columns: 25px minmax(0, 55fr) minmax(0, 20fr);
+  grid-template-rows: 1rem 1rem;
+  place-content: center;
+  min-height: 35px;
+}
+.field_number * {
+  color: white;
+  background: none;
+  border: none;
+  outline: none;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+.field_number img {
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+.field_number input {
+  -webkit-appearance: textfield;
+          appearance: textfield;
+  -moz-appearance: textfield;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+.field_number button {
+  font-size: 0.8rem;
+}
+
+html[data-layout=large] #module {
+  grid-template-columns: 250px calc(100% - 250px);
+  grid-template-rows: 100px calc(100dvh - 140px) 40px;
+  grid-template-areas: "header header" "tools editor" "footer footer";
+}
+html[data-layout=large] #module_header {
+  align-items: center;
+  background-color: #1f1f1f;
+  display: flex;
+  flex-direction: row;
+  grid-area: header;
+  justify-content: space-between;
+  padding: 0 2.5%;
+}
+html[data-layout=large] #module_header h1 {
+  color: white;
+  font-size: 1.2rem;
+  margin: 0;
+  padding: 0;
+}
+html[data-layout=large] #module_header span {
+  color: #04b6cd;
+}
+html[data-layout=large] #module_footer {
+  background-color: #1f1f1f !important;
+  display: flex;
+  flex-direction: row-reverse;
+  height: auto;
+}
+html[data-layout=large] #module_footer #tools_canva {
+  background-color: #292a2a;
+  padding: 0;
+  justify-content: center;
+  width: calc(100% - 250px);
+}
+html[data-layout=large] #module_footer #tools_canva .btn_container {
+  min-width: 18.5vw;
+}
+html[data-layout=large] #module_footer #tools_canva .btn_container:first-child {
+  justify-content: start;
+}
+html[data-layout=large] #module_footer #tools_canva .btn_container:first-child div {
+  margin-right: 1rem;
+}
+html[data-layout=large] #module_footer #tools_canva .btn_container:last-child {
+  justify-content: end;
+}
+html[data-layout=large] #module_footer #tools_canva .btn_container:last-child div {
+  margin-left: 1rem;
+}
+html[data-layout=large] #module_footer button {
+  position: initial;
+  height: auto;
+  width: auto;
+  border-radius: 0;
+  width: 250px;
+}
+html[data-layout=large] #module_footer button::after {
+  content: "Enregistrer";
+  margin-left: 1rem;
+}
+html[data-layout=large] #editor {
+  grid-area: editor;
+  display: grid;
+  grid-template-columns: 75% 25%;
+  grid-template-rows: 50px 1fr;
+  grid-template-areas: "options layers" "canvas canvas";
+}
+html[data-layout=large] #editor-layers {
+  position: unset;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+html[data-layout=large] #editor-layers #control_object {
+  background-color: white;
+  border-radius: 0 0 10px 10px;
+  grid-template-rows: 2rem;
+  width: 20vw;
+}
+html[data-layout=large] #editor-layers, html[data-layout=large] #editor-options {
+  background: none;
+}
+html[data-layout=large] #editor #control_styles {
+  display: none;
+}
+html[data-layout=large] #editor .editor-controls {
+  align-items: center;
+  display: flex;
+  height: 2rem;
+  justify-content: center;
+  transform-origin: top center;
+  backface-visibility: hidden;
+  position: initial;
+  z-index: 5;
+}
+html[data-layout=large] #editor .hidden {
+  display: none;
+}
+html[data-layout=large] #editor.onEdit {
+  grid-template-rows: 50px 1fr;
+}
+html[data-layout=large] #tools {
+  align-items: center;
+  background-color: #1f1f1f;
+  display: flex;
+  flex-direction: column;
+  justify-content: initial;
+}
+html[data-layout=large] #tools_controls {
+  height: auto;
+  justify-content: space-between;
+  margin: 1rem 0;
+  width: 90%;
+}
+html[data-layout=large] #tools_controls button {
+  background-color: #1f1f1f;
+  border-bottom: 2px solid #1f1f1f;
+  color: white;
+  padding: 0 0 0.5rem 0;
+  width: 40%;
+}
+html[data-layout=large] #tools_controls button:hover {
+  border-bottom: 2px solid white;
+}
+html[data-layout=large] #tools_controls button::after {
+  display: flex;
+  font-size: 10px;
+  flex-direction: column-reverse;
+  line-height: 1.5rem;
+  margin-left: 0;
+}
+html[data-layout=large] #tools_editor {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+html[data-layout=large] #tools_editor_txt img {
+  place-self: center;
+}
+html[data-layout=large] #tools_editor_txt #font, html[data-layout=large] #tools_editor_txt #alignement, html[data-layout=large] #tools_editor_txt #style {
+  background-color: #1f1f1f;
+  border: 2px solid #1f1f1f;
+  border-radius: 0.2rem;
+  display: grid;
+  grid-template-columns: 25px 55fr 20fr;
+  grid-gap: 5%;
+  place-content: center;
+  min-height: 35px;
+  margin: 0.5rem 0;
+}
+html[data-layout=large] #tools_editor_txt #font .field, html[data-layout=large] #tools_editor_txt #alignement .field, html[data-layout=large] #tools_editor_txt #style .field {
+  width: 100%;
+}
+html[data-layout=large] #tools_editor_txt #alignement .field, html[data-layout=large] #tools_editor_txt #style .field {
+  grid-column-start: 2;
+  grid-column-end: 4;
+  display: grid;
+  grid-gap: 0.5rem;
+  grid-template-columns: repeat(4, 1fr);
+  place-items: center;
+}
+html[data-layout=large] #tools_editor_txt #alignement input[type=radio], html[data-layout=large] #tools_editor_txt #alignement input[type=checkbox], html[data-layout=large] #tools_editor_txt #style input[type=radio], html[data-layout=large] #tools_editor_txt #style input[type=checkbox] {
+  margin: 0;
+  padding: 0;
+}
+html[data-layout=large] #tools_editor_txt #alignement input[type=radio]::before, html[data-layout=large] #tools_editor_txt #alignement input[type=checkbox]::before, html[data-layout=large] #tools_editor_txt #style input[type=radio]::before, html[data-layout=large] #tools_editor_txt #style input[type=checkbox]::before {
+  content: " ";
+  border-radius: 2.5px;
+  color: white;
+  display: inline-block;
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  line-height: 20px;
+  padding: 0;
+  text-align: center;
+  margin: 0;
+  width: 20px;
+}
+html[data-layout=large] #tools_editor_txt #alignement input[type=radio]:checked, html[data-layout=large] #tools_editor_txt #alignement input[type=checkbox]:checked, html[data-layout=large] #tools_editor_txt #style input[type=radio]:checked, html[data-layout=large] #tools_editor_txt #style input[type=checkbox]:checked {
+  background-color: #fa5b9e;
+  padding: 0.25rem;
+  border-radius: 5px;
+}
+html[data-layout=large] #tools_editor_txt #alignement input[type=radio]:nth-child(1)::before {
+  content: "\f036";
+}
+html[data-layout=large] #tools_editor_txt #alignement input[type=radio]:nth-child(2)::before {
+  content: "\f037";
+}
+html[data-layout=large] #tools_editor_txt #alignement input[type=radio]:nth-child(3)::before {
+  content: "\f038";
+}
+html[data-layout=large] #tools_editor_txt #alignement input[type=radio]:nth-child(4)::before {
+  content: "\f039";
+}
+html[data-layout=large] #tools_editor_txt #style input[type=checkbox]:nth-child(1)::before {
+  content: "\f032";
+}
+html[data-layout=large] #tools_editor_txt #style input[type=checkbox]:nth-child(2)::before {
+  content: "\f033";
+}
+html[data-layout=large] #tools_editor_txt #style input[type=checkbox]:nth-child(3)::before {
+  content: "\f0cd";
+}
+html[data-layout=large] #tools_editor_txt #style input[type=checkbox]:nth-child(4)::before {
+  content: "\f0cc";
+}
+html[data-layout=large] #tools_editor_txt #font {
+  /* Input color — base */
+}
+html[data-layout=large] #tools_editor_txt #font #txt_font {
+  background: #1f1f1f;
+  border: none;
+  color: white;
+  padding: 0.5rem 0;
+  width: 100%;
+}
+html[data-layout=large] #tools_editor_txt #font #container_colorpicker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border-left: 1px solid #323232;
+}
+html[data-layout=large] #tools_editor_txt #font #txt_color {
+  width: 1rem;
+  height: 1rem;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.5098039216);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.503);
+  border-radius: 50%;
+  background-color: #e4af13;
+  /* Chrome / Edge / Safari */
+  /* Firefox */
+  /* Focus visible (accessibilité) */
+}
+html[data-layout=large] #tools_editor_txt #font #txt_color::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+html[data-layout=large] #tools_editor_txt #font #txt_color::-webkit-color-swatch {
+  border: none;
+  border-radius: 50%;
+}
+html[data-layout=large] #tools_editor_txt #font #txt_color::-moz-color-swatch {
+  border: none;
+  border-radius: 50%;
+}
+html[data-layout=large] #tools_editor_txt #font #txt_color:focus-visible {
+  outline: 2px solid #4d9fff;
+  outline-offset: 2px;
+}
+html[data-layout=large] #tools_editor_txt #custom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 0.25rem;
+}
+html[data-layout=large] #tools_editor_txt #custom .field_number:first-child {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+html[data-layout=large] #tools_editor_txt .inactif img {
+  opacity: 0.3;
+}
+html[data-layout=large] #tools_editor_txt .inactif input, html[data-layout=large] #tools_editor_txt .inactif input::before {
+  color: grey !important;
+}
+html[data-layout=large] #tools_editor_txt .inactif input[type=radio]:checked {
+  background-color: #363535 !important;
+}
+html[data-layout=large] #tools_editor_txt .inactif button i {
+  color: grey;
+}
+html[data-layout=large] #tools_editor .editor_containers {
+  background-color: #282828;
+  border: 1px solid #323232;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+html[data-layout=large] #tools_editor .editor_containers.open {
+  height: auto;
+  overflow: hidden;
+}
+html[data-layout=large] #tools_editor .editor_containers.close {
+  height: 2rem;
+  overflow: hidden;
+}
+html[data-layout=large] #tools_editor .hidden {
+  visibility: hidden !important;
+  position: absolute !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+html[data-layout=large] #colors_containers {
+  font-size: 12px;
+}
+html[data-layout=large] #colors_containers .radio_option label {
+  top: -1.5rem;
+}
+html[data-layout=large] #popovers {
+  display: none;
+}
+html[data-layout=large] .field_number {
+  grid-template-rows: 0.6rem 0.6rem;
+}
+html[data-layout=large] .field_number button {
+  font-size: 0.5rem;
+}
+html[data-layout=large] #colorpicker_color #switcher_colorPickerType {
+  margin-bottom: 5px;
+}
+html[data-layout=large] #colorpicker_color #container_palette {
+  overflow-X: hidden;
+  overflow-y: scroll;
+  padding: 3px;
+}
+html[data-layout=large] #colorpicker_color #container_palette #container_anchor {
+  display: none;
+}
+html[data-layout=large] #colorpicker_color #container_palette #grid_palette {
+  display: grid;
+  grid-template-columns: repeat(9, 13px);
+  grid-gap: 6px;
+  height: 115px;
+  margin-top: 0;
+}
+html[data-layout=large] #colorpicker_color #container_palette #grid_palette input[type=radio] {
+  height: 13px;
+  width: 13px;
+  min-width: 13px;
+}
+html[data-layout=large] #colorpicker #subcontainer_hsl input[type=range] {
+  height: 10px;
+  /* Firefox */
+}
+html[data-layout=large] #colorpicker #subcontainer_hsl input[type=range]::-webkit-slider-thumb {
+  width: 5px;
+  height: 5px;
+}
+html[data-layout=large] #colorpicker #subcontainer_hsl input[type=range]::-moz-range-track {
+  height: 10px;
+}
+html[data-layout=large] #colorpicker #subcontainer_hsl input[type=range]::-moz-range-thumb {
+  width: 5px;
+  height: 5px;
+  background: white;
+}
+html[data-layout=large] #colorpicker #subcontainer_rvb {
+  justify-content: space-between;
+}
+html[data-layout=large] #colorpicker #subcontainer_rvb label, html[data-layout=large] #colorpicker #subcontainer_rvb input {
+  font-size: 10px !important;
+  color: white;
+}
+html[data-layout=large] #colorpicker #subcontainer_hex input {
+  font-size: 10px !important;
+  line-height: 1.5rem;
+}
+
+html[data-layout=large][data-support=tablet] .field_number {
+  grid-template-rows: 1rem 1rem;
+}
+html[data-layout=large][data-support=tablet] .field_number button {
+  font-size: 0.8rem;
+}
+html[data-layout=large][data-support=tablet] #module {
+  grid-template-rows: 100px calc(100dvh - 140px) 40px !important;
+}
+html[data-layout=large][data-support=tablet] #alignement .fontStyle_alignement {
+  padding: 0 !important;
+}/*# sourceMappingURL=main.css.map */
