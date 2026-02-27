@@ -159,14 +159,14 @@ button, input, textarea, select {touch-action: manipulation;}
     background-color: #292a2a;
     grid-area: editor;
     display: grid;
-    grid-template-rows:
-        40px   
-        1fr  
-        auto; 
+    grid-template-rows:  
+        0  
+        1fr
+        40px ; 
     grid-template-areas:
-        "layers"
         "options"
-        "canvas";
+        "canvas"
+        "layers";
 
         &-options, &-layers {
             background-color: white;
@@ -190,8 +190,6 @@ button, input, textarea, select {touch-action: manipulation;}
 
         &-layers {
             grid-area: layers;
-            position: fixed;
-            width: 100%;
 
             #control_object {
                 display: grid;
@@ -218,7 +216,7 @@ button, input, textarea, select {touch-action: manipulation;}
         }
 
         .hidden {display: none !important;}
-        &.onEdit {grid-template-rows: 40px 60px calc(100vh - 200px);}
+        &.onEdit {grid-template-rows: 60px calc(100vh - 200px) 40px;}
 }
 
 #tools {
@@ -393,7 +391,7 @@ button, input, textarea, select {touch-action: manipulation;}
 
 #popovers {
     position: fixed;
-    top: 200px;
+    top: 160px;
     box-shadow: 0px 15px -5px #4e4e4e;
     width: 100dvw;
     z-index: 3;

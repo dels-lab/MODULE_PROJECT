@@ -146,8 +146,8 @@ button, input, textarea, select {
   background-color: #292a2a;
   grid-area: editor;
   display: grid;
-  grid-template-rows: 40px 1fr auto;
-  grid-template-areas: "layers" "options" "canvas";
+  grid-template-rows: 0 1fr 40px;
+  grid-template-areas: "options" "canvas" "layers";
 }
 #editor-options, #editor-layers {
   background-color: white;
@@ -170,8 +170,6 @@ button, input, textarea, select {
 }
 #editor-layers {
   grid-area: layers;
-  position: fixed;
-  width: 100%;
 }
 #editor-layers #control_object {
   display: grid;
@@ -196,7 +194,7 @@ button, input, textarea, select {
   display: none !important;
 }
 #editor.onEdit {
-  grid-template-rows: 40px 60px calc(100vh - 200px);
+  grid-template-rows: 60px calc(100vh - 200px) 40px;
 }
 
 #tools_controls {
@@ -343,7 +341,7 @@ button, input, textarea, select {
 
 #popovers {
   position: fixed;
-  top: 200px;
+  top: 160px;
   box-shadow: 0px 15px -5px #4e4e4e;
   width: 100dvw;
   z-index: 3;
