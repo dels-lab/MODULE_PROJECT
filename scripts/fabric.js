@@ -220,6 +220,7 @@
 
         // Actions 
         canvas.on('selection:created', (e) => {
+            console.log('A')
             const obj = e.selected?.[0];
             activeCanvas = canvas;
             activeObj = obj;
@@ -228,6 +229,7 @@
         });
 
         canvas.on('selection:updated', (e) => {
+            console.log('B')
             const obj = e.selected?.[0];
             activeCanvas = canvas;
             activeObj = obj;
@@ -235,11 +237,15 @@
         });
 
         canvas.on('selection:cleared', () => {
+            console.log('C')
             activeObj = null;
             displayEditor(null);
+            editor.classList.remove('onEditTextEditing');
+            popovers.classList.add('onEditTextEditing');
         });
 
         canvas.on('mouse:up', () => {
+            console.log('D')
             if (!activeObj) return;
             var isSelect = selectionIsActive(watchCursor(activeObj));
             toggleBlockOnlyStyles(isSelect);
@@ -269,12 +275,9 @@
             var isSelect = selectionIsActive(watchCursor(activeObj));
             toggleBlockOnlyStyles(isSelect);
 
-            if (DEVICE.layout === "compact" && isSelect) {
+            if (DEVICE.layout === "compact") {
                 // Ajustement du grid
                 editor.classList.add('onEditTextEditing');
-                popovers.classList.add('onEditTextEditing');
-            } else {
-                editor.classList.remove('onEditTextEditing');
                 popovers.classList.add('onEditTextEditing');
             }
         });
