@@ -254,8 +254,6 @@
             if (now - lastTap < DOUBLE_TAP_DELAY && target?.type === 'textbox') {
                 clearTimeout(tapTimeout);
                 enterTextEditing(target, canvas, e); // double tap = entrer dans l'édition interne
-                editor.classList.add('onEditTextEditing');
-                popovers.classList.add('onEditTextEditing');
             } else {
                 // SINGLE TAP (+ délai pour être sûr)
                 tapTimeout = setTimeout(() => {
@@ -270,6 +268,15 @@
             //console.log('Selection changed', e.target.selectionStart, e.target.selectionEnd);
             var isSelect = selectionIsActive(watchCursor(activeObj));
             toggleBlockOnlyStyles(isSelect);
+
+            if (DEVICE.layout === "compact" && isSelect) {
+                // Ajustement du grid
+                editor.classList.add('onEditTextEditing');
+                popovers.classList.add('onEditTextEditing');
+            } else {
+                editor.classList.remove('onEditTextEditing');
+                popovers.classList.add('onEditTextEditing');
+            }
         });
 
     }
@@ -283,8 +290,6 @@
 
         if (!obj) {
             editor.classList.remove('onEdit');
-            editor.classList.remove('onEditTextEditing');
-            popovers.classList.add('onEditTextEditing');
             editorArray.forEach(editor => {
                 editor.classList.add('hidden');
             });
