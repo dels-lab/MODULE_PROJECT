@@ -240,8 +240,6 @@
             console.log('C')
             activeObj = null;
             displayEditor(null);
-            editor.classList.remove('onEditTextEditing');
-            popovers.classList.add('onEditTextEditing');
         });
 
         canvas.on('mouse:up', () => {
@@ -302,7 +300,7 @@
             });
 
             if (DEVICE.layout === "compact")  {
-                module.style.gridTemplateRows = "60px 40px calc(100dvh - 160px) 60px";
+                module.style.gridTemplateRows = "60px 40px 60px calc(100dvh - 160px)";
                 tools.style.display = "flex";
             }
         } else {
@@ -333,7 +331,7 @@
             }
 
             if (DEVICE.layout === "compact")  {
-                module.style.gridTemplateRows = "60px 40px calc(100dvh - 100px) 0";
+                module.style.gridTemplateRows = "60px 40px 0px calc(100dvh - 100px)";
                 tools.style.display = "none"
             }
         }
