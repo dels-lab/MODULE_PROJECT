@@ -36,6 +36,7 @@
 
     // Cible l'éditeur graphique
     var editor = document.getElementById('editor');
+    var popovers = document.getElementById('popovers');
     var editor_controls = document.getElementsByClassName('editor-controls');
     var text_editor = document.getElementsByClassName('text_editor');
 
@@ -253,6 +254,8 @@
             if (now - lastTap < DOUBLE_TAP_DELAY && target?.type === 'textbox') {
                 clearTimeout(tapTimeout);
                 enterTextEditing(target, canvas, e); // double tap = entrer dans l'édition interne
+                editor.classList.add('onEditTextEditing');
+                popovers.classList.add('onEditTextEditing');
             } else {
                 // SINGLE TAP (+ délai pour être sûr)
                 tapTimeout = setTimeout(() => {
@@ -280,6 +283,8 @@
 
         if (!obj) {
             editor.classList.remove('onEdit');
+            editor.classList.remove('onEditTextEditing');
+            popovers.classList.add('onEditTextEditing');
             editorArray.forEach(editor => {
                 editor.classList.add('hidden');
             });
